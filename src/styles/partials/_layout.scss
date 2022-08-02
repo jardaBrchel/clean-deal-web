@@ -1,0 +1,15 @@
+.white-block {
+  border-radius: 9px;
+  background: #FFFFFF;
+  width: 100%;
+  display: block;
+  padding: 40px;
+
+  .title {
+    color: var(--text-dark);
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+}

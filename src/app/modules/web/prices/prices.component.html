@@ -1,0 +1,215 @@
+<section class="pricing-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-sm-12">
+        <div class="white-block">
+          <div class="sec-title text-center">
+            <h3>Rychle a jednoduše</h3>
+            <div class="title">Nastavte si úklid</div>
+          </div>
+          <form [formGroup]="orderForm">
+
+            <section class="form-section">
+              <h5 class="label">Typ úklidu</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="cleaningType"
+                  (change)="changeCleaningType($event)">
+                  <option *ngFor="let ct of cleaningTypes" [value]="ct.id">{{ct.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section" [ngClass]="{'half-section': objectType === objectTypeHouse}">
+              <h5 class="label">Typ objektu</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="objectType"
+                  (change)="changeObjectType($event)">
+                  <option *ngFor="let item of objectTypes" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing" *ngIf="objectType === objectTypeHouse">
+              <h5 class="label">Počet pater</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="houseFloors"
+                  (change)="changeHouseFloors($event)">
+                  <option *ngFor="let item of houseFloors" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h5 class="label">Jak často bude probíhat úklid</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="frequency"
+                  (change)="changeFrequency($event)">
+                  <option *ngFor="let item of frequency" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section">
+              <h5 class="label">Počet místností</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="rooms"
+                  (change)="changeRooms($event)">
+                  <option *ngFor="let item of rooms" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Počet kuchyní / kuchyňských koutů</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="kitchens"
+                  (change)="changeKitchens($event)">
+                  <option *ngFor="let item of kitchens" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section">
+              <h5 class="label">Počet koupelen</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="bathrooms"
+                  (change)="changeBathrooms($event)">
+                  <option *ngFor="let item of bathrooms" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Počet toalet</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="toilets"
+                  (change)="changeToilets($event)">
+                  <option *ngFor="let item of toilets" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h5 class="label">Dodatečné informace k úklidu</h5>
+              <div class="input-group">
+                <textarea
+                  class="form-control"
+                  placeholder="Vyplňte, co bychom měli vědět před započetím úklidu"
+                  formControlName="comments">
+                </textarea>
+              </div>
+            </section>
+          </form>
+
+          <hr>
+          <form [formGroup]="orderForm">
+            <h3 class="subtitle">Kdy úklid proběhne</h3>
+
+            <section class="form-section half-section">
+              <h5 class="label">Datum</h5>
+              <div class="input-group">
+                <mat-form-field appearance="outline">
+                  <input matInput [min]="dateMinDate"
+                         [matDatepicker]="matDatePicker" formControlName="date" />
+                  <mat-datepicker-toggle matPrefix [for]="matDatePicker">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #matDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Čas</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="time"
+                  (change)="changeTime($event)">
+                  <option *ngFor="let item of times" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+          </form>
+
+          <hr>
+
+          <form [formGroup]="userForm">
+            <h3 class="subtitle">Informace o vás</h3>
+
+            <section class="form-section half-section">
+              <h5 class="label">Jméno</h5>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name">
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Příjmení</h5>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="surname">
+              </div>
+            </section>
+
+            <section class="form-section half-section">
+              <h5 class="label">Email</h5>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="email">
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Telefon</h5>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="phone">
+              </div>
+            </section>
+          </form>
+
+          <div class="link-box centered"><a class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat objednávku úklidu</a></div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-12">
+        <div class="white-block">
+          <div class="title">Souhrn objednávky</div>
+          Byt, 3 místnosti, kuchyně, wc
+          <br>
+          24.6.2022, od 15-16h
+          <br>
+          Jednorázový úklid
+
+          <hr>
+          total:
+          {{finalPrice}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

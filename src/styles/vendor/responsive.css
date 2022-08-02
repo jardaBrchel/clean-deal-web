@@ -1,0 +1,1681 @@
+
+/* Large Layout: 1200px. */
+@media only screen and (min-width: 1200px){
+.container {padding: 0;}
+.container-fluid {padding: 0;}
+
+}
+
+
+@media only screen and (min-width: 1570px) and (max-width: 1770px) {
+
+.main-header .nav-outer .main-menu {
+    padding-left: 250px;
+}
+.quote-area .inner-content {
+    margin-top: -85px;
+}
+
+
+
+}
+
+@media only screen and (min-width: 1320px) and (max-width: 1569px) {
+
+.main-header .nav-outer .main-menu {
+    padding-left: 100px;
+}
+.main-menu .navigation li {
+    margin-right: 40px;
+}
+.quote-area .inner-content {
+    margin-top: -50px;
+}
+
+
+
+}
+
+
+
+@media only screen and (min-width: 1200px) and (max-width: 1319px) {
+
+.main-header .nav-outer .main-menu {
+    padding-left: 40px;
+}
+.main-menu .navigation li {
+    margin-right: 30px;
+}
+.main-header .header-right .opening-time {
+    margin-right: 15px;
+}
+.quote-area .inner-content {
+    margin-top: -100px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon {
+    margin-top: 80px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h3 {
+    margin-top: 26px;
+    margin-bottom: 11px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h1 {
+    font-size: 40px;
+    line-height: 52px;
+}
+
+
+
+}
+
+
+@media only screen and (min-width: 1020px) and (max-width: 1199px) {
+
+/***
+=============================================
+    Main Header Style
+=============================================
+***/
+.main-header .nav-outer .main-menu {
+    padding-left: 20px;
+}
+.main-menu .navigation li {
+    margin-right: 20px;
+}
+.main-header .header-right .opening-time {
+    margin-right: 10px;
+}
+.main-header .header-right .opening-time p {
+    font-size: 14px;
+}
+.main-header .header-right .opening-time p i {
+    padding-right: 4px;
+}
+.main-header .header-right .button a {
+    padding: 18px 20px 18px;
+    border-radius: 10px;
+}
+.main-header .header-right .button a span{
+    display: none;
+}
+.quote-area .inner-content {
+    margin-top: -40px;
+}
+.quote-form {
+    padding-top: 40px;
+    padding-right: 70px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon {
+    margin-top: 80px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h3 {
+    margin-top: 26px;
+    margin-bottom: 11px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h1 {
+    font-size: 40px;
+    line-height: 52px;
+}
+
+
+
+
+}
+
+
+
+@media only screen and (min-width: 992px) and (max-width: 1019px) {
+/***
+=============================================
+    Main Header Style
+=============================================
+***/
+.main-header .nav-outer .main-menu {
+    padding-left: 30px;
+}
+.main-menu .navigation li {
+    margin-right: 20px;
+}
+.main-header .header-right .opening-time {
+    margin-right: 10px;
+}
+.main-header .header-right .opening-time p {
+    font-size: 14px;
+}
+.main-header .header-right .opening-time p i {
+    padding-right: 4px;
+}
+.main-header .header-right .button a {
+    padding: 18px 20px 18px;
+    border-radius: 10px;
+}
+.main-header .header-right .button a span{
+    display: none;
+}
+.main-header.style2 .header-right .opening-time {
+    display: none;
+}
+
+.quote-area .inner-content {
+    margin-top: -20px;
+}
+.quote-form {
+    padding-top: 40px;
+    padding-right: 70px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon {
+    margin-top: 80px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h3 {
+    margin-top: 26px;
+    margin-bottom: 11px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h1 {
+    font-size: 40px;
+    line-height: 52px;
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Medium screen  */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+/*** Welcome Area ***/
+.welcome-image-box .icon-box {
+    right: 0px;
+}
+
+/*** Working Steps Area Css ***/
+.single-working-steps-box {
+    margin-right: 40px;
+}
+.single-working-steps-box:before {
+    right: -41px;
+}
+
+/*** Choose Area Css ***/
+.single-choose-box {
+    width: 170px;
+    margin-right: 20px;
+}
+
+/***
+=============================================
+    Footer Area Style
+=============================================
+***/
+.single-footer-widget.marbtm50 {
+    margin-bottom: 50px;
+}
+.single-footer-widget.marleft70 {
+    margin-left: 0px;
+}
+.single-footer-widget.marleft40 {
+    margin-left: 0px;
+}
+.single-footer-widget.marleft30 {
+    margin-left: 0px;
+}
+
+/***
+=============================================
+    Welcome Area Style2 Style
+=============================================
+***/
+.welcome-content-box2 {
+    padding-left: 0px;
+}
+.welcome-content-box2 .sec-title {
+    padding-bottom: 8px;
+}
+.welcome-content-box2 .sec-title .title {
+    font-size: 30px;
+    line-height: 40px;
+}
+.welcome-content-box2 .inner-content .text {
+    display: block;
+    padding-bottom: 0px;
+}
+.welcome-content-box2 .inner-content a {
+    background: #1fc6c7;
+    padding: 18px 50px 18px;
+}
+
+/***
+=============================================
+    Fact Counter Area Style
+=============================================
+***/
+.single-fact-counter {
+    max-width: 310px;
+}
+.single-fact-counter .count-box {
+    padding: 0 20px;
+}
+
+/***
+=============================================
+    Agreement Area Style
+=============================================
+***/
+.agreement-content .sec-title {
+    margin: 60px 0;
+}
+.agreement-content .sec-title .title {
+    font-size: 40px;
+    line-height: 50px;
+    margin: 9px 0 0;
+}
+
+/***
+=============================================
+    Single Service Area Style
+=============================================
+***/
+.single-service-image-box .single-image-box {
+    max-width: 250px;
+}
+.single-service-image-box .icon-box {
+    position: absolute;
+    top: 50px;
+}
+
+/***
+=============================================
+    Benefits Area Style
+=============================================
+***/
+.benefits-text-box .sec-title {
+    padding-bottom: 18px;
+}
+.benefits-text-box .sec-title .title {
+    font-size: 30px;
+    line-height: 40px;
+}
+.benefits-text-box .sec-title .title br{
+    display: none;
+}
+.benefits-text-box .inner-content ul {
+    padding-bottom: 20px;
+}
+.certified-company {
+    padding: 25px 40px 25px;
+}
+
+/***
+=============================================
+    Provide Area Style
+=============================================
+***/
+.single-provide-text {
+    margin-top: 30px;
+}
+
+/***
+=============================================
+    Blog Default Area Style
+=============================================
+***/
+.single-blog-post .text-holder .blog-title {
+    font-size: 20px;
+    line-height: 30px;
+}
+.single-blog-post:hover .post-date{
+    left: 82px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+/***
+=============================================
+    Main Header Style
+=============================================
+***/
+.main-header .main-box .logo-box {
+    position: absolute;
+    float: none;
+    top: 0;
+    left: 40px;
+    padding: 0;
+    z-index: 13;
+    margin: 14px 0 15px;
+}
+.main-header .nav-outer {
+    position: relative;
+    display: block;
+    width: 100%;
+    float: none;
+}
+.main-header .header-right {
+    position: static;
+    display: block;
+    width: 100%;
+    float: none;
+    padding: 0;
+}
+.main-header .header-right .opening-time {
+    position: absolute;
+    top: 0;
+    left: 230px;
+    float: none;
+    padding: 0;
+    margin-right: 0;
+    z-index: 33;
+    margin: 29px 0;
+}
+.main-header .header-right .button {
+    position: absolute;
+    top: 0;
+    right: 110px;
+    float: none;
+    margin: 15px 0;
+    z-index: 33;
+}
+.main-header .header-right .button a {
+    font-size: 13px;
+    padding: 18px 20px 18px;
+}
+.main-header.fixed-header .header-right {
+    position: static;
+    padding: 0 0;
+    float: none;
+}
+.main-header.fixed-header .main-box .logo-box {
+    padding: 0;
+}
+.main-header.stricky-fixed {
+    position: fixed;
+}
+
+/*** Welcome Area ***/
+.welcome-image-box {
+    display: block;
+    float: none;
+    margin: 0 auto;
+}
+.welcome-content-box {
+    margin-top: 152px;
+}
+
+/*** Services Style1 Area ***/
+.services-style1-area:before {
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+/*** Working Steps Area ***/
+.single-working-steps-box {
+    max-width: 345px;
+    margin: 0 auto 40px;
+    margin-right: 0;
+    padding: 0 40px;
+}
+.single-working-steps-box:before {
+    display: none;
+}
+
+/*** Quote Area ***/
+.quote-area .inner-content {
+    margin-top: 0px;
+    padding: 0 30px 30px;
+}
+.quote-form {
+    padding-top: 77px;
+    padding-right: 0px;
+}
+.quote-right-box .image-holder img {
+    width: 100%;
+    border-radius: 20px 20px 0px 0px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon {
+    margin-top: 0px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h3 {
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h1 {
+    font-size: 30px;
+    line-height: 42px;
+}
+.quote-right-box .image-holder {
+    display: block;
+    margin-right: 0;
+    margin-top: 30px;
+}
+
+/*** Testimonial Section One Css ***/
+.testimonial-section-one .testimonial-outer {
+    padding: 0px 100px 0px;
+}
+.testimonial-section-one .owl-dots {
+    left: -80px;
+}
+
+/*** Choose Area Css ***/
+.single-choose-box {
+    display: inline-block;
+    float: left;
+    width: 285px;
+    margin-left: 30px;
+    margin-right: 30px;
+    z-index: 1;
+}
+.single-choose-box:last-child {
+    float: none;
+    display: block;
+    margin: 30px auto 30px;
+    overflow: hidden;
+}
+
+/***
+=============================================
+    Footer Area Style
+=============================================
+***/
+.single-footer-widget.marbtm50 {
+    margin-bottom: 50px;
+}
+.single-footer-widget.marleft70 {
+    margin-left: 0px;
+}
+.single-footer-widget.marleft40 {
+    margin-left: 0px;
+}
+.single-footer-widget.marleft30 {
+    margin-left: 0px;
+}
+
+/***
+=============================================
+    Slogan Area Style1 Style
+=============================================
+***/
+.slogan-area-style1 {
+    padding: 60px 0 70px;
+}
+.slogan-area-style1 .title {
+    margin: 0px 0 20px;
+    float: none !important;
+    text-align: center;
+}
+.slogan-area-style1 .button {
+    float: none !important;
+    display: block;
+    text-align: center;
+}
+
+/***
+=============================================
+    Welcome Area Style2 Style
+=============================================
+***/
+.welcome-content-box2 {
+    padding-left: 0px;
+    margin-top: 50px;
+}
+
+/***
+=============================================
+    Fact Counter Area Style
+=============================================
+***/
+.single-fact-counter {
+    max-width: 230px;
+}
+.single-fact-counter .count-box {
+    padding: 0 10px;
+}
+.single-fact-counter h1 span {
+    font-size: 50px;
+    line-height: 50px;
+}
+.single-fact-counter .title h4 {
+    font-size: 16px;
+    line-height: 26px;
+}
+
+/***
+=============================================
+    Agreement Area Style
+=============================================
+***/
+.agreement-content .sec-title {
+    margin: 0px 0 50px;
+}
+
+/***
+=============================================
+    Single Service Area Style
+=============================================
+***/
+.single-service-sidebar {
+    margin-bottom: 100px;
+}
+.single-service-image-box .single-image-box {
+    max-width: 330px;
+}
+.single-service-image-box .icon-box {
+    top: 90px;
+}
+
+/***
+=============================================
+    Blog Single area Style
+=============================================
+***/
+#blog-area .sidebar-wrapper {
+    margin-top: 100px;
+}
+
+/***
+=============================================
+    Benefits Area Style
+=============================================
+***/
+.benefits-text-box {
+    margin-top: 50px;
+}
+
+/***
+=============================================
+    Provide Area Style
+=============================================
+***/
+.single-provide-text {
+    margin-top: 30px;
+}
+
+/***
+=============================================
+    Contact Info Area Style
+=============================================
+***/
+.contact-info-content {
+    margin-bottom: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+.sec-title {
+    padding-bottom: 40px;
+}
+.sec-title .title {
+    font-size: 30px;
+    line-height: 40px;
+    margin: 2px 0 0;
+}
+.breadcrumb-area .title h1 {
+    font-size: 50px;
+    line-height: 60px;
+}
+
+/***
+=============================================
+    Main Header Style
+=============================================
+***/
+.main-header .inner-container {
+    padding: 0 20px;
+}
+.main-header .main-box .logo-box {
+    position: absolute;
+    float: none;
+    top: 0;
+    left: 20px;
+    padding: 0;
+    z-index: 13;
+    margin: 14px 0 15px;
+}
+.main-header .nav-outer {
+    position: relative;
+    display: block;
+    width: 100%;
+    float: none;
+}
+.main-header .header-right {
+    position: static;
+    display: block;
+    width: 100%;
+    float: none;
+    padding: 0;
+}
+.main-header .header-right .opening-time {
+    position: absolute;
+    top: 0;
+    left: 230px;
+    float: none;
+    padding: 0;
+    margin-right: 0;
+    z-index: 33;
+    margin: 29px 0;
+    display: none;
+}
+.main-header .header-right .button {
+    position: absolute;
+    top: 0;
+    right: 80px;
+    float: none;
+    margin: 17px 0 16px;
+    z-index: 33;
+}
+.main-header .header-right .button a {
+    font-size: 13px;
+    padding: 16px 15px 17px;
+    border-radius: 10px;
+    display: none;
+}
+.main-header .header-right .button a span{
+    display: none;
+}
+.main-header.fixed-header .header-right {
+    position: static;
+    padding: 0 0;
+    float: none;
+}
+.main-header.fixed-header .main-box .logo-box {
+    padding: 0;
+}
+.main-header.stricky-fixed {
+    position: fixed;
+}
+
+
+/*** Welcome Area ***/
+.welcome-area {
+    padding-bottom: 112px;
+}
+.welcome-image-box .image-box {
+    display: block;
+    float: none;
+    text-align: center;
+}
+.welcome-image-box .image-thumb1 {
+    position: static;
+    text-align: center;
+    margin-top: 10px;
+}
+.welcome-image-box .image-thumb2 {
+    position: static;
+    margin: 10px auto 0;
+}
+.welcome-image-box .icon-box {
+    position: static;
+    border: 2px dashed #f5f5f5;
+    margin: 10px auto 0;
+}
+.welcome-content-box {
+    margin-top: 52px;
+}
+.welcome-content-box .top .icon,
+.welcome-content-box .top .title {
+    display: block;
+}
+.welcome-content-box .top .title {
+    padding-left: 0px;
+    margin-top: 12px;
+}
+.welcome-content-box .bottom .video-holder-box,
+.welcome-content-box .bottom .title-holder-box {
+    display: block;
+}
+.welcome-content-box .bottom .title-holder-box {
+    padding-left: 0px;
+    margin-top: 13px;
+}
+
+/*** Services Style1 Area ***/
+.services-style1-area:before {
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+/*** Working Steps Area ***/
+.single-working-steps-box {
+    max-width: 345px;
+    margin: 0 auto 40px;
+    margin-right: 0;
+    padding: 0 40px;
+    float: none;
+}
+.single-working-steps-box:before {
+    display: none;
+}
+
+/*** Quote Area ***/
+.quote-area .inner-content {
+    margin-top: 0px;
+    padding: 0 30px 30px;
+}
+.quote-form {
+    padding-top: 52px;
+    padding-right: 0;
+}
+.quote-right-box .image-holder img {
+    width: 100%;
+    border-radius: 20px 20px 0px 0px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon {
+    margin-top: 0px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h3 {
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner a {
+    border: 2px solid rgba(255, 255, 255, 0.10);
+    height: 40px;
+    width: 40px;
+}
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner a span:before {
+    font-size: 12px;
+    line-height: 36px;
+}
+.video-holder-box .img-holder img {
+    min-height: 160px;
+}
+
+.video-gallery-bg .video-holder-box .img-holder .icon-holder .icon .inner h1 {
+    font-size: 18px;
+    line-height: 26px;
+}
+.quote-right-box .image-holder {
+    display: block;
+    margin-right: 0;
+    margin-top: 30px;
+}
+
+/*** Testimonial Section One Css ***/
+.testimonial-section-one .testimonial-outer {
+    padding: 0px 30px 0px;
+}
+.testimonial-section-one .owl-dots {
+    left: -30px;
+}
+.testimonial-block-one .inner-box .text {
+    font-size: 22px;
+    line-height: 32px;
+}
+.testimonial-section-one .client-thumb-outer {
+    max-width: 220px;
+}
+.testimonial-section-one .client-thumb-outer .client-thumbs-carousel {
+    max-width: 60px;
+}
+.testimonial-section-one .client-thumb-outer .thumb-item .thumb-box {
+    width: 60px;
+    height: 60px;
+}
+
+/*** Choose Area Css ***/
+.single-choose-box {
+    display: block;
+    float: none;
+    width: 285px;
+    margin: 0 auto 30px;
+}
+.single-choose-box:last-child {
+    margin-right: auto;
+}
+
+/***
+=============================================
+    Footer Area Style
+=============================================
+***/
+.single-footer-widget.marbtm50 {
+    margin-bottom: 50px;
+}
+.single-footer-widget.pdtop50{
+    padding-top: 50px;
+}
+.single-footer-widget.marleft70 {
+    margin-left: 0px;
+}
+.single-footer-widget.marleft40 {
+    margin-left: 0px;
+}
+.single-footer-widget.marleft30 {
+    margin-left: 0px;
+}
+
+/***
+=============================================
+    Slogan Area Style1 Style
+=============================================
+***/
+.slogan-area-style1 {
+    padding: 60px 0 70px;
+}
+.slogan-area-style1 .title {
+    margin: 0px 0 20px;
+    float: none !important;
+    text-align: center;
+}
+.slogan-area-style1 .button {
+    float: none !important;
+    display: block;
+    text-align: center;
+}
+
+/***
+=============================================
+    Welcome Area Style2 Style
+=============================================
+***/
+.welcome-content-box2 {
+    padding-left: 0px;
+    margin-top: 50px;
+}
+.welcome-content-box2 .sec-title .title br{
+    display: none;
+}
+
+/***
+=============================================
+    Slogan Area Style2 Style
+=============================================
+***/
+.slogan-area-style2 .title h1 {
+    font-size: 40px;
+    line-height: 52px;
+}
+.slogan-area-style2 .title h1 br{
+    display: none;
+}
+
+/***
+=============================================
+    Fact Counter Area Style
+=============================================
+***/
+.single-fact-counter {
+    max-width: 300px;
+    display: block;
+    float: none;
+    border: none;
+    margin: 0 auto 40px;
+}
+.single-fact-counter .count-box {
+    padding: 0 10px;
+}
+
+/***
+=============================================
+    Agreement Area Style
+=============================================
+***/
+.agreement-content .sec-title {
+    margin: 0px 0 50px;
+}
+.agreement-content .sec-title .title{
+    font-size: 40px;
+    line-height: 50px;
+    margin: 9px 0 0;
+}
+.agreement-content .sec-title .title br{
+    display: none;
+}
+.agreement-right-content {
+    width: 300px;
+    margin: 0 auto;
+}
+.agreement-right-content ul li .title-holder {
+    margin: 4px 0;
+}
+
+/***
+=============================================
+    Single Service Area Style
+=============================================
+***/
+.single-service-sidebar {
+    margin-bottom: 100px;
+}
+.single-service-image-box {
+    max-width: 330px;
+    margin: 0 auto;
+}
+.single-service-image-box .single-image-box {
+    max-width: 330px;
+}
+.single-service-image-box .icon-box {
+    bottom: 50%;
+    top: auto;
+    margin-bottom: -60px;
+}
+
+/***
+=============================================
+    Trusted Area Style
+=============================================
+***/
+.trusted-title {
+    margin-bottom: 25px;
+}
+.trusted-title .sec-title .title {
+    font-size: 30px;
+    line-height: 40px;
+}
+.trusted-title .sec-title .title br{
+    display: none;
+}
+
+/***
+=============================================
+    Benefits Area Style
+=============================================
+***/
+.benefits-text-box {
+    margin-top: 40px;
+}
+.benefits-text-box .sec-title {
+    padding-bottom: 18px;
+}
+.benefits-text-box .sec-title .title {
+    font-size: 30px;
+    line-height: 40px;
+}
+.benefits-text-box .sec-title .title br{
+    display: none;
+}
+.benefits-text-box .inner-content ul {
+    padding-bottom: 20px;
+}
+.certified-company {
+    padding: 25px 40px 25px;
+}
+.certified-company .title-holder {
+    padding-left: 12px;
+}
+.certified-company .title-holder h3 {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+/***
+=============================================
+    Provide Area Style
+=============================================
+***/
+.single-provide-text {
+    margin-top: 30px;
+}
+
+/***
+=============================================
+    Error Page Area Style
+=============================================
+***/
+.error-sign {
+    width: 290px;
+    margin: 0 auto;
+}
+.error-sign .bottom {
+    width: 290px;
+    margin: -45px auto 0;
+}
+.not-found-text {
+    font-size: 50px;
+    line-height: 60px;
+    margin: 43px 0 29px;
+}
+
+/***
+=============================================
+    Blog Single area style
+=============================================
+***/
+#blog-area .sidebar-wrapper {
+    margin-top: 100px;
+    padding: 50px 20px 40px;
+}
+.blog-single-area .author-box .img-holder,
+.blog-single-area .author-box .text-holder {
+    display: block;
+}
+.blog-single-area .author-box .text-holder {
+    padding-left: 0px;
+    padding-top: 27px;
+}
+.blog-single-area .author-box .text-holder h3 {
+    margin: 0 0 13px;
+}
+.blog-single-area .inner-comment-box .single-comment-box {
+    position: static;
+    padding-left: 0;
+}
+.blog-single-area .inner-comment-box .single-comment-box .img-holder {
+    position: static;
+    margin-bottom: 20px;
+}
+.blog-single-area .inner-comment-box .single-comment-box .text-holder {
+    margin-left: 0px;
+}
+.blog-single-area .inner-comment-box .single-comment-box .text-holder .top .name-date {
+    float: none !important;
+    display: block;
+}
+.blog-single-area .inner-comment-box .single-comment-box .text-holder .top .reply-button {
+    float: none !important;
+    margin-top: 15px;
+}
+.blog-single-area .tag-box .tag {
+    float: none;
+}
+.blog-single-area .tag-box .right {
+    float: none;
+    overflow: hidden;
+    margin-top: 6px;
+}
+.blog-single-area .author-box .inner-content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/***
+=============================================
+    Contact Info Area Style
+=============================================
+***/
+.contact-info-content {
+    margin-bottom: 50px;
+}
+.contact-info-content .sec-title {
+    padding-bottom: 22px;
+}
+.contact-info-content .inner-content .text {
+    padding-bottom: 26px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+/* Wide Mobile Layout: 480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px){}
+
+@media (min-width: 992px){
+
+.navbar-collapse.collapse {
+    display: block !important;
+    height: auto;
+    padding-bottom: 0;
+    overflow: visible !important;
+}
+.navbar-toggle {
+    display: none !important;
+}
+
+
+
+}
+
+
+
+@media only screen and (max-width: 991px){
+
+.mainmenu-area .inner-content{
+    position: relative;
+    display: block;
+}
+.main-menu {
+    display: block;
+    float: none;
+    padding-left: 0 !important;
+    padding-top: 17px;
+    padding-bottom: 0px;
+    z-index: 5;
+    width: 100%;
+}
+.main-menu .navigation li {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    float: none;
+}
+.main-menu .collapse {
+    border: none;
+    border-radius: 0px !important;
+    float: none;
+    margin: 0;
+    height: auto;
+    overflow: auto;
+    padding: 0;
+    width: 100%;
+}
+.main-menu .collapse.in,
+.main-menu .collapsing {
+    border: none;
+    border-radius: 0px;
+    margin: 0;
+    padding: 0;
+    border-top: none;
+}
+.main-menu .navbar-header {
+    position: relative;
+    float: none;
+    display: block;
+    text-align: right;
+    width: 100%;
+    padding: 63px 0 0;
+    right: 0px;
+    z-index: 12;
+}
+.main-menu .navbar-header .navbar-toggle {
+    background: #000100;
+    border: 1px dashed #000100;
+    display: inline-block;
+    border-radius: 3px;
+    float: none;
+    margin: 0;
+    z-index: 7;
+    width: 50px;
+    height: 47px;
+    cursor: pointer;
+    padding: 0 9px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.main-menu .navbar-header .navbar-toggle .icon-bar {
+    display: block;
+    background: #e7e7e7;
+    width: 30px;
+    height: 2px;
+    border-radius: 1px;
+}
+.main-menu .navbar-header .navbar-toggle .icon-bar+.icon-bar {
+    margin-top: 6px;
+}
+.main-menu .navbar-collapse > .navigation {
+    float: none !important;
+    width: 100% !important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.main-menu .navbar-collapse .navigation > li{
+    display: block;
+    margin: 0px !important;
+    padding: 0;
+    float: none !important;
+    width:100%;
+}
+
+
+
+.main-menu .navbar-collapse > .navigation > li > ul,
+.main-menu .navbar-collapse > .navigation > li > ul > li > ul{
+    position: relative;
+    float: none;
+    visibility: visible;
+    opacity: 1;
+    display: none;
+    margin: 0px;
+    padding: 0;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    width: 100%;
+    background: none;
+    border-radius: 0px;
+    transition: none !important;
+}
+
+
+
+.main-menu .navbar-collapse .navigation li,
+.main-menu .navbar-collapse .navigation li ul li,
+.main-menu .navbar-collapse .navigation li ul li ul li{
+    background: #ff662a;
+    border-top: 1px solid #f55f24;
+    opacity:1 !important;
+    top:0px !important;
+    left:0px !important;
+    visibility:visible !important;
+}
+.main-menu .navbar-collapse > .navigation > li:last-child,
+.main-menu .navbar-collapse > .navigation > li > ul > li:last-child{
+    border-bottom: 1px solid #f55f24;
+}
+.main-menu .navbar-collapse > .navigation > li > a {
+    padding: 10px 10px !important;
+    line-height: 22px;
+    color: #ffffff;
+    text-align: left;
+}
+
+.main-menu .navbar-collapse .navigation li ul li{
+    padding: 0;
+}
+.main-menu .navbar-collapse .navigation li ul li:last-child {
+    border-bottom: none;
+}
+.main-menu .navbar-collapse .navigation li ul li a {
+    padding: 10px 10px !important;
+    line-height: 22px;
+    color: #ffffff;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: 'Nunito', sans-serif;
+}
+
+.main-menu .navbar-collapse .navigation li ul li a:before {
+    display: none !important;
+}
+
+
+.main-menu .navbar-collapse > .navigation > li > a:hover,
+.main-menu .navbar-collapse > .navigation > li > a:active,
+.main-menu .navbar-collapse > .navigation > li > a:focus{
+
+}
+.main-menu .navbar-collapse > .navigation > li:hover > a,
+.main-menu .navbar-collapse > .navigation > li > ul > li:hover > a,
+.main-menu .navbar-collapse > .navigation > li > ul > li > ul > li:hover > a,
+.main-menu .navbar-collapse > .navigation > li.current > a{
+    background: #1fc6c7;
+    color: #222222 !important;
+}
+.main-menu .navbar-collapse > .navigation li.dropdown .dropdown-btn{
+    display:block;
+}
+
+
+.main-menu .navbar-collapse .navigation > li > ul{
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+.main-menu .navbar-collapse .navigation > li > ul:before{
+    display: none;
+}
+.main-menu .navbar-collapse .navigation > li > ul > li:before {
+    display: none;
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+
+#rev_slider_two_wrapper .slide-content.left-slide{
+    margin-left: 100px;
+}
+
+
+}
+
+
+@media only screen and (max-width: 1199px){
+#rev_slider_two_wrapper .slide-content.left-slide{
+    margin-left: 100px;
+}
+#rev_slider_two_wrapper .slide-content .big-title2{
+	font-size: 60px;
+}
+#rev_slider_two_wrapper .slide-content .text{
+	font-size: 20px;
+}
+
+
+
+}
+
+
+@media only screen and (max-width: 1039px){
+
+#rev_slider_two_wrapper .slide-content.left-slide{
+    margin-left: 50px;
+}
+#rev_slider_two_wrapper .slide-content .big-title2{
+	font-size: 40px;
+}
+#rev_slider_two_wrapper .slide-content .text{
+	font-size: 18px;
+}
+.main-slider .slide-content .btn-box a{
+    padding: 20px 30px 20px;
+}
+
+
+
+}
+
+
+@media only screen and (max-width: 777px){
+
+.tparrows{
+    display:block;
+}
+#rev_slider_two_wrapper .slide-content .big-title2{
+	font-size: 35px;
+}
+#rev_slider_two_wrapper .slide-content .text{
+	font-size: 16px;
+}
+#rev_slider_two_wrapper .slide-content .image-box{
+    display: none;
+}
+.main-slider .slide-content .btn-box a{
+    padding: 17px 30px 17px;
+}
+
+}
+
+
+@media only screen and (max-width: 599px) {
+/***
+=============================================
+    Rev slider wrapper style
+=============================================
+***/
+#rev_slider_two_wrapper .slide-content .big-title2{
+	font-size: 25px;
+}
+.main-slider .slide-content .btn-box a{
+    padding: 16px 0 16px;
+}
+
+
+
+}
+
+@media only screen and (max-width: 479px) {
+.main-slider .slide-content .btn-box a{
+    padding: 11px 20px 11px;
+}
+.main-slider .slide-content .star.one {
+    display: none;
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 1600px) and (max-width: 1800px) {
+.home-slider-one .auto-container {
+    position: static;
+    max-width: 1050px;
+    padding: 0px 15px;
+    margin: 0 auto;
+}
+
+
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1599px) {
+.home-slider-one .auto-container {
+    position: static;
+    max-width: 850px;
+    padding: 0px 15px;
+    margin: 0 auto;
+}
+.home-slider-one .slide-item{
+	padding: 151px 0px 155px;
+}
+.home-slider-one .shape h3{
+    font-size: 24px;
+	line-height: 1.1em;
+}
+.home-slider-one .title{
+    font-size: 50px;
+    line-height: 1.2em;
+}
+.home-slider-one .link-box a{
+    padding: 25px 50px 25px;
+}
+.silder-right-content {
+    top: 0;
+    right: 0;
+    max-width: 284px;
+}
+.slider-contact-info {
+    position: absolute;
+    left: -120px;
+    bottom: 50px;
+    width: 400px;
+}
+
+
+}
+
+@media only screen and (min-width: 850px) and (max-width: 1199px) {
+.home-slider-one .auto-container {
+    position: static;
+    max-width: 550px;
+    padding: 0px 15px;
+    margin: 0 auto;
+}
+.home-slider-one .slide-item{
+	padding: 121px 0px 125px;
+}
+.home-slider-one .shape h3{
+    font-size: 20px;
+	line-height: 1.1em;
+}
+.home-slider-one .title{
+    font-size: 40px;
+    line-height: 1.2em;
+}
+.home-slider-one .link-box a{
+    padding: 22px 40px 22px;
+}
+.silder-right-content {
+    top: 0;
+    right: -5px;
+    max-width: 236px;
+}
+.slider-contact-info {
+    position: absolute;
+    left: -170px;
+    bottom: 30px;
+    width: 400px;
+}
+
+
+}
+
+
+
+@media only screen and (min-width: 600px) and (max-width: 849px) {
+.home-slider-one .auto-container {
+    position: static;
+    max-width: 400px;
+    padding: 0px 15px;
+    margin: 0 auto;
+}
+.home-slider-one .slide-item{
+	padding: 121px 0px 125px;
+}
+.home-slider-one .shape h3{
+    font-size: 20px;
+	line-height: 1.1em;
+}
+.home-slider-one .title{
+    font-size: 40px;
+    line-height: 1.2em;
+}
+.home-slider-one .link-box a{
+    padding: 22px 40px 22px;
+}
+.silder-right-content {
+    top: 0;
+    right: -5px;
+    max-width: 236px;
+}
+.slider-contact-info {
+    position: absolute;
+    left: -90px;
+    bottom: 20px;
+    width: 320px;
+}
+.slider-contact-info .inner .title-holder {
+    padding-left: 15px;
+}
+.slider-contact-info .inner .title-holder h1 {
+    font-size: 24px;
+}
+
+
+}
+
+@media only screen and (max-width: 599px) {
+
+.home-slider-one .auto-container {
+    position: static;
+    max-width: 320px;
+    padding: 0px 15px;
+    margin: 0 auto;
+}
+.home-slider-one .owl-dots{
+    display: none;
+}
+.home-slider-one .slide-item{
+	padding: 81px 0px 85px;
+}
+.home-slider-one .shape h3{
+    font-size: 18px;
+	line-height: 1.1em;
+}
+.home-slider-one .title{
+    font-size: 30px;
+    line-height: 1.2em;
+    margin-bottom: 22px;
+}
+.home-slider-one .link-box a{
+    padding: 17px 30px 17px;
+}
+.silder-right-content {
+    display: none;
+}
+
+
+
+
+}
+
+
+
+
+@media only screen and (max-width: 777px){
+
+.tparrows{
+    display:block;
+}
+.main-slider .slide-content .btn-box a{
+    padding: 20px 0px 20px;
+}
+
+
+}
+
+
+
+@media only screen and (max-width: 479px) {
+.main-slider .slide-content .btn-box a{
+    padding: 16px 0px 16px;
+    width: 170px;
+}
+.main-slider .slide-content .title span{
+    display: none;
+}
+
+
+}
+
+
+

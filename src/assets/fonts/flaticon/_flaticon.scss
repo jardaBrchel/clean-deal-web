@@ -1,0 +1,64 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 04/02/2019 11:35
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff2") format("woff2"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-calendar:before { content: "\f100"; }
+.flaticon-clock:before { content: "\f101"; }
+.flaticon-architect:before { content: "\f102"; }
+.flaticon-handshake:before { content: "\f103"; }
+.flaticon-handshake-1:before { content: "\f104"; }
+.flaticon-cleaning-service:before { content: "\f105"; }
+.flaticon-medal:before { content: "\f106"; }
+.flaticon-portfolio:before { content: "\f107"; }
+.flaticon-support:before { content: "\f108"; }
+.flaticon-support-1:before { content: "\f109"; }
+.flaticon-offer:before { content: "\f10a"; }
+.flaticon-play-button:before { content: "\f10b"; }
+    
+    $font-Flaticon-calendar: "\f100";
+    $font-Flaticon-clock: "\f101";
+    $font-Flaticon-architect: "\f102";
+    $font-Flaticon-handshake: "\f103";
+    $font-Flaticon-handshake-1: "\f104";
+    $font-Flaticon-cleaning-service: "\f105";
+    $font-Flaticon-medal: "\f106";
+    $font-Flaticon-portfolio: "\f107";
+    $font-Flaticon-support: "\f108";
+    $font-Flaticon-support-1: "\f109";
+    $font-Flaticon-offer: "\f10a";
+    $font-Flaticon-play-button: "\f10b";

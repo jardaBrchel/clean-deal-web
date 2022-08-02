@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'styles/variables';
+
+// PARTIALS
+@import 'styles/partials/fonts';
+@import 'styles/partials/layout';
+@import 'styles/partials/forms';
+
+// VENDOR
+@import url('assets/fonts/flaticon/flaticon.css');
+@import url('styles/vendor/imp.css');
+@import url('styles/vendor/bootstrap.css');
+@import url('styles/vendor/font-awesome.min.css');
+@import url('styles/vendor/hover.css');
+@import url('styles/vendor/owl.css');
+@import url('styles/vendor/owl.theme.default.css');
+@import url('styles/vendor/custom-animate.css');
+@import url('styles/vendor/imagehover.css');
+@import url('styles/vendor/icomoon.css');
+@import url('styles/vendor/slick.css');
+
+// TEMPLATE STYLES
+@import 'styles/partials/homepage-template';
+@import 'styles/partials/responsive';
+//@import url('styles/vendor/responsive.css');
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
