@@ -1,0 +1,13 @@
+diff --git a/node_modules/@angular-devkit/build-angular/src/utils/index-file/augment-index-html.js b/node_modules/@angular-devkit/build-angular/src/utils/index-file/augment-index-html.js
+index 659156e..d8b25a7 100644
+--- a/node_modules/@angular-devkit/build-angular/src/utils/index-file/augment-index-html.js
++++ b/node_modules/@angular-devkit/build-angular/src/utils/index-file/augment-index-html.js
+@@ -48,7 +48,7 @@ async function augmentIndexHtml(params) {
+     for (const [src, isModule] of scripts) {
+         const attrs = [`src="${deployUrl}${src}"`];
+         // This is also need for non entry-points as they may contain problematic code.
+-        if (isModule) {
++        if (false) {
+             attrs.push('type="module"');
+         }
+         else {
