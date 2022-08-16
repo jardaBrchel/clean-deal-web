@@ -9,6 +9,7 @@ import {
   OBJECT_TYPES,
   ROOMS, TIMES, TOILETS
 } from '../../../config/order-config';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-prices',
@@ -39,6 +40,7 @@ export class PricesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
   ) {
   }
 
@@ -48,7 +50,6 @@ export class PricesComponent implements OnInit {
   }
 
   initOrderFormValues() {
-    this.recalculatePrice();
     this.orderForm = this.formBuilder.group({
       cleaningType: this.cleaningTypes[0].id,
       objectType: this.objectTypes[0].id,
@@ -62,6 +63,7 @@ export class PricesComponent implements OnInit {
       time: '',
       comments: '',
     });
+    this.recalculatePrice();
   }
 
   initUserFormValue() {
@@ -82,7 +84,24 @@ export class PricesComponent implements OnInit {
     multiplicators.forEach(m => this.finalPrice = m * this.finalPrice)
     this.finalPrice += add;
 
+    this.checkSummaryOderDetails();
+    this.checkSummaryTimeDetails();
     console.log('form', this.orderForm.value)
+  }
+
+  checkSummaryOderDetails() {
+    const objectType = OBJECT_TYPES.find(f => f.id === this.orderForm.value?.objectType)?.label;
+    const frequency = FREQUENCY.find(f => f.id === this.orderForm.value?.frequency)?.label;
+
+    this.summaryOrderDetails = `${objectType}, ${frequency}`;
+  }
+
+  checkSummaryTimeDetails() {
+    const orderDate = this.orderForm.value?.date;
+    const formattedDate = this.datePipe.transform(orderDate, 'd.M.yyyy')
+    const time = TIMES.find(f => f.id === this.orderForm.value?.time)?.label;
+
+    this.summaryTimeDetails = (orderDate && time) ? `${formattedDate} v ${time}` : '';
   }
 
   changeCleaningType(event: any) {
@@ -154,13 +173,12 @@ export class PricesComponent implements OnInit {
     this.recalculatePrice();
   }
 
-  changeTime(event: any) {
-    const selectedValue = event.target.value;
+  changeTime() {
+    this.recalculatePrice();
   }
 
-  summaryGetData() {
-    const cleaningType = this.orderForm.get('cleaningType')?.value;
-    console.log('cleaningType', cleaningType);
+  onDateChange() {
+    this.recalculatePrice();
   }
 
   onOrderSubmit() {

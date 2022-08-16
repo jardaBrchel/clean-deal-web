@@ -5,6 +5,7 @@ import {ServicesComponent} from './services/services.component';
 import {PricesComponent} from './prices/prices.component';
 import {JobsComponent} from './jobs/jobs.component';
 import {ReferencesComponent} from './references/references.component';
+import {FaqComponent} from './faq/faq.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: HomePageComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'cenik', component: PricesComponent},
   {path: 'reference', component: ReferencesComponent},
   {path: 'kariera', component: JobsComponent},
+  {path: 'caste-otazky', component: FaqComponent},
 ];
 
 @NgModule({

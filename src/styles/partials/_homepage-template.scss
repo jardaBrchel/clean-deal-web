@@ -59,6 +59,10 @@ h3 {
   line-height: 32px;
   font-weight: 400;
   font-family: 'Caveat', cursive;
+
+  &.blue {
+    color: var(--main-blue);
+  }
 }
 h4 {
 
@@ -3525,7 +3529,7 @@ select:focus {
   z-index: 1;
 }
 .breadcrumb-area::before {
-  background: rgba(0, 0, 0, 0.50) none repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0.15) none repeat scroll 0 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -3547,7 +3551,7 @@ select:focus {
   font-size: 70px;
   line-height: 80px;
   font-weight: 600;
-  text-transform: capitalize;
+  //text-transform: capitalize;
 }
 
 .breadcrumb-area .breadcrumb-menu {
@@ -3565,7 +3569,7 @@ select:focus {
   font-size: 26px;
   line-height: 32px;
   font-weight: 400;
-  text-transform: capitalize;
+  //text-transform: capitalize;
   font-family: 'Covered By Your Grace', cursive;
   transition: all 500ms ease;
   margin: 0 13px;
@@ -3858,16 +3862,24 @@ select:focus {
 }
 .benefits-text-box .inner-content ul {
   display: block;
-  padding-bottom: 45px;
-}
-.benefits-text-box .inner-content ul li{
-  line-height: 40px;
-}
-.benefits-text-box .inner-content ul li i{
-  color: var(--main-orange);
-  font-size: 14px;
-  display: inline-block;
-  padding-right: 18px;
+  padding-bottom: 15px;
+
+  li {
+    line-height: 40px;
+
+    i{
+      color: var(--main-orange);
+      font-size: 14px;
+      display: inline-block;
+      padding-right: 18px;
+    }
+  }
+
+  &.blue {
+    li i {
+      color: var(--main-blue);
+    }
+  }
 }
 
 .certified-company{
