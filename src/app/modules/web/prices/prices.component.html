@@ -123,10 +123,10 @@
 
             <section class="form-section half-section">
               <h5 class="label">Datum</h5>
-              <div class="input-group">
+              <div class="input-group date-input">
                 <mat-form-field appearance="outline">
                   <input matInput [min]="dateMinDate"
-                         [matDatepicker]="matDatePicker" formControlName="date" />
+                         [matDatepicker]="matDatePicker" formControlName="date" (dateChange)="onDateChange()" />
                   <mat-datepicker-toggle matPrefix [for]="matDatePicker">
                   </mat-datepicker-toggle>
                   <mat-datepicker #matDatePicker></mat-datepicker>
@@ -140,7 +140,7 @@
                 <select
                   class="custom-select"
                   formControlName="time"
-                  (change)="changeTime($event)">
+                  (change)="changeTime()">
                   <option *ngFor="let item of times" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
@@ -197,17 +197,19 @@
         </div>
       </div>
       <div class="col-lg-4 col-sm-12">
-        <div class="white-block">
+        <div class="white-block summary-block">
           <div class="title">Souhrn objednávky</div>
-          Byt, 3 místnosti, kuchyně, wc
+          <span *ngIf="summaryOrderDetails" class="summary-line">{{summaryOrderDetails}}</span>
           <br>
-          24.6.2022, od 15-16h
-          <br>
-          Jednorázový úklid
+          <span *ngIf="summaryTimeDetails" class="summary-line">{{summaryTimeDetails}}</span>
+<!--          TODO cca time-->
+
 
           <hr>
-          total:
-          {{finalPrice}}
+          <div class="price-total">
+            <span>Celkem</span>
+            <span class="price">{{finalPrice}} Kč</span>
+          </div>
         </div>
       </div>
     </div>

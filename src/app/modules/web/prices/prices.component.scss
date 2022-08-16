@@ -3,4 +3,43 @@
     background-size: contain;
     background-repeat: repeat-y;
   }
+
+  .summary-line {
+    //text-transform: capitalize;
+  }
+
+  .summary-block {
+    .title {
+      text-align: center;
+    }
+  }
+
+  .date-input mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 8px 0;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .price-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-dark);
+
+    .price {
+      color: var(--main-orange);
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
 }
