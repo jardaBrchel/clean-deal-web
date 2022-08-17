@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'CleanDeal - profesionální úklid';
+  isMenuOpened = false;
+
+  constructor() {
+  }
+
+  onMenuOpen() {
+    this.isMenuOpened = true;
+  }
+
+  onMenuClick() {
+    this.isMenuOpened = false;
+  }
+
+
 }

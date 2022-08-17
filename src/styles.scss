@@ -3,6 +3,7 @@
 
 // PARTIALS
 @import 'styles/partials/fonts';
+@import 'styles/partials/typography';
 @import 'styles/partials/layout';
 @import 'styles/partials/forms';
 
@@ -23,6 +24,8 @@
 @import 'styles/partials/homepage-template';
 @import 'styles/partials/responsive';
 //@import url('styles/vendor/responsive.css');
+
+@import 'styles/partials/mobile';
 
 
 html, body { height: 100%; }

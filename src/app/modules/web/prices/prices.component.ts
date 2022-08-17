@@ -36,12 +36,16 @@ export class PricesComponent implements OnInit {
   objectTypeHouse = OBJECT_TYPE_HOUSE;
   summaryOrderDetails = '';
   summaryTimeDetails = '';
-  dateMinDate = new Date(2022,7,2);
+  dateMinDate;
 
   constructor(
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
   ) {
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    this.dateMinDate = tomorrow;
   }
 
   ngOnInit(): void {
@@ -59,7 +63,7 @@ export class PricesComponent implements OnInit {
       kitchens: this.kitchens[0].id,
       bathrooms: this.bathrooms[0].id,
       toilets: this.toilets[0].id,
-      date: new Date(),
+      date: this.dateMinDate,
       time: '',
       comments: '',
     });

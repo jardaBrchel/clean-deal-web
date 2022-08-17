@@ -30,6 +30,11 @@
     padding-bottom: 0;
   }
 
+  textarea::-webkit-input-placeholder,
+  textarea::placeholder{
+    color: var(--color-grey-secondary) !important;
+  }
+
   .price-total {
     display: flex;
     align-items: center;
@@ -42,4 +47,22 @@
       font-weight: 600;
     }
   }
+
+  ::ng-deep .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button, .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+    color: var(--main-orange) !important;
+  }
+
+  .mat-calendar-body-selected {
+    background-color: var(--main-orange);
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 5px 0 9px;
+  }
+
 }
