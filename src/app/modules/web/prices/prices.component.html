@@ -126,6 +126,7 @@
               <div class="input-group date-input">
                 <mat-form-field appearance="outline">
                   <input matInput [min]="dateMinDate"
+                         (focus)="matDatePicker.open()"
                          [matDatepicker]="matDatePicker" formControlName="date" (dateChange)="onDateChange()" />
                   <mat-datepicker-toggle matPrefix [for]="matDatePicker">
                   </mat-datepicker-toggle>

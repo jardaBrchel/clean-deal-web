@@ -3846,6 +3846,10 @@ select:focus {
 .benefits-text-box{
   position: relative;
   display: block;
+
+  h3 {
+    margin-bottom: 16px;
+  }
 }
 .benefits-text-box .sec-title {
   padding-bottom: 43px;
@@ -3865,7 +3869,8 @@ select:focus {
   padding-bottom: 15px;
 
   li {
-    line-height: 40px;
+    line-height: 24px;
+    margin-bottom: 12px;
 
     i{
       color: var(--main-orange);
