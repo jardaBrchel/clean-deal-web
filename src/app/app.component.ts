@@ -1,15 +1,22 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HelpService} from './services/help.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'CleanDeal - profesionální úklid';
   isMenuOpened = false;
 
-  constructor() {
+  constructor(
+    private helpService: HelpService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.helpService.setConfigs();
   }
 
   onMenuOpen() {

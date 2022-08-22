@@ -5,12 +5,25 @@
   }
 
   .summary-line {
-    //text-transform: capitalize;
+    text-transform: lowercase;
   }
 
   .summary-block {
     .title {
       text-align: center;
+      margin-bottom: 50px;
+    }
+
+    section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span {
+        color: var(--text-dark);
+        font-weight: 400;
+        display: block;
+      }
     }
   }
 
@@ -31,7 +44,7 @@
   }
 
   textarea::-webkit-input-placeholder,
-  textarea::placeholder{
+  textarea::placeholder {
     color: var(--color-grey-secondary) !important;
   }
 
@@ -64,5 +77,33 @@
   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 5px 0 9px;
   }
+
+  .order-sent {
+    select.ng-invalid,
+    input.ng-invalid {
+      border: 1px solid var(--main-red);
+      background-color: var(--red-lightest);
+      display: block;
+
+      &:after {
+        content: "povinné pole";
+      }
+    }
+
+    section.form-section {
+      position: relative;
+    }
+
+    .fill-required {
+      color: var(--main-red);
+      font-size: 12px;
+      font-weight: 400;
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+    }
+
+}
+
 
 }
