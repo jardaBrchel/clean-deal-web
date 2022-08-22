@@ -2,7 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-sm-12">
-        <div class="white-block">
+        <div class="white-block"
+        [ngClass]="{'order-sent': orderSendClicked}">
           <div class="sec-title text-center">
             <h3>Rychle a jednoduše</h3>
             <div class="title">Nastavte si úklid</div>
@@ -119,7 +120,7 @@
 
           <hr>
           <form [formGroup]="orderForm">
-            <h3 class="subtitle">Kdy úklid proběhne</h3>
+            <h3 class="subtitle">Kdy a kde úklid proběhne</h3>
 
             <section class="form-section half-section">
               <h5 class="label">Datum</h5>
@@ -144,6 +145,26 @@
                   (change)="changeTime()">
                   <option *ngFor="let item of times" [value]="item.id">{{item.label}}</option>
                 </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section">
+              <h5 class="label">Adresa, č.p. (pouze Praha)</h5>
+              <div class="input-group text-input">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="address" />
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">PSČ</h5>
+              <div class="input-group text-input">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="pscNumber" />
               </div>
             </section>
           </form>
@@ -195,17 +216,28 @@
           </form>
 
           <div class="link-box centered"><a class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat objednávku úklidu</a></div>
+          <span *ngIf="orderSendClicked && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
         </div>
       </div>
       <div class="col-lg-4 col-sm-12">
         <div class="white-block summary-block">
           <div class="title">Souhrn objednávky</div>
-          <span *ngIf="summaryOrderDetails" class="summary-line">{{summaryOrderDetails}}</span>
-          <br>
-          <span *ngIf="summaryTimeDetails" class="summary-line">{{summaryTimeDetails}}</span>
-<!--          TODO cca time-->
-
-
+          <section *ngIf="summaryOrderDetails">
+            <span>Úklid:</span>
+            <span class="summary-line">{{summaryOrderDetails}}</span>
+          </section>
+          <section *ngIf="summaryTimeDetails">
+            <span>Příjezd: </span>
+            <span class="summary-line">{{summaryTimeDetails}}</span>
+          </section>
+          <section *ngIf="!!calculatedCleaningTime">
+            <span>Doba úklidu:</span>
+            <span>cca {{calculatedCleaningTime|number: '1.1-1'}} {{calculatedCleaningTime < 5 ? 'hodiny' : 'hodin'}}</span>
+          </section>
+          <section *ngIf="ladiesForTheJob > 1">
+            <span>Dam na úklid:</span>
+            <span>{{ladiesForTheJob}}</span>
+          </section>
           <hr>
           <div class="price-total">
             <span>Celkem</span>

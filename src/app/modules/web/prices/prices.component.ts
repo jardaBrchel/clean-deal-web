@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BASE_PRICE} from '../../../config/price-config';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
   CLEANING_TYPES, FREQUENCY,
@@ -10,6 +10,8 @@ import {
   ROOMS, TIMES, TOILETS
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
+import {OrderMultiplicators} from '../../../models/order.model';
+import {OrderService} from '../../../services/order.service';
 
 @Component({
   selector: 'app-prices',
@@ -18,6 +20,7 @@ import {DatePipe} from '@angular/common';
 })
 export class PricesComponent implements OnInit {
   finalPrice = 0;
+  nonDiscountPrice = 0;
   orderForm: FormGroup = {} as any;
   userForm: FormGroup = {} as any;
   addressForm: FormGroup = {} as any;
@@ -30,17 +33,24 @@ export class PricesComponent implements OnInit {
   bathrooms = BATHROOMS;
   toilets = TOILETS;
   times = TIMES;
-  multiplicators = {};
+  multiplicators: OrderMultiplicators = {};
   additions = {};
   objectType = OBJECT_TYPES[0].id;
   objectTypeHouse = OBJECT_TYPE_HOUSE;
   summaryOrderDetails = '';
   summaryTimeDetails = '';
   dateMinDate;
+  orderSendClicked = false;
+  calculatedCleaningTime = 0;
+  priceHourConstant = 350;
+  maxHoursForOneLady = 6;
+  ladiesForTheJob = 1;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
+    private orderService: OrderService,
   ) {
     const today = new Date()
     const tomorrow = new Date(today)
@@ -64,18 +74,20 @@ export class PricesComponent implements OnInit {
       bathrooms: this.bathrooms[0].id,
       toilets: this.toilets[0].id,
       date: this.dateMinDate,
-      time: '',
+      time: ['', [Validators.required]],
       comments: '',
+      address: ['', [Validators.required]],
+      pscNumber: ['', [Validators.required]],
     });
     this.recalculatePrice();
   }
 
   initUserFormValue() {
     this.userForm = this.formBuilder.group({
-      name: '',
-      surname: '',
-      email: '',
-      phone: '',
+      name: ['', [Validators.required]],
+      surname: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
     });
   }
 
@@ -87,17 +99,18 @@ export class PricesComponent implements OnInit {
     this.finalPrice = BASE_PRICE;
     multiplicators.forEach(m => this.finalPrice = m * this.finalPrice)
     this.finalPrice += add;
+    this.nonDiscountPrice = BASE_PRICE + add;
 
     this.checkSummaryOderDetails();
     this.checkSummaryTimeDetails();
-    console.log('form', this.orderForm.value)
+    this.recalculateCleaningHours();
   }
 
   checkSummaryOderDetails() {
     const objectType = OBJECT_TYPES.find(f => f.id === this.orderForm.value?.objectType)?.label;
     const frequency = FREQUENCY.find(f => f.id === this.orderForm.value?.frequency)?.label;
 
-    this.summaryOrderDetails = `${objectType}, ${frequency}`;
+    this.summaryOrderDetails = `${objectType} - ${frequency}`;
   }
 
   checkSummaryTimeDetails() {
@@ -106,6 +119,13 @@ export class PricesComponent implements OnInit {
     const time = TIMES.find(f => f.id === this.orderForm.value?.time)?.label;
 
     this.summaryTimeDetails = (orderDate && time) ? `${formattedDate} v ${time}` : '';
+  }
+
+  recalculateCleaningHours() {
+    this.calculatedCleaningTime = this.nonDiscountPrice / this.priceHourConstant;
+    if (this.multiplicators.cleaningType) {
+      this.calculatedCleaningTime *= this.multiplicators.cleaningType;
+    }
   }
 
   changeCleaningType(event: any) {
@@ -186,6 +206,8 @@ export class PricesComponent implements OnInit {
   }
 
   onOrderSubmit() {
+    console.log(this.orderForm.value, this.orderForm.valid)
+    this.orderSendClicked = true;
     // TODO send an order
   }
 
