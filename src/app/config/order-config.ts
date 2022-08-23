@@ -41,22 +41,22 @@ export const FREQUENCY: orderFormItem[] = [
 
 export const HOUSE_FLOORS: orderFormItem[] = [
   {
-    id: '1floor',
+    id: '1',
     label: '1',
     addition: HOUSE_FLOOR_PRICE,
   },
   {
-    id: '2floors',
+    id: '2',
     label: '2',
     addition: 2 * HOUSE_FLOOR_PRICE,
   },
   {
-    id: '3floors',
+    id: '3',
     label: '3',
     addition: 3 * HOUSE_FLOOR_PRICE,
   },
   {
-    id: '4floors',
+    id: '4',
     label: '4',
     addition: 4 * HOUSE_FLOOR_PRICE,
   },
@@ -64,32 +64,32 @@ export const HOUSE_FLOORS: orderFormItem[] = [
 
 export const ROOMS: orderFormItem[] = [
   {
-    id: '1room',
+    id: '1',
     label: '1',
     addition: 0,
   },
   {
-    id: '2room',
+    id: '2',
     label: '2',
     addition: ROOM_PRICE,
   },
   {
-    id: '3room',
+    id: '3',
     label: '3',
     addition: 2 * ROOM_PRICE,
   },
   {
-    id: '4room',
+    id: '4',
     label: '4',
     addition: 3 * ROOM_PRICE,
   },
   {
-    id: '5room',
+    id: '5',
     label: '5',
     addition: 4 * ROOM_PRICE,
   },
   {
-    id: '6room',
+    id: '6',
     label: '6',
     addition: 5 * ROOM_PRICE,
   },
@@ -97,12 +97,12 @@ export const ROOMS: orderFormItem[] = [
 
 export const KITCHENS: orderFormItem[] = [
   {
-    id: '1room',
+    id: '1',
     label: '1',
     addition: 0,
   },
   {
-    id: '2room',
+    id: '2',
     label: '2',
     addition: KITCHEN_PRICE,
   },
@@ -110,22 +110,22 @@ export const KITCHENS: orderFormItem[] = [
 
 export const BATHROOMS: orderFormItem[] = [
   {
-    id: '1room',
+    id: '1',
     label: '1',
     addition: 0,
   },
   {
-    id: '2room',
+    id: '2',
     label: '2',
     addition: BATHROOM_PRICE,
   },
   {
-    id: '3room',
+    id: '3',
     label: '3',
     addition: 2 * BATHROOM_PRICE,
   },
   {
-    id: '4room',
+    id: '4',
     label: '4',
     addition: 3 * BATHROOM_PRICE,
   },
@@ -133,36 +133,37 @@ export const BATHROOMS: orderFormItem[] = [
 
 export const TOILETS: orderFormItem[] = [
   {
-    id: '0room',
+    id: '0',
     label: '0',
     addition: 0,
   },
   {
-    id: '1room',
+    id: '1',
     label: '1',
     addition: TOILET_PRICE,
   },
   {
-    id: '2room',
+    id: '2',
     label: '2',
     addition: 2 * TOILET_PRICE,
   },
   {
-    id: '3room',
+    id: '3',
     label: '3',
     addition: 3 * TOILET_PRICE,
   },
 ]
 
-export const OBJECT_TYPE_HOUSE = 'HOUSE';
+export const HOME_TYPE_HOUSE = 'HOUSE';
+export const HOME_TYPE_FLAT = 'FLAT';
 
-export const OBJECT_TYPES: orderFormItem[] = [
+export const HOME_TYPES: orderFormItem[] = [
   {
-    id: 'FLAT',
+    id: HOME_TYPE_FLAT,
     label: 'Byt',
   },
   {
-    id: OBJECT_TYPE_HOUSE,
+    id: HOME_TYPE_HOUSE,
     label: 'Dům',
   },
 ]

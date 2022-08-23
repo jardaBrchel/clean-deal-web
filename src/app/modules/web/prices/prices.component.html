@@ -22,19 +22,19 @@
               </div>
             </section>
 
-            <section class="form-section" [ngClass]="{'half-section': objectType === objectTypeHouse}">
+            <section class="form-section" [ngClass]="{'half-section': homeType === homeTypeHouse}">
               <h5 class="label">Typ objektu</h5>
               <div class="input-group">
                 <select
                   class="custom-select"
-                  formControlName="objectType"
-                  (change)="changeObjectType($event)">
-                  <option *ngFor="let item of objectTypes" [value]="item.id">{{item.label}}</option>
+                  formControlName="homeType"
+                  (change)="changeHomeType($event)">
+                  <option *ngFor="let item of homeTypes" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
             </section>
 
-            <section class="form-section half-section no-spacing" *ngIf="objectType === objectTypeHouse">
+            <section class="form-section half-section no-spacing" *ngIf="homeType === homeTypeHouse">
               <h5 class="label">Počet pater</h5>
               <div class="input-group">
                 <select
@@ -154,6 +154,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="street"
                   formControlName="address" />
               </div>
             </section>
@@ -164,6 +165,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="zip"
                   formControlName="pscNumber" />
               </div>
             </section>
@@ -180,6 +182,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="name"
                   formControlName="name">
               </div>
             </section>
@@ -190,6 +193,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="surname"
                   formControlName="surname">
               </div>
             </section>
@@ -200,6 +204,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="email"
                   formControlName="email">
               </div>
             </section>
@@ -210,6 +215,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="phone"
                   formControlName="phone">
               </div>
             </section>
