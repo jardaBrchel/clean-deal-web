@@ -5,8 +5,8 @@ import {
   BATHROOMS,
   CLEANING_TYPES, FREQUENCY,
   HOUSE_FLOORS, KITCHENS,
-  OBJECT_TYPE_HOUSE,
-  OBJECT_TYPES,
+  HOME_TYPE_HOUSE,
+  HOME_TYPES,
   ROOMS, TIMES, TOILETS
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
@@ -25,7 +25,7 @@ export class PricesComponent implements OnInit {
   userForm: FormGroup = {} as any;
   addressForm: FormGroup = {} as any;
   cleaningTypes = CLEANING_TYPES;
-  objectTypes = OBJECT_TYPES;
+  homeTypes = HOME_TYPES;
   houseFloors = HOUSE_FLOORS;
   frequency = FREQUENCY;
   rooms = ROOMS;
@@ -35,16 +35,20 @@ export class PricesComponent implements OnInit {
   times = TIMES;
   multiplicators: OrderMultiplicators = {};
   additions = {};
-  objectType = OBJECT_TYPES[0].id;
-  objectTypeHouse = OBJECT_TYPE_HOUSE;
+  homeType = HOME_TYPES[0].id;
+  homeTypeHouse = HOME_TYPE_HOUSE;
   summaryOrderDetails = '';
   summaryTimeDetails = '';
   dateMinDate;
-  orderSendClicked = false;
   calculatedCleaningTime = 0;
   priceHourConstant = 350;
   maxHoursForOneLady = 6;
   ladiesForTheJob = 1;
+
+  // FLAGS
+  orderSendClicked = false;
+  sendingOrder = false;
+  orderSentSuccessfully = false;
 
 
   constructor(
@@ -66,7 +70,7 @@ export class PricesComponent implements OnInit {
   initOrderFormValues() {
     this.orderForm = this.formBuilder.group({
       cleaningType: this.cleaningTypes[0].id,
-      objectType: this.objectTypes[0].id,
+      homeType: this.homeTypes[0].id,
       houseFloors: this.houseFloors[0].id,
       frequency: this.frequency[0].id,
       rooms: this.rooms[0].id,
@@ -107,10 +111,10 @@ export class PricesComponent implements OnInit {
   }
 
   checkSummaryOderDetails() {
-    const objectType = OBJECT_TYPES.find(f => f.id === this.orderForm.value?.objectType)?.label;
+    const homeType = HOME_TYPES.find(f => f.id === this.orderForm.value?.homeType)?.label;
     const frequency = FREQUENCY.find(f => f.id === this.orderForm.value?.frequency)?.label;
 
-    this.summaryOrderDetails = `${objectType} - ${frequency}`;
+    this.summaryOrderDetails = `${homeType} - ${frequency}`;
   }
 
   checkSummaryTimeDetails() {
@@ -135,12 +139,12 @@ export class PricesComponent implements OnInit {
     this.recalculatePrice();
   }
 
-  changeObjectType(event: any) {
+  changeHomeType(event: any) {
     const selectedValue = event.target.value;
-    const item = OBJECT_TYPES.find(t => t.id === selectedValue) || {} as any;
-    this.objectType = item.id;
+    const item = HOME_TYPES.find(t => t.id === selectedValue) || {} as any;
+    this.homeType = item.id;
 
-    if (this.objectType === this.objectTypeHouse) {
+    if (this.homeType === this.homeTypeHouse) {
       this.additions = {...this.additions, houseFloors: HOUSE_FLOORS[0].addition};
     } else {
       this.additions = {...this.additions, houseFloors: 0};
@@ -206,9 +210,25 @@ export class PricesComponent implements OnInit {
   }
 
   onOrderSubmit() {
-    console.log(this.orderForm.value, this.orderForm.valid)
+    this.sendingOrder = true;
+    console.log('this.orderForm ', this.orderForm.value)
+    const data = {
+      ...this.orderForm.value,
+      ...this.userForm.value,
+      price: this.finalPrice
+    };
     this.orderSendClicked = true;
-    // TODO send an order
+
+    this.orderService.addNewOrderFromWeb(data).subscribe(
+      {
+        next: (res) => {
+          this.sendingOrder = false;
+          this.orderSentSuccessfully = true;
+        },
+        error: (e) => {console.log('error on sending order', e)},
+        complete: () => {this.sendingOrder = false}
+      }
+    )
   }
 
 }
