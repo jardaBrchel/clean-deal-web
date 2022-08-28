@@ -17,7 +17,7 @@ export class HelpService {
 
   public setApiDomain(): void {
     if (!isDevMode()) {
-      Config.urlApi = 'https://cleandeal.cz/api';
+      Config.urlApi = 'https://clean-deal-api-lfyuc.ondigitalocean.app';
     } else {
       Config.urlApi = 'http://localhost:3000';
     }
