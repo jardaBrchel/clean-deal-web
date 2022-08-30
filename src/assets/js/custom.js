@@ -12,7 +12,7 @@
 05. prettyPhoto
 06. BrandCarousel
 07. Testimonial carousel
-08. ScrollToTop 
+08. ScrollToTop
 09. Cart Touch Spin
 10. PriceFilter
 11. Cart touch spin
@@ -27,14 +27,16 @@
 
 "use strict";
 
-
+function togglePopover() {
+  $('[data-toggle="popover"]').popover()
+}
 
 //====Main menu===
 function mainmenu() {
 	//Submenu Dropdown Toggle
 	if($('.main-menu li.dropdown ul').length){
 		$('.main-menu li.dropdown').append('<div class="dropdown-btn"></div>');
-		
+
 		//Dropdown Button
 		$('.main-menu li.dropdown .dropdown-btn').on('click', function() {
 			$(this).prev('ul').slideToggle(500);
@@ -209,9 +211,9 @@ function accordion() {
             }else{
                 $(this).addClass('active');
                 $('.accordion .accord-content').slideUp(500);
-                $(this).next('.accord-content').slideDown(500);	
+                $(this).next('.accord-content').slideDown(500);
             }
-        });	
+        });
     }
 }
 
@@ -231,7 +233,7 @@ if($('.accordion-holder').length){
     else{
             $(this).addClass('active');
             $('.accordion-holder .acc-content').slideUp(500);
-            $(this).next('.acc-content').slideDown(500);	
+            $(this).next('.acc-content').slideDown(500);
         }
     });
 }
@@ -355,7 +357,7 @@ function projectMasonaryLayout() {
             var count = $('.gallery-content').find(filterElement).length;
             $(this).children('span').append('<span class="count"><b>' + count + '</b></span>');
         });
-    };  
+    };
 }
 
 
@@ -372,7 +374,7 @@ function countDownTimer () {
 	   		});
 		});
 	};
-    
+
 	if ($('.time-countdown-two').length) {
 		$('.time-countdown-two').each(function () {
 			var Self = $(this);
@@ -403,7 +405,7 @@ function countryInfo() {
 
 
 
-// Select menu 
+// Select menu
 function selectDropdown() {
     if ($(".selectmenu").length) {
         $(".selectmenu").selectmenu();
@@ -452,7 +454,7 @@ function testimonialCarousel () {
                     items:1
                 }
             }
-        });    		
+        });
     }
 }
 
@@ -492,7 +494,7 @@ function testimonialCarousel2 () {
                     items:1
                 }
             }
-        });    		
+        });
     }
 }
 
@@ -533,7 +535,7 @@ function certificationsCarousel () {
                     items:1
                 }
             }
-        });    		
+        });
     }
 }
 
@@ -574,7 +576,7 @@ function projectSingleCarousel () {
                     items:1
                 }
             }
-        });    		
+        });
     }
 }
 
@@ -615,7 +617,7 @@ function branchesCarousel () {
                     items:1
                 }
             }
-        });    		
+        });
     }
 }
 
@@ -657,14 +659,14 @@ if ($('.banner-carousel-four').length) {
                 items:1
             }
         }
-    });    		
+    });
 }
 
 
 
 
 
-  
+
 //Client Testimonial Carousel
 if ($('.client-testimonial-carousel').length && $('.client-thumbs-carousel').length) {
 
@@ -731,7 +733,7 @@ if ($('.client-testimonial-carousel').length && $('.client-thumbs-carousel').len
     })
     .on('changed.owl.carousel', function (e) {
         if (!flag) {
-            flag = true;		
+            flag = true;
             $sync3.trigger('to.owl.carousel', [e.item.index, duration, true]);
             flag = false;
         }
@@ -781,8 +783,8 @@ if ($('.hidden-bar').length) {
         navToggler.toggleClass('open');
     });
 }
-    
-    
+
+
 
 
 
@@ -805,12 +807,12 @@ if($('.lightbox-image').length) {
     $('.lightbox-image').fancybox({
         openEffect  : 'fade',
         closeEffect : 'fade',
-        
+
         youtube : {
         controls : 0,
         showinfo : 0
     },
-        
+
         helpers : {
             media : {}
         }
@@ -920,6 +922,7 @@ if($("#appoinment-form").length){
 jQuery(document).on('ready', function () {
 	(function ($) {
         // add your functions
+        togglePopover();
         mainmenu ();
         languageSwitcher ();
         searchbox ();
@@ -936,21 +939,13 @@ jQuery(document).on('ready', function () {
         countDownTimer ();
         countryInfo ();
 
-      
-        
-        
         testimonialCarousel();
         testimonialCarousel2();
         certificationsCarousel();
         projectSingleCarousel();
         branchesCarousel()
-       
 
-  
-        
-        
-   
- 
+
 	})(jQuery);
 });
 
@@ -959,8 +954,8 @@ jQuery(document).on('ready', function () {
 jQuery(window).on('scroll', function(){
 	(function ($) {
 	stickyHeader ();
-    headerStyle ()  
-    
+    headerStyle ()
+
 	})(jQuery);
 });
 
@@ -971,7 +966,7 @@ jQuery(window).on('load', function() {
     (function($) {
         prealoader ();
         projectMasonaryLayout ();
-        
+
     })(jQuery);
 });
 

@@ -11,7 +11,7 @@
   .summary-block {
     .title {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
     }
 
     section {
@@ -23,6 +23,16 @@
         color: var(--text-dark);
         font-weight: 400;
         display: block;
+      }
+    }
+
+    .summary-list {
+      line-height: 20px;
+      list-style: circle;
+
+      li {
+        list-style: outside;
+        margin-bottom: 10px;
       }
     }
   }
@@ -102,8 +112,19 @@
       display: block;
       margin-top: 10px;
     }
-
 }
+
+  .agree-to-terms {
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+
+    a {
+      color: var(--main-orange);
+    }
+  }
 
 
 }
