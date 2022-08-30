@@ -7,7 +7,7 @@ import {
   HOUSE_FLOORS, KITCHENS,
   HOME_TYPE_HOUSE,
   HOME_TYPES,
-  ROOMS, TIMES, TOILETS
+  ROOMS, TIMES, TOILETS, OWN_CLEANING_STUFF, DIRTY
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
 import {OrderMultiplicators} from '../../../models/order.model';
@@ -33,6 +33,8 @@ export class PricesComponent implements OnInit {
   bathrooms = BATHROOMS;
   toilets = TOILETS;
   times = TIMES;
+  ownCleaningStuff = OWN_CLEANING_STUFF;
+  dirty = DIRTY;
   multiplicators: OrderMultiplicators = {};
   additions = {};
   homeType = HOME_TYPES[0].id;
@@ -78,6 +80,9 @@ export class PricesComponent implements OnInit {
       bathrooms: this.bathrooms[0].id,
       toilets: this.toilets[0].id,
       date: this.dateMinDate,
+      ownCleaningStuff: this.ownCleaningStuff[0].id,
+      dirty: this.dirty[0].id,
+      pets: '',
       time: ['', [Validators.required]],
       comments: '',
       address: ['', [Validators.required]],
@@ -193,6 +198,22 @@ export class PricesComponent implements OnInit {
     this.recalculatePrice();
   }
 
+  changeOwnCleaningStuff(event: any) {
+    const selectedValue = event.target.value;
+    const item = OWN_CLEANING_STUFF.find(t => t.id === selectedValue) || {} as any;
+    this.additions = {...this.additions, ownCleaningStuff: item.addition};
+
+    this.recalculatePrice();
+  }
+
+  changeDirty(event: any) {
+    const selectedValue = event.target.value;
+    const item = DIRTY.find(t => t.id === selectedValue) || {} as any;
+    this.multiplicators = {...this.multiplicators, dirty: item.multiplication};
+
+    this.recalculatePrice();
+  }
+
   changeToilets(event: any) {
     const selectedValue = event.target.value;
     const item = TOILETS.find(t => t.id === selectedValue) || {} as any;
@@ -211,12 +232,14 @@ export class PricesComponent implements OnInit {
 
   onOrderSubmit() {
     this.sendingOrder = true;
-    console.log('this.orderForm ', this.orderForm.value)
+    const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,
-      price: this.finalPrice
+      price: this.finalPrice,
+      ownCleaningStuff,
     };
+    // console.log('data', data);return;
     this.orderSendClicked = true;
 
     this.orderService.addNewOrderFromWeb(data).subscribe(

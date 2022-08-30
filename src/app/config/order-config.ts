@@ -1,4 +1,11 @@
-import {BATHROOM_PRICE, HOUSE_FLOOR_PRICE, KITCHEN_PRICE, ROOM_PRICE, TOILET_PRICE} from './price-config';
+import {
+  BATHROOM_PRICE,
+  HOUSE_FLOOR_PRICE,
+  KITCHEN_PRICE,
+  OWN_CLEANING_STUFF_PRICE,
+  ROOM_PRICE,
+  TOILET_PRICE
+} from './price-config';
 
 export interface orderFormItem {
   label: string;
@@ -151,6 +158,32 @@ export const TOILETS: orderFormItem[] = [
     id: '3',
     label: '3',
     addition: 3 * TOILET_PRICE,
+  },
+]
+
+export const OWN_CLEANING_STUFF: orderFormItem[] = [
+  {
+    id: 'yes',
+    label: 'Ano',
+    addition: 0,
+  },
+  {
+    id: 'no',
+    label: 'Ne',
+    addition: OWN_CLEANING_STUFF_PRICE,
+  },
+]
+
+export const DIRTY: orderFormItem[] = [
+  {
+    id: '1',
+    label: 'Mírné',
+    multiplication: 1,
+  },
+  {
+    id: '2',
+    label: 'Silné',
+    multiplication: 1.5,
   },
 ]
 

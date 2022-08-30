@@ -2551,8 +2551,35 @@ select:focus {
   display: block;
   background: #ffffff;
   border-bottom: 2px solid #f5f5f5;
-  padding-top: 120px;
+  padding-top: 0px;
   padding-bottom: 75px;
+
+  .main-desc {
+    display: block;
+    text-align: center;
+    margin: 0 auto 50px;
+  }
+
+  .sec-title {
+    padding-bottom: 30px;
+  }
+
+  ul {
+    display: block;
+    padding-bottom: 15px;
+
+    li {
+      line-height: 24px;
+      margin-bottom: 12px;
+
+      i{
+        color: var(--main-orange);
+        font-size: 14px;
+        display: inline-block;
+        padding-right: 18px;
+      }
+    }
+  }
 }
 .single-blog-post {
   position: relative;
