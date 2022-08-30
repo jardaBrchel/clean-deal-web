@@ -59,13 +59,13 @@
             </section>
 
             <section class="form-section half-section">
-              <h5 class="label">Počet místností</h5>
+              <h5 class="label">Počet koupelen</h5>
               <div class="input-group">
                 <select
                   class="custom-select"
-                  formControlName="rooms"
-                  (change)="changeRooms($event)">
-                  <option *ngFor="let item of rooms" [value]="item.id">{{item.label}}</option>
+                  formControlName="bathrooms"
+                  (change)="changeBathrooms($event)">
+                  <option *ngFor="let item of bathrooms" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
             </section>
@@ -83,19 +83,19 @@
             </section>
 
             <section class="form-section half-section">
-              <h5 class="label">Počet koupelen</h5>
+              <h5 class="label">Počet ostatních místností</h5>
               <div class="input-group">
                 <select
                   class="custom-select"
-                  formControlName="bathrooms"
-                  (change)="changeBathrooms($event)">
-                  <option *ngFor="let item of bathrooms" [value]="item.id">{{item.label}}</option>
+                  formControlName="rooms"
+                  (change)="changeRooms($event)">
+                  <option *ngFor="let item of rooms" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
             </section>
 
             <section class="form-section half-section no-spacing">
-              <h5 class="label">Počet toalet</h5>
+              <h5 class="label">Počet samostatných WC</h5>
               <div class="input-group">
                 <select
                   class="custom-select"

@@ -239,6 +239,7 @@ export class PricesComponent implements OnInit {
       price: this.finalPrice,
       ownCleaningStuff,
     };
+    // console.log('data', data);return;
     this.orderSendClicked = true;
 
     this.orderService.addNewOrderFromWeb(data).subscribe(
