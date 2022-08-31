@@ -1,6 +1,6 @@
 <section class="pricing-area">
   <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="!orderSentSuccessfully">
       <div class="col-lg-8 col-sm-12">
         <div class="white-block"
         [ngClass]="{'order-sent': orderSendClicked}">
@@ -256,9 +256,9 @@
             </section>
           </form>
 
-          <div class="link-box centered"><a class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat objednávku úklidu</a></div>
-          <span class="agree-to-terms">Odesláním objednávky souhlasíte s našimi <a routerLink="">obchodními podmínkami</a></span>
           <span *ngIf="orderSendClicked && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
+          <div class="link-box centered"><a class="btn-one submit-form" (click)="onOrderSubmit()" >Odeslat objednávku úklidu</a></div>
+          <span class="agree-to-terms">Odesláním objednávky souhlasíte s našimi <a routerLink="">obchodními podmínkami</a></span>
         </div>
       </div>
 
@@ -298,5 +298,19 @@
         </div>
       </div>
     </div>
+
+    <div class="row" *ngIf="orderSentSuccessfully">
+      <div class="col-sm-12">
+        <div class="white-block"
+             [ngClass]="{'order-sent': orderSendClicked}">
+          <div class="sec-title text-center">
+            <h3>Úklid byl odeslán</h3>
+            <div class="title">Děkujueme za Vaši objednávku!</div>
+            <br>
+            <p>Detaily úklidu jsme Vám zaslali na email <strong>{{userForm.value?.email}}</strong>. </p>
+          </div>
+        </div>
+      </div>
+      </div>
   </div>
 </section>

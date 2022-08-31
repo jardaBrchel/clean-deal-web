@@ -135,6 +135,9 @@ export class PricesComponent implements OnInit {
     if (this.multiplicators.cleaningType) {
       this.calculatedCleaningTime *= this.multiplicators.cleaningType;
     }
+    if (this.multiplicators.dirty) {
+      this.calculatedCleaningTime *= this.multiplicators.dirty;
+    }
   }
 
   changeCleaningType(event: any) {
@@ -231,7 +234,10 @@ export class PricesComponent implements OnInit {
   }
 
   onOrderSubmit() {
-    this.sendingOrder = true;
+    this.orderSendClicked = true;
+    if (!this.orderForm.valid || !this.userForm.valid || !!this.sendingOrder) {
+      return;
+    }
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const data = {
       ...this.orderForm.value,
@@ -239,13 +245,11 @@ export class PricesComponent implements OnInit {
       price: this.finalPrice,
       ownCleaningStuff,
     };
-    // console.log('data', data);return;
-    this.orderSendClicked = true;
+    this.sendingOrder = true;
 
     this.orderService.addNewOrderFromWeb(data).subscribe(
       {
         next: (res) => {
-          this.sendingOrder = false;
           this.orderSentSuccessfully = true;
         },
         error: (e) => {console.log('error on sending order', e)},
