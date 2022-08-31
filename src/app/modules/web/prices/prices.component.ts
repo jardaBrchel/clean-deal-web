@@ -244,6 +244,7 @@ export class PricesComponent implements OnInit {
       ...this.userForm.value,
       price: this.finalPrice,
       ownCleaningStuff,
+      cleaningDuration: this.calculatedCleaningTime,
     };
     this.sendingOrder = true;
 
