@@ -257,7 +257,11 @@
           </form>
 
           <span *ngIf="orderSendClicked && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
-          <div class="link-box centered"><a class="btn-one submit-form" (click)="onOrderSubmit()" >Odeslat objednávku úklidu</a></div>
+          <div class="link-box centered">
+            <a *ngIf="!orderSendClicked" class="btn-one submit-form" (click)="onOrderSubmit()" >Odeslat objednávku úklidu</a>
+            <a *ngIf="orderSendClicked" class="btn-one submit-form disabled">Odesílám objednávku...</a>
+
+          </div>
           <span class="agree-to-terms">Odesláním objednávky souhlasíte s našimi <a routerLink="">obchodními podmínkami</a></span>
         </div>
       </div>
