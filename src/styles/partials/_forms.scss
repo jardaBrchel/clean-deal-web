@@ -18,6 +18,15 @@
     }
   }
 
+  .check-label {
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    margin-left: 5px;
+  }
+
 }
 
 form {
@@ -43,3 +52,8 @@ form {
 .link-box.centered {
   text-align: center;
 }
+
+hr.dashed {
+  border-style: dashed;
+}
+
