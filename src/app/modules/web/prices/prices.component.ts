@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BASE_PRICE} from '../../../config/price-config';
+import {BASE_PRICE, WINDOW_CLEANING_METER} from '../../../config/price-config';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
@@ -24,6 +24,7 @@ export class PricesComponent implements OnInit {
   orderForm: FormGroup = {} as any;
   userForm: FormGroup = {} as any;
   addressForm: FormGroup = {} as any;
+  extrasForm: FormGroup = {} as any;
   cleaningTypes = CLEANING_TYPES;
   homeTypes = HOME_TYPES;
   houseFloors = HOUSE_FLOORS;
@@ -42,7 +43,8 @@ export class PricesComponent implements OnInit {
   summaryOrderDetails = '';
   summaryTimeDetails = '';
   dateMinDate;
-  calculatedCleaningTime = 0;
+  totalCleaningTime = 0;
+  realCleaningTime = 0; // Kdyz se cas vydeli poctem uklizecek
   priceHourConstant = 350;
   maxHoursForOneLady = 6;
   ladiesForTheJob = 1;
@@ -50,7 +52,10 @@ export class PricesComponent implements OnInit {
   // FLAGS
   orderSendClicked = false;
   sendingOrder = false;
+  errorOnSubmit = false;
   orderSentSuccessfully = false;
+
+  // EXTRAS
 
 
   constructor(
@@ -67,6 +72,7 @@ export class PricesComponent implements OnInit {
   ngOnInit(): void {
     this.initOrderFormValues();
     this.initUserFormValue();
+    this.initExtrasFormValue();
   }
 
   initOrderFormValues() {
@@ -83,7 +89,7 @@ export class PricesComponent implements OnInit {
       ownCleaningStuff: this.ownCleaningStuff[0].id,
       dirty: this.dirty[0].id,
       pets: '',
-      time: ['', [Validators.required]],
+      time: [undefined, [Validators.required]],
       comments: '',
       address: ['', [Validators.required]],
       pscNumber: ['', [Validators.required]],
@@ -100,19 +106,33 @@ export class PricesComponent implements OnInit {
     });
   }
 
+  initExtrasFormValue() {
+    this.extrasForm = this.formBuilder.group({
+      windows: 0,
+    });
+  }
+
   recalculatePrice() {
     const multiplicators: number[] = Object.values(this.multiplicators)
     const add: number = Object.values(this.additions)
       ? (Object.values(this.additions)).reduce((a, b) => Number(a) + Number(b), 0) as number
       : 0;
+
     this.finalPrice = BASE_PRICE;
-    multiplicators.forEach(m => this.finalPrice = m * this.finalPrice)
     this.finalPrice += add;
+    multiplicators.forEach(m => this.finalPrice = m * this.finalPrice)
+    this.finalPrice = Math.round(this.finalPrice);
+
+    // FIXME nonDP by mela byt jen bez frequency
+    const mpsForBasePrice: number[] = Object.values({...this.multiplicators, frequency: 1});
     this.nonDiscountPrice = BASE_PRICE + add;
+    mpsForBasePrice.forEach(m => this.nonDiscountPrice = m * this.nonDiscountPrice)
+
 
     this.checkSummaryOderDetails();
     this.checkSummaryTimeDetails();
     this.recalculateCleaningHours();
+    this.recalculateCleanersCount();
   }
 
   checkSummaryOderDetails() {
@@ -131,13 +151,26 @@ export class PricesComponent implements OnInit {
   }
 
   recalculateCleaningHours() {
-    this.calculatedCleaningTime = this.nonDiscountPrice / this.priceHourConstant;
-    if (this.multiplicators.cleaningType) {
-      this.calculatedCleaningTime *= this.multiplicators.cleaningType;
-    }
-    if (this.multiplicators.dirty) {
-      this.calculatedCleaningTime *= this.multiplicators.dirty;
-    }
+    // TODO Az bude Karcher, tak poladit hodiny kdyz budou nastavena okna, pac tam to bude nepomer
+    this.totalCleaningTime = this.nonDiscountPrice / this.priceHourConstant;
+  }
+
+  recalculateCleanersCount() {
+    this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / this.maxHoursForOneLady);
+    this.realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
+  }
+
+  getExtrasItem(): string {
+    let res = '';
+
+    Object.keys(this.extrasForm.value).forEach(
+      key => {
+        if (!(this.extrasForm.value[key] > 0)) return;
+        res += `${key}:${this.extrasForm.value[key]},`;
+      }
+    );
+
+    return res;
   }
 
   changeCleaningType(event: any) {
@@ -217,6 +250,14 @@ export class PricesComponent implements OnInit {
     this.recalculatePrice();
   }
 
+  windowsChanged(event: any) {
+    const insertedValue = event.target.value;
+    const windowsPrice = WINDOW_CLEANING_METER * insertedValue;
+    this.additions = {...this.additions, dirty: windowsPrice};
+
+    this.recalculatePrice();
+  }
+
   changeToilets(event: any) {
     const selectedValue = event.target.value;
     const item = TOILETS.find(t => t.id === selectedValue) || {} as any;
@@ -236,6 +277,7 @@ export class PricesComponent implements OnInit {
   onOrderSubmit() {
     this.orderSendClicked = true;
     if (!this.orderForm.valid || !this.userForm.valid || !!this.sendingOrder) {
+      // this.orderSendClicked = false;
       return;
     }
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
@@ -244,7 +286,8 @@ export class PricesComponent implements OnInit {
       ...this.userForm.value,
       price: this.finalPrice,
       ownCleaningStuff,
-      cleaningDuration: this.calculatedCleaningTime,
+      cleaningDuration: this.totalCleaningTime,
+      extras: this.getExtrasItem(),
     };
     this.sendingOrder = true;
 
@@ -252,9 +295,15 @@ export class PricesComponent implements OnInit {
       {
         next: (res) => {
           this.orderSentSuccessfully = true;
+          this.errorOnSubmit = false;
+          this.sendingOrder = false;
         },
-        error: (e) => {console.log('error on sending order', e)},
-        complete: () => {this.sendingOrder = false}
+        error: (e) => {
+          console.log('error on sending order', e);
+          this.errorOnSubmit = true;
+          this.sendingOrder = false;
+        },
+        complete: () => {}
       }
     )
   }

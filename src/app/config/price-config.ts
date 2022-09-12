@@ -13,3 +13,5 @@ export const BATHROOM_PRICE = 250;
 export const TOILET_PRICE = 150;
 
 export const OWN_CLEANING_STUFF_PRICE = 150;
+
+export const WINDOW_CLEANING_METER = 55;

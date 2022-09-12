@@ -153,6 +153,27 @@
             </section>
           </form>
 
+            <hr class="dashed">
+            <h5 class="subsection-headline">Dodatečné služby</h5>
+
+          <form [formGroup]="extrasForm">
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Mytí oken (zadejte m<sup>2</sup> plochy skel)</h5>
+<!--              TODO pridat info ikonu a vysvetlit mereni oken-->
+              <div class="input-group">
+                <input
+                  type="number"
+                  min="0"
+                  max="60"
+                  step="1"
+                  class="form-control"
+                  name="windows"
+                  formControlName="windows"
+                  (change)="windowsChanged($event)"/>
+              </div>
+            </section>
+          </form>
+
           <hr>
           <form [formGroup]="orderForm">
             <h3 class="subtitle">Kdy a kde úklid proběhne</h3>
@@ -257,9 +278,10 @@
           </form>
 
           <span *ngIf="orderSendClicked && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
+          <span *ngIf="errorOnSubmit" class="fill-required">Omlouváme se, ale při odesílání objednávky došlo k chybě. Zkuste to prosím později.</span>
           <div class="link-box centered">
-            <a *ngIf="!orderSendClicked" class="btn-one submit-form" (click)="onOrderSubmit()" >Odeslat objednávku úklidu</a>
-            <a *ngIf="orderSendClicked" class="btn-one submit-form disabled">Odesílám objednávku...</a>
+            <a *ngIf="!sendingOrder" class="btn-one submit-form" (click)="onOrderSubmit()" >Odeslat objednávku úklidu</a>
+            <a *ngIf="sendingOrder" class="btn-one submit-form disabled">Odesílám objednávku...</a>
 
           </div>
           <span class="agree-to-terms">Odesláním objednávky souhlasíte s našimi <a routerLink="">obchodními podmínkami</a></span>
@@ -278,9 +300,9 @@
             <span>Příjezd: </span>
             <span class="summary-line">{{summaryTimeDetails}}</span>
           </section>
-          <section *ngIf="!!calculatedCleaningTime">
+          <section *ngIf="!!realCleaningTime">
             <span>Doba úklidu:</span>
-            <span>cca {{calculatedCleaningTime|number: '1.1-1'}} {{calculatedCleaningTime < 5 ? 'hodiny' : 'hodin'}}</span>
+            <span>cca {{realCleaningTime|number: '1.1-1'}} {{realCleaningTime < 5 ? 'hodiny' : 'hodin'}}</span>
           </section>
           <section *ngIf="ladiesForTheJob > 1">
             <span>Dam na úklid:</span>

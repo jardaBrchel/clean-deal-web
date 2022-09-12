@@ -8,7 +8,6 @@ import {HelpService} from './services/help.service';
 })
 export class AppComponent implements OnInit {
   title = 'CleanDeal - profesionální úklid';
-  isMenuOpened = false;
 
   constructor(
     private helpService: HelpService,
@@ -19,13 +18,6 @@ export class AppComponent implements OnInit {
     this.helpService.setConfigs();
   }
 
-  onMenuOpen() {
-    this.isMenuOpened = true;
-  }
-
-  onMenuClick() {
-    this.isMenuOpened = false;
-  }
 
 
 }

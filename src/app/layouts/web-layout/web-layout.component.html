@@ -1,0 +1,173 @@
+<div class="boxed_wrapper">
+  <!--Start Main Header-->
+  <header class="main-header stricky">
+    <div class="main-box">
+      <div class="inner-container clearfix">
+        <div class="logo-box">
+          <a href="index.html">
+            <img src="assets/images/clean-deal/logo-main_v2.svg" alt="CleanDeal Logo">
+          </a>
+        </div>
+        <div class="nav-outer clearfix">
+          <nav class="main-menu clearfix">
+            <div class="navbar-header clearfix">
+              <button type="button" data-toggle="collapse" class="navbar-toggle" aria-expanded="false"
+                      aria-controls="navbarToggleExternalContent" data-bs-target="#navbarToggleExternalContent"
+                      data-bs-toggle="collapse" (click)="onMenuOpen()">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="navbar-collapse collapse clearfix" [class.show]="isMenuOpened === true"
+                 id="navbarToggleExternalContent">
+              <ul class="navigation clearfix">
+                <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                       (click)="onMenuClick()">Domů</a></li>
+                <li><a [routerLink]="'/cenik'" routerLinkActive="active" (click)="onMenuClick()">Ceník</a></li>
+                <!--                <li><a routerLink="/sluzby" routerLinkActive="active">Služby</a></li>-->
+                <!--                <li><a routerLink="/reference" routerLinkActive="active">Reference</a></li>-->
+                <li><a routerLink="/caste-otazky" routerLinkActive="active" (click)="onMenuClick()">Časté otázky</a>
+                </li>
+                <li><a routerLink="/kariera" routerLinkActive="active" (click)="onMenuClick()">Kariéra</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="header-right clearfix">
+          <div class="opening-time">
+            <p><i class="fa fa-clock-o" aria-hidden="true"></i>Pondělí - Pátek &nbsp;&nbsp;&nbsp; 8:00 - 16:00</p>
+          </div>
+          <!--          <div class="button">-->
+          <!--            <a class="btn-two" href="#"><span>Rezervovat si úklid</span></a>-->
+          <!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--End Main Header-->
+
+  <router-outlet></router-outlet>
+
+
+  <!--Start footer area-->
+  <footer class="footer-area">
+
+    <div class="container">
+      <div class="row">
+        <!--Start single footer widget-->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="single-footer-widget marbtm50">
+            <div class="footer-logo">
+              <a href="index.html">
+                <img src="assets/images/clean-deal/logo_footer_white.svg" alt="CleanDeal Logo">
+              </a>
+            </div>
+
+            <div class="company-text">
+              <p>CleanDeal s.r.o.<br>
+                IČ: 17357713 <br>
+                Jankovcova 1535/2a <br>
+                Praha 7, 170 00
+              </p>
+            </div>
+            <!--            <div class="company-info">-->
+            <!--              <div class="text-box">-->
+            <!--                <p>We are professional carpet cleaning experts in your town. Right carpet to fill a space can contribute-->
+            <!--                  to the overall character of your home or office space.</p>-->
+            <!--              </div>-->
+            <!--            </div>-->
+          </div>
+        </div>
+        <!--End single footer widget-->
+        <!--Start single footer widget-->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="single-footer-widget marleft70 marbtm50">
+            <!--            <div class="title">-->
+            <!--              <h3>Sociální sítě</h3>-->
+            <!--            </div>-->
+            <ul class="explore-links">
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Instagram</a></li>
+            </ul>
+          </div>
+        </div>
+        <!--End single footer widget-->
+        <!--Start single footer widget-->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="single-footer-widget marleft30">
+            <!--            <div class="title">-->
+            <!--              <h3>Legal</h3>-->
+            <!--            </div>-->
+            <ul class="legal-links">
+              <li><a href="#">Obchodní podmínky</a></li>
+              <li><a href="#">Ochrana osobních údajů</a></li>
+            </ul>
+          </div>
+        </div>
+        <!--End single footer widget-->
+        <!--Start single footer widget-->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+          <div class="single-footer-widget marleft40 pdtop50">
+            <!--            <div class="title">-->
+            <!--              <h3>Chcete se na něco zeptat?</h3>-->
+            <!--            </div>-->
+            <ul class="contact-info">
+              <li>
+                <span>Kontaktujte nás</span>
+                <h3>+420 606 000 000</h3>
+              </li>
+              <li>
+                <span>Nebo na emailu</span>
+                <h3>info@cleandeal.cz</h3>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+        <!--End single footer widget-->
+
+      </div>
+    </div>
+  </footer>
+  <!--End footer area-->
+
+  <!--Start footer bottom area-->
+  <section class="footer-bottom-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="inner text-center clearfix">
+            <div class="copyright-text">
+              <p>© Copyright 2022 <a href="/">cleandeal.cz</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--End footer bottom area-->
+
+</div>
+
+
+<!-- Wow Script -->
+<script src="../assets/js/wow.js"></script>
+<!-- bootstrap -->
+<!-- bx slider -->
+<script src="../assets/js/appear.js"></script>
+<!-- owl carousel -->
+<script src="../assets/js/owl.js"></script>
+<!-- validate -->
+<script src="../assets/js/validation.js"></script>
+<!-- mixit up -->
+<!-- isotope script-->
+<script src="../assets/js/isotope.js"></script>
+<!-- Easing -->
+<!-- Gmap helper -->
+<!--Gmap script-->
+<script src="../assets/js/gmaps.js"></script>
+<script src="../assets/js/map-helper.js"></script>
+
+<!-- thm custom script -->
+<script src="../assets/js/custom.js"></script>

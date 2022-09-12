@@ -1,33 +1,25 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
-import {HomePageComponent} from './home-page/home-page.component';
-import {ServicesComponent} from './services/services.component';
-import {PricesComponent} from './prices/prices.component';
-import {ReferencesComponent} from './references/references.component';
-import {JobsComponent} from './jobs/jobs.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {WebRoutingModule} from './web-routing.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
-import {FaqComponent} from './faq/faq.component';
+import {AdminRoutingModule} from './admin-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-    HomePageComponent,
-    ServicesComponent,
-    PricesComponent,
-    ReferencesComponent,
-    JobsComponent,
-    FaqComponent,
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    WebRoutingModule,
+    AdminRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
@@ -37,5 +29,5 @@ import {FaqComponent} from './faq/faq.component';
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'}, DatePipe]
 })
-export class WebModule {
+export class AdminModule {
 }
