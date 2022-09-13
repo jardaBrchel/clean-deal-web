@@ -2571,12 +2571,17 @@ select:focus {
     li {
       line-height: 24px;
       margin-bottom: 12px;
+      position: relative;
+      padding-left: 20px;
 
       i{
         color: var(--main-orange);
         font-size: 14px;
         display: inline-block;
         padding-right: 18px;
+        position: absolute;
+        left: 0;
+        top: 4px;
       }
     }
   }
@@ -3899,12 +3904,17 @@ select:focus {
   li {
     line-height: 24px;
     margin-bottom: 12px;
+    //text-align: justify;
 
-    i{
+    i {
       color: var(--main-orange);
       font-size: 14px;
       display: inline-block;
-      padding-right: 18px;
+      padding-right: 8px;
+    }
+
+    p {
+      padding-left: 20px;
     }
   }
 
