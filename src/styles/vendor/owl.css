@@ -208,7 +208,7 @@
   height: 100%;
   background-position: center center;
   background-repeat: no-repeat;
-  background-sze: contain;
+  background-size: contain;
   transition: opacity 400ms ease;
 }
 
