@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BASE_PRICE, WINDOW_CLEANING_METER} from '../../../config/price-config';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
   CLEANING_TYPES, FREQUENCY,
@@ -21,10 +21,10 @@ import {OrderService} from '../../../services/order.service';
 export class PricesComponent implements OnInit {
   finalPrice = 0;
   nonDiscountPrice = 0;
-  orderForm: FormGroup = {} as any;
-  userForm: FormGroup = {} as any;
-  addressForm: FormGroup = {} as any;
-  extrasForm: FormGroup = {} as any;
+  orderForm: UntypedFormGroup = {} as any;
+  userForm: UntypedFormGroup = {} as any;
+  addressForm: UntypedFormGroup = {} as any;
+  extrasForm: UntypedFormGroup = {} as any;
   cleaningTypes = CLEANING_TYPES;
   homeTypes = HOME_TYPES;
   houseFloors = HOUSE_FLOORS;
@@ -59,7 +59,7 @@ export class PricesComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private datePipe: DatePipe,
     private orderService: OrderService,
   ) {
