@@ -288,6 +288,7 @@ export class PricesComponent implements OnInit {
       ownCleaningStuff,
       cleaningDuration: this.totalCleaningTime,
       extras: this.getExtrasItem(),
+      cleanersCount: this.ladiesForTheJob,
     };
     this.sendingOrder = true;
 
