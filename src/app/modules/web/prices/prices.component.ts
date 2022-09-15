@@ -298,6 +298,7 @@ export class PricesComponent implements OnInit {
           this.orderSentSuccessfully = true;
           this.errorOnSubmit = false;
           this.sendingOrder = false;
+          window.scrollTo(0, 0);
         },
         error: (e) => {
           console.log('error on sending order', e);
