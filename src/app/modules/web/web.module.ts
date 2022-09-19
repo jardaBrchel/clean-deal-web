@@ -12,6 +12,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {FaqComponent} from './faq/faq.component';
+import {NewOrderComponent} from './new-order/new-order.component';
+import {ContactsComponent} from './contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import {FaqComponent} from './faq/faq.component';
     ReferencesComponent,
     JobsComponent,
     FaqComponent,
+    NewOrderComponent,
+    ContactsComponent,
   ],
   imports: [
     CommonModule,

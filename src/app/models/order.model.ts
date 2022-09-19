@@ -3,3 +3,8 @@ export interface OrderMultiplicators {
   cleaningType?: number,
   dirty?: number,
 }
+
+export interface SummaryPriceItem {
+  name: string;
+  price: string;
+}
