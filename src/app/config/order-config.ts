@@ -37,7 +37,7 @@ export const FREQUENCY: orderFormItem[] = [
   {
     id: 'WEEKLY',
     label: 'Jednou týdně',
-    multiplication: 0.8,
+    multiplication: 0.85,
   },
   {
     id: 'TWICE_A_MONTH',
@@ -50,23 +50,24 @@ export const HOUSE_FLOORS: orderFormItem[] = [
   {
     id: '1',
     label: '1',
-    addition: HOUSE_FLOOR_PRICE,
+    addition: 0,
   },
   {
     id: '2',
     label: '2',
-    addition: 2 * HOUSE_FLOOR_PRICE,
+    addition: HOUSE_FLOOR_PRICE,
   },
   {
     id: '3',
     label: '3',
-    addition: 3 * HOUSE_FLOOR_PRICE,
+    addition: 2 * HOUSE_FLOOR_PRICE,
   },
-  {
-    id: '4',
-    label: '4',
-    addition: 4 * HOUSE_FLOOR_PRICE,
-  },
+  // TODO docasne schovane, kapacitni duvody
+  // {
+  //   id: '4',
+  //   label: '4',
+  //   addition: 3 * HOUSE_FLOOR_PRICE,
+  // },
 ]
 
 export const ROOMS: orderFormItem[] = [
@@ -95,11 +96,12 @@ export const ROOMS: orderFormItem[] = [
     label: '5',
     addition: 4 * ROOM_PRICE,
   },
-  {
-    id: '6',
-    label: '6',
-    addition: 5 * ROOM_PRICE,
-  },
+  // TODO docasne schovane, kapacitni duvody
+  // {
+  //   id: '6',
+  //   label: '6',
+  //   addition: 5 * ROOM_PRICE,
+  // },
 ]
 
 export const KITCHENS: orderFormItem[] = [
@@ -108,11 +110,12 @@ export const KITCHENS: orderFormItem[] = [
     label: '1',
     addition: 0,
   },
-  {
-    id: '2',
-    label: '2',
-    addition: KITCHEN_PRICE,
-  },
+  // TODO docasne schovane, kapacitni duvody
+  // {
+  //   id: '2',
+  //   label: '2',
+  //   addition: KITCHEN_PRICE,
+  // },
 ]
 
 export const BATHROOMS: orderFormItem[] = [
@@ -126,16 +129,17 @@ export const BATHROOMS: orderFormItem[] = [
     label: '2',
     addition: BATHROOM_PRICE,
   },
-  {
-    id: '3',
-    label: '3',
-    addition: 2 * BATHROOM_PRICE,
-  },
-  {
-    id: '4',
-    label: '4',
-    addition: 3 * BATHROOM_PRICE,
-  },
+  // TODO docasne schovane, kapacitni duvody
+  // {
+  //   id: '3',
+  //   label: '3',
+  //   addition: 2 * BATHROOM_PRICE,
+  // },
+  // {
+  //   id: '4',
+  //   label: '4',
+  //   addition: 3 * BATHROOM_PRICE,
+  // },
 ]
 
 export const TOILETS: orderFormItem[] = [
@@ -154,11 +158,12 @@ export const TOILETS: orderFormItem[] = [
     label: '2',
     addition: 2 * TOILET_PRICE,
   },
-  {
-    id: '3',
-    label: '3',
-    addition: 3 * TOILET_PRICE,
-  },
+  // TODO docasne schovane, kapacitni duvody
+  // {
+  //   id: '3',
+  //   label: '3',
+  //   addition: 3 * TOILET_PRICE,
+  // },
 ]
 
 export const OWN_CLEANING_STUFF: orderFormItem[] = [

@@ -1,10 +1,11 @@
 import {createAction, props} from '@ngrx/store';
+import {AdminUser} from '../models/admin.model';
 
 export const setAdminUser = createAction(
   '[AdminUser] Set user',
-  props<{ adminUser: any }>(),
+  props<AdminUser>(),
 );
 
-export const removeUser = createAction(
+export const removeAdminUser = createAction(
   '[AdminUser] Remove user'
 );

@@ -1,6 +1,6 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable, of, from} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AdminService} from '../services/admin.service';
 
@@ -13,10 +13,11 @@ export class AdminAuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    if (this.adminService.getCurrentUser()) {
+    const currentUser = this.adminService.getCurrentUser();
+    if (currentUser?.username) {
       return of(true);
     }
-    return this.adminService.getUserFromStorage()
+    return from(this.adminService.getUserFromStorage())
       .pipe(
         map((user) => {
           if (typeof user === 'string') {
@@ -26,9 +27,10 @@ export class AdminAuthGuard implements CanActivate {
           if (user && user.username) {
             return true;
           } else {
-            if (user ) {
+            if (user) {
               this.router.navigate(['/admin']);
             }
+            this.router.navigate(['/admin/login']);
             return false;
           }
         })

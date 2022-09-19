@@ -1,63 +1,41 @@
-<div id="wrapper">
+<div class="wrapper d-flex align-items-stretch">
+  <nav id="sidebar" [ngClass]="{'active': showSidebar}">
+    <div class="p-4 pt-5">
+      <ul class="list-unstyled components mb-5">
+        <li>
+          <a [routerLink]="['/', 'admin']">Přehled</a>
+        </li>
+        <li>
+          <a [routerLink]="['/', 'admin', 'orders']">Objednávky</a>
+        </li>
+        <li>
+          <a [routerLink]="['/', 'admin', 'cleaners']">Uklízečky</a>
+        </li>
+        <li>
+          <hr>
+          <a (click)="logoutUser()">Odhlásit se</a>
+        </li>
+      </ul>
 
-  <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-      <div class="sidebar-brand-text mx-3">CD Admin</div>
-    </a>
+    </div>
+  </nav>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+  <!-- Page Content  -->
+  <div id="content" class="p-4 p-md-5">
 
-    <li class="nav-item active">
-      <a class="nav-link" href="index.html">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Přehled</span></a>
-    </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
 
-    <li class="nav-item">
-      <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Objednávky</span></a>
-    </li>
-  </ul>
-  <!-- End of Sidebar -->
-
-  <!-- Content Wrapper -->
-  <div id="content-wrapper" class="d-flex flex-column">
-
-    <!-- Main Content -->
-    <div id="content">
-
-      <!-- Topbar -->
-      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-        <!-- Sidebar Toggle (Topbar) -->
-        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary" (click)="toggleSidebar()">
           <i class="fa fa-bars"></i>
+          <span class="sr-only">Toggle Menu</span>
         </button>
 
+      </div>
+    </nav>
 
-        <!-- Topbar Navbar -->
-        <ul class="navbar-nav ml-auto">
+    <router-outlet></router-outlet>
 
-          <div class="topbar-divider d-none d-sm-block"></div>
-
-          <!-- Nav Item - User Information -->
-          <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jarda Brchel</span>
-              <img class="img-profile rounded-circle"
-                   src="/assets/images/admin/undraw_profile.svg">
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <router-outlet></router-outlet>
-    </div>
   </div>
 </div>

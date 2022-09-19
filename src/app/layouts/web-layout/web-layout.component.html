@@ -23,12 +23,14 @@
                  id="navbarToggleExternalContent">
               <ul class="navigation clearfix">
                 <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                       (click)="onMenuClick()">Domů</a></li>
+                       (click)="onMenuClick()">Naše služby</a></li>
                 <li><a [routerLink]="'/cenik'" routerLinkActive="active" (click)="onMenuClick()">Ceník</a></li>
+                <li><a [routerLink]="'/objednavka-uklidu'" routerLinkActive="active" (click)="onMenuClick()">Objednávka úklidu</a></li>
                 <!--                <li><a routerLink="/sluzby" routerLinkActive="active">Služby</a></li>-->
                 <!--                <li><a routerLink="/reference" routerLinkActive="active">Reference</a></li>-->
                 <li><a routerLink="/caste-otazky" routerLinkActive="active" (click)="onMenuClick()">Časté otázky</a>
                 </li>
+                <li><a routerLink="/kontakty" routerLinkActive="active" (click)="onMenuClick()">Kontakty</a></li>
                 <li><a routerLink="/kariera" routerLinkActive="active" (click)="onMenuClick()">Kariéra</a></li>
               </ul>
             </div>
