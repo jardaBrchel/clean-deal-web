@@ -35,7 +35,10 @@ import {FaqComponent} from './faq/faq.component';
   exports: [
     MatDatepickerModule,
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'}, DatePipe]
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'},
+    DatePipe,
+  ]
 })
 export class WebModule {
 }

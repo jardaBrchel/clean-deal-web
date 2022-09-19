@@ -8,11 +8,16 @@ import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {AdminRoutingModule} from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import {AdminAuthGuard} from '../../guards/admin-auth.guard';
+import { OrdersComponent } from './orders/orders.component';
+import { CleanersComponent } from './cleaners/cleaners.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    OrdersComponent,
+    CleanersComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +32,7 @@ import { LoginComponent } from './login/login.component';
   exports: [
     MatDatepickerModule,
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'}, DatePipe]
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'}, DatePipe, AdminAuthGuard]
 })
 export class AdminModule {
 }

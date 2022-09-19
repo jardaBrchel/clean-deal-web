@@ -12,9 +12,9 @@ export const initialState: UserState = {
 
 export const reducer = createReducer(
   initialState,
-  on(AdminUserActions.setAdminUser, (state, {adminUser}) =>
+  on(AdminUserActions.setAdminUser, (state, adminUser) =>
     ({...state, adminUser})),
-  on(AdminUserActions.removeUser, (state) =>
+  on(AdminUserActions.removeAdminUser, (state) =>
     ({...state, adminUser: {}})),
 );
 
