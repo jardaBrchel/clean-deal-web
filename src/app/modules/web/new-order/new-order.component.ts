@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BASE_PRICE, WINDOW_CLEANING_METER} from '../../../config/price-config';
+import {BASE_PRICE, WINDOW_CLEANING_METER_PRICE} from '../../../config/price-config';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
@@ -229,7 +229,7 @@ export class NewOrderComponent implements OnInit {
       switch (ek) {
         case 'windows':
           label = `Mytí oken ${this.extrasForm.value.windows}m<sup>2</sup>`;
-          price = this.extrasForm.value.windows * WINDOW_CLEANING_METER;
+          price = this.extrasForm.value.windows * WINDOW_CLEANING_METER_PRICE;
           break;
       }
 
@@ -362,7 +362,7 @@ export class NewOrderComponent implements OnInit {
     if (insertedValue > this.maxWindowsMeters) {
       this.extrasForm.get('windows')?.patchValue(this.maxWindowsMeters);
     }
-    const windowsPrice = WINDOW_CLEANING_METER * insertedValue;
+    const windowsPrice = WINDOW_CLEANING_METER_PRICE * insertedValue;
     this.extras = {...this.extras, windows: windowsPrice};
 
     this.recalculatePrice();

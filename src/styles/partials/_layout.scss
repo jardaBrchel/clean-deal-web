@@ -11,5 +11,41 @@
     line-height: 20px;
     font-weight: 600;
     margin-bottom: 30px;
+
+    &.cursive {
+      font-family: "Caveat", cursive;
+      font-size: 36px;
+    }
+  }
+
+  &.green {
+    padding: 40px 20px;
+
+    .title {
+      color: #FFFFFF;
+    }
+
+    p {
+      font-size: 15px;
+      text-align: center;
+      line-height: 22px;
+      margin-bottom: 40px;
+    }
+
+    > section.discount {
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      //font-style: italic;
+
+      &:not(:last-of-type) {
+      margin-bottom: 6px;
+      }
+
+      .discount-value {
+        font-weight: 600;
+      }
+    }
   }
 }
