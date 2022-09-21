@@ -1,15 +1,54 @@
-<section class="pricing-area">
+<section class="price-list-area">
   <div class="container">
-    <div class="row" *ngIf="!orderSentSuccessfully">
+    <div class="row">
       <div class="col-lg-8 col-sm-12">
-        <div class="white-block"
-             [ngClass]="{'order-sent': orderSendClicked}">
+        <div class="white-block">
           <div class="sec-title text-center">
-            <div class="title">Ceník</div>
+            <div class="title">Ceník prací</div>
           </div>
-        </div>
+          <h3>Základní úklidové práce</h3>
 
+          <ul>
+            <li *ngFor="let item of this.prices">
+              <section>
+                <span>{{item.name}}</span><span>{{item.price}} {{item.isPercentage ? '%' : ' Kč'}}</span>
+              </section>
+              <p *ngIf="item.description"> {{item.description}}</p>
+            </li>
+          </ul>
+          <h3>Doplňkové služby</h3>
+          <ul>
+            <li *ngFor="let item of this.extras">
+              <section>
+                <span [innerHTML]="item.name"></span><span>{{item.price}} {{item.isPercentage ? '%' : ' Kč'}}</span>
+              </section>
+              <p *ngIf="item.description"> {{item.description}}</p>
+            </li>
+          </ul>
         </div>
       </div>
+
+      <div class="col-lg-4 col-sm-12">
+
+        <div class="white-block summary-block green">
+          <div class="title cursive">Opakovaný úklid</div>
+          <p>
+            Při opakovaném úklidu získáte lepší cenovou nabídku.
+          </p>
+          <section class="discount">
+            <div>2x měsíčně</div>
+            <div class="discount-value">-10 %</div>
+          </section>
+          <section class="discount">
+            <div>4x měsíčně</div>
+            <div class="discount-value">-15 %</div>
+          </section>
+
+          <div class="summary-block-item">
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
 </section>

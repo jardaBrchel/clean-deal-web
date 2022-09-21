@@ -14,4 +14,8 @@ export const TOILET_PRICE = 150;
 
 export const OWN_CLEANING_STUFF_PRICE = 150;
 
-export const WINDOW_CLEANING_METER = 55;
+export const WINDOW_CLEANING_METER_PRICE = 55;
+
+export const GENERAL_CLEANING_MULTIPLY = 1.9;
+
+export const DIRTY_2_MULTIPLY = 1.5;
