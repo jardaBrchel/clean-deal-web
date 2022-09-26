@@ -37,12 +37,12 @@ export const FREQUENCY: orderFormItem[] = [
   {
     id: 'WEEKLY',
     label: 'Jednou týdně',
-    multiplication: 0.85,
+    multiplication: 0.9,
   },
   {
     id: 'TWICE_A_MONTH',
     label: 'Dvakrát za měsíc',
-    multiplication: 0.9,
+    multiplication: 0.95,
   },
 ]
 
@@ -236,9 +236,5 @@ export const TIMES: any[] = [
   {
     id: '15',
     label: '15:00 - 16:00',
-  },
-  {
-    id: '16',
-    label: '16:00 - 17:00',
   },
 ]
