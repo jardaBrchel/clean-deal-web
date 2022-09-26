@@ -176,15 +176,21 @@
 
           <hr>
           <form [formGroup]="orderForm">
-            <h3 class="subtitle">Kdy a kde úklid proběhne</h3>
+            <h3 class="subtitle">Kdy preferuji úklid a kde</h3>
 
             <section class="form-section half-section">
               <h5 class="label">Datum</h5>
               <div class="input-group date-input">
                 <mat-form-field appearance="outline">
-                  <input matInput [min]="dateMinDate"
+                  <input matInput
+                         [min]="dateMinDate"
+                         [max]="dateMaxDate"
+                         formControlName="date"
+                         [matDatepicker]="matDatePicker"
+                         [matDatepickerFilter]="dateFilter"
                          (focus)="matDatePicker.open()"
-                         [matDatepicker]="matDatePicker" formControlName="date" (dateChange)="onDateChange()"/>
+                         (dateChange)="onDateChange()"
+                  />
                   <mat-datepicker-toggle matPrefix [for]="matDatePicker">
                   </mat-datepicker-toggle>
                   <mat-datepicker #matDatePicker></mat-datepicker>
@@ -193,7 +199,7 @@
             </section>
 
             <section class="form-section half-section no-spacing">
-              <h5 class="label">Čas</h5>
+              <h5 class="label">Čas zahájení úklidu</h5>
               <div class="input-group">
                 <select
                   class="custom-select"
@@ -255,7 +261,7 @@
             </section>
 
             <section class="form-section half-section">
-              <h5 class="label">Email</h5>
+              <h5 class="label">E-mail</h5>
               <div class="input-group">
                 <input
                   type="text"
@@ -277,11 +283,16 @@
             </section>
           </form>
 
-          <span class="agree-to-terms">Souhlasím s <a routerLink="">obchodními podmínkami</a> a <a href="">ochranou osobních údajů</a></span>
-          <span *ngIf="orderSendClicked && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
+          <form [formGroup]="orderForm">
+          <span class="agree-to-terms">
+            <input type="checkbox" formControlName="confirmation"/>
+            Souhlasím s <a [routerLink]="['/obchodni-podminky']">obchodními podmínkami</a> a <a [routerLink]="['/gdpr']">ochranou osobních údajů</a></span>
+          </form>
+          <span *ngIf="orderSendClicked && !onlyConfirmationMissing && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
+          <span *ngIf="orderSendClicked && onlyConfirmationMissing" class="fill-required">Musíte zaškrnout souhlas s obchodními podmínkami a ochranou osobních údajů</span>
           <span *ngIf="errorOnSubmit" class="fill-required">Omlouváme se, ale při odesílání objednávky došlo k chybě. Zkuste to prosím později.</span>
           <div class="link-box centered">
-            <a *ngIf="!sendingOrder" class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat objednávku úklidu</a>
+            <a *ngIf="!sendingOrder" class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat poptávku úklidu</a>
             <a *ngIf="sendingOrder" class="btn-one submit-form disabled">Odesílám objednávku...</a>
 
           </div>
@@ -340,7 +351,7 @@
               <section class="prices-table" *ngIf="realCleaningTime">
                 <div class="items">
                   <section>
-                    Doba úklidu
+                    Orientační doba úklidu
                   </section>
                 </div>
                 <div class="prices">
@@ -371,7 +382,7 @@
         <div class="white-block summary-block">
           <div class="title">Podmínky úklidu</div>
           <ul class="summary-list">
-            <li>Máte vlastní vysavač, mop a kbelík</li>
+            <li>Máte vlastní vysavač, schůdky, mop a kbelík</li>
             <li>Vyplňujte prosím údaje tak, aby odpovídali stavu uklízené domácnosti</li>
           </ul>
         </div>

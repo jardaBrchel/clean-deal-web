@@ -10,10 +10,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {WebRoutingModule} from './web-routing.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
-import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {FaqComponent} from './faq/faq.component';
 import {NewOrderComponent} from './new-order/new-order.component';
 import {ContactsComponent} from './contacts/contacts.component';
+import {CustomDateAdapter} from '../../components/custom-date-adapter';
+import { TermsComponent } from './terms/terms.component';
+import { GdprComponent } from './gdpr/gdpr.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import {ContactsComponent} from './contacts/contacts.component';
     FaqComponent,
     NewOrderComponent,
     ContactsComponent,
+    TermsComponent,
+    GdprComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +46,7 @@ import {ContactsComponent} from './contacts/contacts.component';
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'},
+    { provide: DateAdapter, useClass: CustomDateAdapter },
     DatePipe,
   ]
 })

@@ -8,6 +8,8 @@ import {ReferencesComponent} from './references/references.component';
 import {FaqComponent} from './faq/faq.component';
 import {NewOrderComponent} from './new-order/new-order.component';
 import {ContactsComponent} from './contacts/contacts.component';
+import {TermsComponent} from './terms/terms.component';
+import {GdprComponent} from './gdpr/gdpr.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: HomePageComponent},
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path: 'kariera', component: JobsComponent},
   {path: 'kontakty', component: ContactsComponent},
   {path: 'caste-otazky', component: FaqComponent},
+  {path: 'obchodni-podminky', component: TermsComponent},
+  {path: 'gdpr', component: GdprComponent},
 ];
 
 @NgModule({

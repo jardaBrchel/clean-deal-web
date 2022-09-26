@@ -16,4 +16,9 @@ export class OrderService {
     return this.http.post<any>(url, data);
   }
 
+  getAvailableTimes() {
+    const url = Config.urlApi + '/cleaner/available-times';
+    return this.http.get<any>(url);
+  }
+
 }

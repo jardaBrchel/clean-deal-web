@@ -58,10 +58,6 @@ export class PricesComponent implements OnInit {
         price: ROOM_PRICE,
       },
       {
-        name: 'Místnost navíc',
-        price: ROOM_PRICE,
-      },
-      {
         name: 'Samostatné WC',
         price: TOILET_PRICE,
       },

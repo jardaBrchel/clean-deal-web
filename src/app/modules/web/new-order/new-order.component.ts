@@ -44,6 +44,7 @@ export class NewOrderComponent implements OnInit {
   summaryOrderDetails = '';
   summaryTimeDetails = '';
   dateMinDate;
+  dateMaxDate;
   totalCleaningTime = 0;
   realCleaningTime = 0; // Kdyz se cas vydeli poctem uklizecek
   priceHourConstant = 350;
@@ -58,8 +59,7 @@ export class NewOrderComponent implements OnInit {
   sendingOrder = false;
   errorOnSubmit = false;
   orderSentSuccessfully = false;
-
-  // EXTRAS
+  onlyConfirmationMissing = false;
 
 
   constructor(
@@ -69,14 +69,38 @@ export class NewOrderComponent implements OnInit {
   ) {
     const today = new Date()
     const tomorrow = new Date(today)
+    const maxDate = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
+    maxDate.setDate(tomorrow.getDate() + 60)
     this.dateMinDate = tomorrow;
+    this.dateMaxDate = maxDate;
+    // TODO definovat prvni dostupny datum
   }
 
   ngOnInit(): void {
     this.initOrderFormValues();
     this.initUserFormValue();
     this.initExtrasFormValue();
+    this.getAvailableTimes();
+  }
+
+  getAvailableTimesForDate() {
+
+  }
+
+  getAvailableTimes() {
+    this.orderService.getAvailableTimes().subscribe(
+      {
+        next: (res) => {
+          console.log('res', res)
+        },
+        error: (e) => {
+          console.log('error on sending order', e);
+        },
+        complete: () => {
+        }
+      }
+    )
   }
 
   initOrderFormValues() {
@@ -97,6 +121,7 @@ export class NewOrderComponent implements OnInit {
       comments: '',
       address: ['', [Validators.required]],
       pscNumber: ['', [Validators.required]],
+      confirmation: [false, [Validators.requiredTrue]],
     });
     this.recalculatePrice();
   }
@@ -115,6 +140,12 @@ export class NewOrderComponent implements OnInit {
       windows: 0,
     });
   }
+
+  dateFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  };
 
   getAdditionsSum(): number {
     return Object.values(this.additions)
@@ -171,11 +202,12 @@ export class NewOrderComponent implements OnInit {
   recalculateCleaningHours() {
     // TODO Az bude Karcher, tak poladit hodiny kdyz budou nastavena okna, pac tam to bude nepomer
     this.totalCleaningTime = this.nonDiscountPrice / this.priceHourConstant;
+    const realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
+    this.realCleaningTime = Math.round(realCleaningTime * 2) / 2;
   }
 
   recalculateCleanersCount() {
     this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / this.maxHoursForOneLady);
-    this.realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
   }
 
   recalculatePriceItems() {
@@ -251,17 +283,17 @@ export class NewOrderComponent implements OnInit {
           name = item?.label!;
           console.log('additionsSum', additionsSum);
           console.log('item', item);
-          price =  `${Math.round(((item?.multiplication || 1) -1) * additionsSum)} Kč`;
+          price = `${Math.round(((item?.multiplication || 1) - 1) * additionsSum)} Kč`;
           break
         case 'dirty':
           item = this.dirty.find(ct => ct.id === this.orderForm.value.dirty);
           name = item?.label! + ' znečištění';
-          price =  `${Math.round(((item?.multiplication || 1) -1) * additionsSum)} Kč`;
+          price = `${Math.round(((item?.multiplication || 1) - 1) * additionsSum)} Kč`;
           break
         case 'frequency':
           item = this.frequency.find(ct => ct.id === this.orderForm.value.frequency);
           name = item?.label!;
-          price =  `${Math.round(((item?.multiplication || 1) -1) * additionsSum)} Kč`;
+          price = `${Math.round(((item?.multiplication || 1) - 1) * additionsSum)} Kč`;
           break;
       }
 
@@ -382,21 +414,30 @@ export class NewOrderComponent implements OnInit {
 
   onDateChange() {
     this.recalculatePrice();
+    this.getAvailableTimesForDate();
+  }
+
+  checkInvalidFields() {
+    const invalids = this.findInvalidControls();
+
+    this.onlyConfirmationMissing = invalids.length === 1 && invalids[0] === 'confirmation';
   }
 
   onOrderSubmit() {
     this.orderSendClicked = true;
+    this.checkInvalidFields();
     if (!this.orderForm.valid || !this.userForm.valid || !!this.sendingOrder) {
       // this.orderSendClicked = false;
       return;
     }
+
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,
       price: this.finalPrice,
       ownCleaningStuff,
-      cleaningDuration: this.totalCleaningTime,
+      cleaningDuration:  Math.round(this.totalCleaningTime * 2) / 2,
       extras: this.getExtrasItem(),
       cleanersCount: this.ladiesForTheJob,
     };
@@ -419,6 +460,17 @@ export class NewOrderComponent implements OnInit {
         }
       }
     )
+  }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.orderForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
+    return invalid;
   }
 
 }
