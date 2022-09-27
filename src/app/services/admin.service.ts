@@ -23,14 +23,12 @@ export class AdminService {
   }
 
   setCurrentUser(adminUser: AdminUser) {
-    console.log('setCurrentUser', adminUser);
     this.adminUser = adminUser;
     this.store.dispatch(setAdminUser(adminUser));
     this.setUserToStorage(adminUser);
   }
 
   getCurrentUser(): AdminUser {
-    console.log('getCurrentUser', this.adminUser);
     return this.adminUser;
   }
 
@@ -51,6 +49,32 @@ export class AdminService {
       password,
     };
     return this.http.post<any>(url, data);
+  }
+
+  getCleaners() {
+    const url = Config.urlApi + '/admin/cleaners';
+    return this.http.get<any>(url);
+  }
+
+  getCleanerDetails(cleanerId: string) {
+    console.log('service, cleanerId', cleanerId);
+    const url = Config.urlApi + '/admin/cleaner/' + cleanerId;
+    return this.http.get<any>(url);
+  }
+
+  addNewCleaner(data: any) {
+    const url = Config.urlApi + '/admin/cleaner';
+    return this.http.post<any>(url, data);
+  }
+
+  editCleaner(data: any) {
+    const url = Config.urlApi + '/admin/cleaner';
+    return this.http.put<any>(url, data);
+  }
+
+  deleteCleaner(cleanerId: string) {
+    const url = Config.urlApi + '/admin/cleaner/' + cleanerId;
+    return this.http.delete<any>(url);
   }
 
   logout() {

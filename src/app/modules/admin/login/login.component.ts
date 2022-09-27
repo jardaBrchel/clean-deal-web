@@ -25,11 +25,11 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const adminUser: AdminUser = await this.adminService.getUserFromStorage();
-    console.log('LoginComponent adminUser', adminUser);
-    if (adminUser?.username) {
-      this.router.navigate(['/admin']);
-    }
+    // const adminUser: AdminUser = await this.adminService.getUserFromStorage();
+    // console.log('LoginComponent adminUser', adminUser);
+    // if (adminUser?.username) {
+    //   this.router.navigate(['/admin']);
+    // }
 
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],

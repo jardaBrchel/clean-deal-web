@@ -123,7 +123,7 @@
 
   .order-sent {
     select.ng-invalid,
-    input.ng-invalid {
+    input.ng-invalid:not([type=checkbox]) {
       border: 1px solid var(--main-red);
       background-color: var(--red-lightest);
       display: block;
@@ -148,11 +148,12 @@
 }
 
   .agree-to-terms {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
     text-align: center;
     display: block;
     margin-top: 10px;
+    margin-bottom: 6px;
 
     a {
       color: var(--main-orange);

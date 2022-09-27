@@ -11,13 +11,17 @@ import { LoginComponent } from './login/login.component';
 import {AdminAuthGuard} from '../../guards/admin-auth.guard';
 import { OrdersComponent } from './orders/orders.component';
 import { CleanersComponent } from './cleaners/cleaners.component';
+import { AddCleanerComponent } from './add-cleaner/add-cleaner.component';
+import { EditCleanerComponent } from './edit-cleaner/edit-cleaner.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     LoginComponent,
     OrdersComponent,
-    CleanersComponent
+    CleanersComponent,
+    AddCleanerComponent,
+    EditCleanerComponent
   ],
   imports: [
     CommonModule,

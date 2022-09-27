@@ -37,12 +37,12 @@ export const FREQUENCY: orderFormItem[] = [
   {
     id: 'WEEKLY',
     label: 'Jednou týdně',
-    multiplication: 0.85,
+    multiplication: 0.9,
   },
   {
     id: 'TWICE_A_MONTH',
     label: 'Dvakrát za měsíc',
-    multiplication: 0.9,
+    multiplication: 0.95,
   },
 ]
 
@@ -110,12 +110,11 @@ export const KITCHENS: orderFormItem[] = [
     label: '1',
     addition: 0,
   },
-  // TODO docasne schovane, kapacitni duvody
-  // {
-  //   id: '2',
-  //   label: '2',
-  //   addition: KITCHEN_PRICE,
-  // },
+  {
+    id: '2',
+    label: '2',
+    addition: KITCHEN_PRICE,
+  },
 ]
 
 export const BATHROOMS: orderFormItem[] = [
@@ -129,17 +128,16 @@ export const BATHROOMS: orderFormItem[] = [
     label: '2',
     addition: BATHROOM_PRICE,
   },
-  // TODO docasne schovane, kapacitni duvody
-  // {
-  //   id: '3',
-  //   label: '3',
-  //   addition: 2 * BATHROOM_PRICE,
-  // },
-  // {
-  //   id: '4',
-  //   label: '4',
-  //   addition: 3 * BATHROOM_PRICE,
-  // },
+  {
+    id: '3',
+    label: '3',
+    addition: 2 * BATHROOM_PRICE,
+  },
+  {
+    id: '4',
+    label: '4',
+    addition: 3 * BATHROOM_PRICE,
+  },
 ]
 
 export const TOILETS: orderFormItem[] = [
@@ -158,12 +156,11 @@ export const TOILETS: orderFormItem[] = [
     label: '2',
     addition: 2 * TOILET_PRICE,
   },
-  // TODO docasne schovane, kapacitni duvody
-  // {
-  //   id: '3',
-  //   label: '3',
-  //   addition: 3 * TOILET_PRICE,
-  // },
+  {
+    id: '3',
+    label: '3',
+    addition: 3 * TOILET_PRICE,
+  },
 ]
 
 export const OWN_CLEANING_STUFF: orderFormItem[] = [
@@ -239,9 +236,5 @@ export const TIMES: any[] = [
   {
     id: '15',
     label: '15:00 - 16:00',
-  },
-  {
-    id: '16',
-    label: '16:00 - 17:00',
   },
 ]

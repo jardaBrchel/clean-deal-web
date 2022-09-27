@@ -1,7 +1,12 @@
 <div class="wrapper d-flex align-items-stretch">
-  <nav id="sidebar" [ngClass]="{'active': showSidebar}">
-    <div class="p-4 pt-5">
-      <ul class="list-unstyled components mb-5">
+  <nav id="sidebar" [ngClass]="{'active': showSidebar}" *ngIf="isLogged">
+
+    <div class="p-4 pb-0">
+      <h4 class="admin-username">{{adminUser.username}}</h4>
+    </div>
+
+    <div class="p-4">
+      <ul class="list-unstyled components mb-5" >
         <li>
           <a [routerLink]="['/', 'admin']">Přehled</a>
         </li>
@@ -12,30 +17,26 @@
           <a [routerLink]="['/', 'admin', 'cleaners']">Uklízečky</a>
         </li>
         <li>
-          <hr>
           <a (click)="logoutUser()">Odhlásit se</a>
         </li>
       </ul>
-
-
     </div>
   </nav>
 
   <!-- Page Content  -->
-  <div id="content" class="p-4 p-md-5">
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="content" class="">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="isLogged">
       <div class="container-fluid">
-
         <button type="button" id="sidebarCollapse" class="btn btn-primary" (click)="toggleSidebar()">
           <i class="fa fa-bars"></i>
           <span class="sr-only">Toggle Menu</span>
         </button>
-
       </div>
     </nav>
 
-    <router-outlet></router-outlet>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
 
   </div>
 </div>

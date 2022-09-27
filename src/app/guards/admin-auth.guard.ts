@@ -14,6 +14,7 @@ export class AdminAuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const currentUser = this.adminService.getCurrentUser();
+    // If user is already setup, then go ahead
     if (currentUser?.username) {
       return of(true);
     }
@@ -23,13 +24,13 @@ export class AdminAuthGuard implements CanActivate {
           if (typeof user === 'string') {
             user = JSON.parse(user);
           }
-          this.adminService.setCurrentUser(user);
           if (user && user.username) {
+            this.adminService.setCurrentUser(user);
             return true;
           } else {
-            if (user) {
-              this.router.navigate(['/admin']);
-            }
+            // if (user) {
+            //   this.router.navigate(['/admin']);
+            // }
             this.router.navigate(['/admin/login']);
             return false;
           }
