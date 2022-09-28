@@ -12,6 +12,7 @@ export interface orderFormItem {
   id: string;
   multiplication?: number;
   addition?: number;
+  range?: number[];
 }
 
 
@@ -189,6 +190,44 @@ export const DIRTY: orderFormItem[] = [
   },
 ]
 
+export const YARDAGE: orderFormItem[] = [
+  {
+    id: '59',
+    label: 'do 60',
+    range: [0, 59],
+  },
+  {
+    id: '79',
+    label: '60 - 79',
+    range: [60, 79],
+  },
+  {
+    id: '99',
+    label: '80 - 99',
+    range: [80, 99],
+  },
+  {
+    id: '119',
+    label: '100 - 119',
+    range: [100, 119],
+  },
+  {
+    id: '139',
+    label: '120 - 139',
+    range: [120, 139],
+  },
+  {
+    id: '199',
+    label: '140 - 199',
+    range: [140, 199],
+  },
+  {
+    id: '200',
+    label: '200 a víc',
+    range: [200, 9999],
+  },
+]
+
 export const HOME_TYPE_HOUSE = 'HOUSE';
 export const HOME_TYPE_FLAT = 'FLAT';
 
@@ -202,7 +241,6 @@ export const HOME_TYPES: orderFormItem[] = [
     label: 'Dům',
   },
 ]
-
 
 export const TIMES: any[] = [
   {

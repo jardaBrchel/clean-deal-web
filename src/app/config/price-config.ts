@@ -19,3 +19,13 @@ export const WINDOW_CLEANING_METER_PRICE = 55;
 export const GENERAL_CLEANING_MULTIPLY = 1.9;
 
 export const DIRTY_2_MULTIPLY = 1.5;
+
+export const STEP_OVER_MAX_SPACE = 200;
+
+export const MAX_SPACE_AREA = {
+  'houseFloors': 15,
+  'rooms': 18,
+  'kitchens': 15,
+  'bathrooms': 6,
+  'toilets': 3,
+}

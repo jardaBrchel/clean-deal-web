@@ -1,5 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BASE_PRICE, WINDOW_CLEANING_METER_PRICE} from '../../../config/price-config';
+import {
+  BASE_PRICE,
+  MAX_SPACE_AREA,
+  STEP_OVER_MAX_SPACE,
+  WINDOW_CLEANING_METER_PRICE
+} from '../../../config/price-config';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
@@ -7,7 +12,7 @@ import {
   HOUSE_FLOORS, KITCHENS,
   HOME_TYPE_HOUSE,
   HOME_TYPES,
-  ROOMS, TIMES, TOILETS, OWN_CLEANING_STUFF, DIRTY
+  ROOMS, TIMES, TOILETS, OWN_CLEANING_STUFF, DIRTY, YARDAGE
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
 import {OrderMultiplicators, SummaryPriceItem} from '../../../models/order.model';
@@ -36,6 +41,8 @@ export class NewOrderComponent implements OnInit {
   times = TIMES;
   ownCleaningStuff = OWN_CLEANING_STUFF;
   dirty = DIRTY;
+  yardage = YARDAGE;
+  maxSpaceArea = MAX_SPACE_AREA;
   multiplicators: OrderMultiplicators = {};
   additions = {};
   extras = {};
@@ -51,8 +58,10 @@ export class NewOrderComponent implements OnInit {
   maxHoursForOneLady = 6;
   maxWindowsMeters = 20;
   ladiesForTheJob = 1;
+  calculatedSpace = 0; // Vypocitana vymera
   summaryPriceItems: SummaryPriceItem[] = [];
   extrasPriceItems: SummaryPriceItem[] = [];
+  yardageOverPrice!: number;
 
   // FLAGS
   orderSendClicked = false;
@@ -92,13 +101,11 @@ export class NewOrderComponent implements OnInit {
     this.orderService.getAvailableTimes().subscribe(
       {
         next: (res) => {
-          console.log('res', res)
+          // console.log('res', res)
         },
         error: (e) => {
           console.log('error on sending order', e);
         },
-        complete: () => {
-        }
       }
     )
   }
@@ -116,6 +123,7 @@ export class NewOrderComponent implements OnInit {
       date: this.dateMinDate,
       ownCleaningStuff: this.ownCleaningStuff[0].id,
       dirty: this.dirty[0].id,
+      yardage: this.yardage[0].id,
       pets: '',
       time: [undefined, [Validators.required]],
       comments: '',
@@ -153,9 +161,11 @@ export class NewOrderComponent implements OnInit {
       : 0;
   }
 
-  recalculatePrice() {
+  recalculatePrice({recalculateMaxSpace = true} = {}) {
+    recalculateMaxSpace && this.recalculateMaxSpace();
     let multiplicators: number[] = Object.values(this.multiplicators)
-    const add: number = this.getAdditionsSum();
+    let add: number = this.getAdditionsSum();
+    add += (this.yardageOverPrice || 0);
     const extras: number = Object.values(this.extras)
       ? (Object.values(this.extras)).reduce((a, b) => Number(a) + Number(b), 0) as number
       : 0;
@@ -163,11 +173,7 @@ export class NewOrderComponent implements OnInit {
     this.finalPrice = BASE_PRICE;
     this.finalPrice += add;
     // finalPrice is the basic part here
-    // FIXME convert to additions, multiply basic part
-    console.log('multiplicators', multiplicators);
-    console.log('this.finalPrice', this.finalPrice);
     multiplicators = multiplicators.map(m => (m - 1) * this.finalPrice)
-    console.log('multiplicators', multiplicators);
     multiplicators.forEach(m => this.finalPrice += m)
     this.finalPrice = Math.round(this.finalPrice);
     this.finalPrice += extras;
@@ -208,6 +214,27 @@ export class NewOrderComponent implements OnInit {
 
   recalculateCleanersCount() {
     this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / this.maxHoursForOneLady);
+  }
+
+  recalculateMaxSpace() {
+    this.calculatedSpace = 0;
+    this.yardageOverPrice = null!;
+    Object.keys(this.maxSpaceArea).forEach(space => {
+      const count = this.orderForm.value[space];
+      // @ts-ignore
+      const maxSpace = this.maxSpaceArea[space];
+      this.calculatedSpace += maxSpace * Number(count);
+    })
+
+    this.prefillYardage();
+  }
+
+  prefillYardage() {
+    const yardage = this.yardage.find(
+      yards => yards && yards.range && this.calculatedSpace >= yards.range[0] && this.calculatedSpace <= yards.range[1]
+    );
+
+    this.orderForm.get('yardage')?.patchValue(yardage?.id);
   }
 
   recalculatePriceItems() {
@@ -255,6 +282,16 @@ export class NewOrderComponent implements OnInit {
         })
       }
     })
+
+    if (!!this.yardageOverPrice) {
+      const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
+
+      this.summaryPriceItems.push({
+        name: 'Výměra ' + this.yardage[selectedIndex].label + ` m<sup>2</sup>`,
+        price: `${this.yardageOverPrice} Kč`,
+      })
+    }
+
     Object.keys(this.extrasForm.value || {}).forEach((ek: string) => {
       let label = '', price;
 
@@ -281,8 +318,6 @@ export class NewOrderComponent implements OnInit {
         case 'cleaningType':
           item = this.cleaningTypes.find(ct => ct.id === this.orderForm.value.cleaningType);
           name = item?.label!;
-          console.log('additionsSum', additionsSum);
-          console.log('item', item);
           price = `${Math.round(((item?.multiplication || 1) - 1) * additionsSum)} Kč`;
           break
         case 'dirty':
@@ -389,6 +424,22 @@ export class NewOrderComponent implements OnInit {
     this.recalculatePrice();
   }
 
+  changeYardage(event: any) {
+    const value = event.target.value;
+    const selectedIndex = this.yardage.findIndex(y => y.id === value);
+    const maxIndex = this.yardage.findIndex(
+      yards => yards && yards.range && this.calculatedSpace >= yards.range[0] && this.calculatedSpace <= yards.range[1]
+    );
+
+    if (selectedIndex > maxIndex) {
+      this.yardageOverPrice = STEP_OVER_MAX_SPACE * (selectedIndex - maxIndex);
+    } else {
+      this.yardageOverPrice = null!;
+    }
+
+    this.recalculatePrice({recalculateMaxSpace: false});
+  }
+
   windowsChanged(event: any) {
     const insertedValue = event.target.value;
     if (insertedValue > this.maxWindowsMeters) {
@@ -437,7 +488,7 @@ export class NewOrderComponent implements OnInit {
       ...this.userForm.value,
       price: this.finalPrice,
       ownCleaningStuff,
-      cleaningDuration:  Math.round(this.totalCleaningTime * 2) / 2,
+      cleaningDuration: Math.round(this.totalCleaningTime * 2) / 2,
       extras: this.getExtrasItem(),
       cleanersCount: this.ladiesForTheJob,
     };
