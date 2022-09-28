@@ -129,7 +129,7 @@
               </div>
             </section>
 
-            <section class="form-section">
+            <section class="form-section half-section">
               <h5 class="label">Míra znečištění</h5>
               <div class="input-group">
                 <select
@@ -137,6 +137,18 @@
                   formControlName="dirty"
                   (change)="changeDirty($event)">
                   <option *ngFor="let item of dirty" [value]="item.id">{{item.label}}</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Výměra domácnosti (m<sup>2</sup>)</h5>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="yardage"
+                  (change)="changeYardage($event)">
+                  <option *ngFor="let item of yardage" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
             </section>
