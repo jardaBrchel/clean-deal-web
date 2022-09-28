@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {
   BASE_PRICE,
-  MAX_SPACE_AREA,
+  MAX_SPACE_AREA, OWN_CLEANING_STUFF_PRICE,
   STEP_OVER_MAX_SPACE,
   WINDOW_CLEANING_METER_PRICE
 } from '../../../config/price-config';
@@ -47,7 +47,6 @@ export class NewOrderComponent implements OnInit {
   additions = {};
   extras = {};
   homeType = HOME_TYPES[0].id;
-  homeTypeHouse = HOME_TYPE_HOUSE;
   summaryOrderDetails = '';
   summaryTimeDetails = '';
   dateMinDate;
@@ -156,12 +155,22 @@ export class NewOrderComponent implements OnInit {
   };
 
   getAdditionsSum(): number {
+    const additions: any = this.additions;
+
+    // Recalculate cleaning stuff
+    if (additions['ownCleaningStuff']) {
+      const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
+      const addition = OWN_CLEANING_STUFF_PRICE + (50 * selectedIndex);
+      additions['ownCleaningStuff'] = addition;
+    }
+
     return Object.values(this.additions)
       ? (Object.values(this.additions)).reduce((a, b) => Number(a) + Number(b), 0) as number
       : 0;
   }
 
-  recalculatePrice({recalculateMaxSpace = true} = {}) {
+  recalculatePrice(
+    {recalculateMaxSpace = true, recalculateOwnCleaningStuff = true} = {}) {
     recalculateMaxSpace && this.recalculateMaxSpace();
     let multiplicators: number[] = Object.values(this.multiplicators)
     let add: number = this.getAdditionsSum();
@@ -180,7 +189,10 @@ export class NewOrderComponent implements OnInit {
 
     // FIXME nonDP by mela byt jen bez frequency
     const mpsForBasePrice: number[] = Object.values({...this.multiplicators, frequency: 1});
-    this.nonDiscountPrice = BASE_PRICE + add + extras;
+    const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
+    const ocs = this.ownCleaningStuff.find(i => i.id === this.orderForm.value.ownCleaningStuff)?.addition;
+    const ocsPrice = ocs ? ocs + (50 * selectedIndex) : 0;
+    this.nonDiscountPrice = BASE_PRICE + add + extras - ocsPrice;
     mpsForBasePrice.forEach(m => this.nonDiscountPrice = m * this.nonDiscountPrice)
 
     this.checkSummaryOderDetails();
@@ -269,7 +281,13 @@ export class NewOrderComponent implements OnInit {
           label = item?.id + ` ${Number(item?.id) === 1 ? 'toaleta' : 'toalety'}`;
           break;
         case 'ownCleaningStuff':
+          const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
           item = this.ownCleaningStuff.find(i => i.id === this.orderForm.value.ownCleaningStuff);
+          const addition = item?.addition ? item?.addition + (50 * selectedIndex) : 0;
+          item = {
+            ...item,
+            addition,
+          }
           label = 'Čisticí prostředky';
           break;
       }
@@ -411,9 +429,11 @@ export class NewOrderComponent implements OnInit {
   changeOwnCleaningStuff(event: any) {
     const selectedValue = event.target.value;
     const item = OWN_CLEANING_STUFF.find(t => t.id === selectedValue) || {} as any;
-    this.additions = {...this.additions, ownCleaningStuff: item.addition};
+    const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
+    const addition = item.addition ? item.addition + (50 * selectedIndex) : 0;
+    this.additions = {...this.additions, ownCleaningStuff: addition};
 
-    this.recalculatePrice();
+    this.recalculatePrice({recalculateOwnCleaningStuff: false});
   }
 
   changeDirty(event: any) {
