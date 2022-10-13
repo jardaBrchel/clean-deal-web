@@ -1,7 +1,9 @@
 @media only screen and (max-width: 767px) {
   // PRICING
-  .pricing-area {
-    padding-top: 40px;
+  .pricing-area,
+  .price-list-area,
+  .contact-info-area {
+    padding-top: 40px !important;
   }
 
   .form-section.half-section {
@@ -50,5 +52,11 @@
 
   hr.main-hr {
     padding: 0 0 30px !important;
+  }
+  .single-blog-post.mxwidth {
+    margin-bottom: 0;
+  }
+  .working-steps-area {
+    padding-top: 60px;
   }
 }
