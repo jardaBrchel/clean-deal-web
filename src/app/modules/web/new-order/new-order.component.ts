@@ -1,34 +1,44 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {
   BASE_PRICE,
-  MAX_SPACE_AREA, OWN_CLEANING_STUFF_PRICE,
+  MAX_SPACE_AREA,
+  OWN_CLEANING_STUFF_PRICE, OWN_CLEANING_STUFF_PRICE_INCREASE,
   STEP_OVER_MAX_SPACE,
   WINDOW_CLEANING_METER_PRICE
 } from '../../../config/price-config';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
-  CLEANING_TYPES, FREQUENCY,
-  HOUSE_FLOORS, KITCHENS,
-  HOME_TYPE_HOUSE,
+  CLEANING_TYPES,
+  DIRTY,
+  FREQUENCY,
   HOME_TYPES,
-  ROOMS, TIMES, TOILETS, OWN_CLEANING_STUFF, DIRTY, YARDAGE
+  HOUSE_FLOORS,
+  KITCHENS,
+  OWN_CLEANING_STUFF,
+  ROOMS,
+  TIMES,
+  TOILETS,
+  YARDAGE
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
 import {OrderMultiplicators, SummaryPriceItem} from '../../../models/order.model';
 import {OrderService} from '../../../services/order.service';
+import {WEB_URLS} from "../../../config/web.config";
 
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
   styleUrls: ['./new-order.component.scss']
 })
-export class NewOrderComponent implements OnInit {
+export class NewOrderComponent implements OnInit, AfterViewInit {
+  @ViewChild("block") block!: ElementRef;
+  webUrls = WEB_URLS;
+
   finalPrice = 0;
   nonDiscountPrice = 0;
   orderForm: UntypedFormGroup = {} as any;
   userForm: UntypedFormGroup = {} as any;
-  addressForm: UntypedFormGroup = {} as any;
   extrasForm: UntypedFormGroup = {} as any;
   cleaningTypes = CLEANING_TYPES;
   homeTypes = HOME_TYPES;
@@ -49,8 +59,8 @@ export class NewOrderComponent implements OnInit {
   homeType = HOME_TYPES[0].id;
   summaryOrderDetails = '';
   summaryTimeDetails = '';
-  dateMinDate;
-  dateMaxDate;
+  dateMinDate: any;
+  dateMaxDate: any;
   totalCleaningTime = 0;
   realCleaningTime = 0; // Kdyz se cas vydeli poctem uklizecek
   priceHourConstant = 350;
@@ -61,6 +71,7 @@ export class NewOrderComponent implements OnInit {
   summaryPriceItems: SummaryPriceItem[] = [];
   extrasPriceItems: SummaryPriceItem[] = [];
   yardageOverPrice!: number;
+  priceTotalTopY!: number;
 
   // FLAGS
   orderSendClicked = false;
@@ -68,6 +79,7 @@ export class NewOrderComponent implements OnInit {
   errorOnSubmit = false;
   orderSentSuccessfully = false;
   onlyConfirmationMissing = false;
+  hideMobilePriceBar = false;
 
 
   constructor(
@@ -75,14 +87,13 @@ export class NewOrderComponent implements OnInit {
     private datePipe: DatePipe,
     private orderService: OrderService,
   ) {
-    const today = new Date()
-    const tomorrow = new Date(today)
-    const maxDate = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    maxDate.setDate(tomorrow.getDate() + 60)
-    this.dateMinDate = tomorrow;
-    this.dateMaxDate = maxDate;
     // TODO definovat prvni dostupny datum
+    this.initDates();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any) {
+    this.logScrolling(event);
   }
 
   ngOnInit(): void {
@@ -90,6 +101,24 @@ export class NewOrderComponent implements OnInit {
     this.initUserFormValue();
     this.initExtrasFormValue();
     this.getAvailableTimes();
+  }
+
+  ngAfterViewInit(): void {
+    // Getting price Y coord to hide price panel on mobile when scrolling down
+    setTimeout(() => {
+      const viewportOffset = this.block.nativeElement.getBoundingClientRect();
+      this.priceTotalTopY = viewportOffset?.y || 0;
+    }, 2000);
+  }
+
+  initDates() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    const maxDate = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    maxDate.setDate(tomorrow.getDate() + 60);
+    this.dateMinDate = tomorrow;
+    this.dateMaxDate = maxDate;
   }
 
   getAvailableTimesForDate() {
@@ -148,6 +177,7 @@ export class NewOrderComponent implements OnInit {
     });
   }
 
+  // FIXME temp
   dateFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     // Prevent Saturday and Sunday from being selected.
@@ -160,7 +190,7 @@ export class NewOrderComponent implements OnInit {
     // Recalculate cleaning stuff
     if (additions['ownCleaningStuff']) {
       const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
-      const addition = OWN_CLEANING_STUFF_PRICE + (50 * selectedIndex);
+      const addition = OWN_CLEANING_STUFF_PRICE + (OWN_CLEANING_STUFF_PRICE_INCREASE * selectedIndex);
       additions['ownCleaningStuff'] = addition;
     }
 
@@ -542,6 +572,10 @@ export class NewOrderComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  logScrolling(event: any) {
+    this.hideMobilePriceBar = (event['srcElement'].scrollingElement.scrollTop + (window.screen?.height || 0)) > this.priceTotalTopY;
   }
 
 }

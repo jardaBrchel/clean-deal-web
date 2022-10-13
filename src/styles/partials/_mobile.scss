@@ -1,7 +1,9 @@
 @media only screen and (max-width: 767px) {
   // PRICING
-  .pricing-area {
-    padding-top: 40px;
+  .pricing-area,
+  .price-list-area,
+  .contact-info-area {
+    padding-top: 40px !important;
   }
 
   .form-section.half-section {
@@ -21,5 +23,40 @@
 
   .white-block{
     padding: 20px;
+  }
+
+  .bottom-price-bar {
+    display: block !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 100;
+    padding: 14px 20px;
+    background: #ffffff;
+    border-top: 1px solid var(--color-grey-border);
+  }
+
+  .static-page {
+    padding-top: 40px;
+  }
+
+  .secpd1 {
+    padding-top: 60px;
+    padding-bottom: 0;
+  }
+
+  .benefits-area > .container > .row {
+    margin-bottom: 40px;
+  }
+
+  hr.main-hr {
+    padding: 0 0 30px !important;
+  }
+  .single-blog-post.mxwidth {
+    margin-bottom: 0;
+  }
+  .working-steps-area {
+    padding-top: 60px;
   }
 }
