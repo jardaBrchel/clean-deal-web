@@ -665,7 +665,7 @@
   =============================================
   ***/
   .main-header .inner-container {
-    padding: 0 20px;
+    padding: 0; // 20px;
   }
   .main-header .main-box .logo-box {
     position: absolute;
@@ -1022,7 +1022,7 @@
   =============================================
   ***/
   .benefits-text-box {
-    margin-top: 40px;
+    margin-top: 20px;
   }
   .benefits-text-box .sec-title {
     padding-bottom: 18px;
@@ -1244,7 +1244,7 @@
     padding: 0 9px;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 14px;
   }
   .main-menu .navbar-header .navbar-toggle .icon-bar {
     display: block;
@@ -1297,7 +1297,7 @@
   .main-menu .navbar-collapse .navigation li ul li,
   .main-menu .navbar-collapse .navigation li ul li ul li{
     background: #fff;
-    border-top: 1px solid var(--color-grey-tertiary);
+    //border-top: 1px solid var(--color-grey-tertiary);
     color: var(--text-dark);
     opacity:1 !important;
     top:0px !important;
@@ -1306,10 +1306,13 @@
   }
   .main-menu .navbar-collapse > .navigation > li:last-child,
   .main-menu .navbar-collapse > .navigation > li > ul > li:last-child{
-    border-bottom: 1px solid var(--color-grey-tertiary);
+    border-bottom: 1px solid var(--color-grey-lightest);
+  }
+  .main-menu .navbar-collapse > .navigation > li:first-child {
+    border-top: 1px solid var(--color-grey-lightest);
   }
   .main-menu .navbar-collapse > .navigation > li > a {
-    padding: 10px 10px !important;
+    padding: 14px 20px !important;
     line-height: 22px;
     color: var(--text-dark);
     text-align: left;

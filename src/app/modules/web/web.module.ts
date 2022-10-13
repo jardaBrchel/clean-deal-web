@@ -1,9 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import {HomePageComponent} from './home-page/home-page.component';
-import {ServicesComponent} from './services/services.component';
 import {PricesComponent} from './prices/prices.component';
-import {ReferencesComponent} from './references/references.component';
 import {JobsComponent} from './jobs/jobs.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,9 +19,7 @@ import { GdprComponent } from './gdpr/gdpr.component';
 @NgModule({
   declarations: [
     HomePageComponent,
-    ServicesComponent,
     PricesComponent,
-    ReferencesComponent,
     JobsComponent,
     FaqComponent,
     NewOrderComponent,

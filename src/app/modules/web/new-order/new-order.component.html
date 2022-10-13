@@ -298,15 +298,16 @@
           <form [formGroup]="orderForm">
           <span class="agree-to-terms">
             <input type="checkbox" formControlName="confirmation"/>
-            Souhlasím s <a [routerLink]="['/obchodni-podminky']">obchodními podmínkami</a> a <a [routerLink]="['/gdpr']">ochranou osobních údajů</a></span>
+            Souhlasím s <a [routerLink]="['/' , webUrls.TERMS]">obchodními podmínkami</a> a <a
+            [routerLink]="['/', webUrls.GDPR]">ochranou osobních údajů</a></span>
           </form>
-          <span *ngIf="orderSendClicked && !onlyConfirmationMissing && (!orderForm.valid || !userForm.valid)" class="fill-required">Vyplňte prosím všechna povinná pole</span>
+          <span *ngIf="orderSendClicked && !onlyConfirmationMissing && (!orderForm.valid || !userForm.valid)"
+                class="fill-required">Vyplňte prosím všechna povinná pole</span>
           <span *ngIf="orderSendClicked && onlyConfirmationMissing" class="fill-required">Musíte zaškrnout souhlas s obchodními podmínkami a ochranou osobních údajů</span>
           <span *ngIf="errorOnSubmit" class="fill-required">Omlouváme se, ale při odesílání objednávky došlo k chybě. Zkuste to prosím později.</span>
           <div class="link-box centered">
             <a *ngIf="!sendingOrder" class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat poptávku úklidu</a>
             <a *ngIf="sendingOrder" class="btn-one submit-form disabled">Odesílám objednávku...</a>
-
           </div>
         </div>
       </div>
@@ -385,7 +386,7 @@
 
           <hr>
 
-          <div class="price-total">
+          <div class="price-total" id="price-total" #block>
             <span>Celkem</span>
             <span class="price">{{finalPrice}} Kč</span>
           </div>
@@ -416,3 +417,12 @@
     </div>
   </div>
 </section>
+
+<div class="price-bar-wrapper" [ngStyle]="{'display': hideMobilePriceBar ? 'none' : 'block'}">
+  <section class="bottom-price-bar">
+    <div class="price-total">
+      <span>Cena celkem</span>
+      <span class="price">{{finalPrice}} Kč</span>
+    </div>
+  </section>
+</div>
