@@ -276,3 +276,13 @@ export const TIMES: any[] = [
     label: '15:00 - 16:00',
   },
 ]
+
+// ORDER FORM CONSTANTS
+
+export const MAX_HOURS_PER_LADY = 6;
+
+export const MAX_WINDOWS_METERS = 20;
+
+export const MAX_CALENDAR_DAYS = 60;
+
+

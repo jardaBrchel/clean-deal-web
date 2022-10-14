@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} f
 import {
   BASE_PRICE,
   MAX_SPACE_AREA,
-  OWN_CLEANING_STUFF_PRICE, OWN_CLEANING_STUFF_PRICE_INCREASE,
+  OWN_CLEANING_STUFF_PRICE, OWN_CLEANING_STUFF_PRICE_INCREASE, PRICE_HOUR_CONSTANT,
   STEP_OVER_MAX_SPACE,
   WINDOW_CLEANING_METER_PRICE
 } from '../../../config/price-config';
@@ -14,7 +14,7 @@ import {
   FREQUENCY,
   HOME_TYPES,
   HOUSE_FLOORS,
-  KITCHENS,
+  KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOWS_METERS,
   OWN_CLEANING_STUFF,
   ROOMS,
   TIMES,
@@ -22,7 +22,7 @@ import {
   YARDAGE
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
-import {OrderMultiplicators, SummaryPriceItem} from '../../../models/order.model';
+import {AvailableTimesResItem, OrderMultiplicators, SummaryPriceItem} from '../../../models/order.model';
 import {OrderService} from '../../../services/order.service';
 import {WEB_URLS} from "../../../config/web.config";
 
@@ -33,13 +33,14 @@ import {WEB_URLS} from "../../../config/web.config";
 })
 export class NewOrderComponent implements OnInit, AfterViewInit {
   @ViewChild("block") block!: ElementRef;
-  webUrls = WEB_URLS;
 
-  finalPrice = 0;
-  nonDiscountPrice = 0;
+  // FORMS
   orderForm: UntypedFormGroup = {} as any;
   userForm: UntypedFormGroup = {} as any;
   extrasForm: UntypedFormGroup = {} as any;
+
+  // CONSTANTS
+  webUrls = WEB_URLS;
   cleaningTypes = CLEANING_TYPES;
   homeTypes = HOME_TYPES;
   houseFloors = HOUSE_FLOORS;
@@ -54,24 +55,29 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   yardage = YARDAGE;
   maxSpaceArea = MAX_SPACE_AREA;
   multiplicators: OrderMultiplicators = {};
-  additions = {};
-  extras = {};
   homeType = HOME_TYPES[0].id;
-  summaryOrderDetails = '';
-  summaryTimeDetails = '';
+  maxWindowsMeters = MAX_WINDOWS_METERS;
+  priceTotalTopY!: number;
+
+  // CALENDAR VALUES
   dateMinDate: any;
   dateMaxDate: any;
+  availableCalendars: AvailableTimesResItem[] = [];
+
+  // CALCULATED VALUES
   totalCleaningTime = 0;
   realCleaningTime = 0; // Kdyz se cas vydeli poctem uklizecek
-  priceHourConstant = 350;
-  maxHoursForOneLady = 6;
-  maxWindowsMeters = 20;
   ladiesForTheJob = 1;
   calculatedSpace = 0; // Vypocitana vymera
+  yardageOverPrice!: number;
+  finalPrice = 0;
+  nonDiscountPrice = 0;
+  additions = {};
+  extras = {};
+  summaryOrderDetails = '';
+  summaryTimeDetails = '';
   summaryPriceItems: SummaryPriceItem[] = [];
   extrasPriceItems: SummaryPriceItem[] = [];
-  yardageOverPrice!: number;
-  priceTotalTopY!: number;
 
   // FLAGS
   orderSendClicked = false;
@@ -111,15 +117,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     }, 2000);
   }
 
-  initDates() {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    const maxDate = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    maxDate.setDate(tomorrow.getDate() + 60);
-    this.dateMinDate = tomorrow;
-    this.dateMaxDate = maxDate;
-  }
+
 
   getAvailableTimesForDate() {
 
@@ -129,7 +127,8 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.orderService.getAvailableTimes().subscribe(
       {
         next: (res) => {
-          // console.log('res', res)
+          console.log('res', res)
+          this.availableCalendars = res;
         },
         error: (e) => {
           console.log('error on sending order', e);
@@ -176,13 +175,6 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       windows: 0,
     });
   }
-
-  // FIXME temp
-  dateFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  };
 
   getAdditionsSum(): number {
     const additions: any = this.additions;
@@ -249,13 +241,13 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   recalculateCleaningHours() {
     // TODO Az bude Karcher, tak poladit hodiny kdyz budou nastavena okna, pac tam to bude nepomer
-    this.totalCleaningTime = this.nonDiscountPrice / this.priceHourConstant;
+    this.totalCleaningTime = this.nonDiscountPrice / PRICE_HOUR_CONSTANT;
     const realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
     this.realCleaningTime = Math.round(realCleaningTime * 2) / 2;
   }
 
   recalculateCleanersCount() {
-    this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / this.maxHoursForOneLady);
+    this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / MAX_HOURS_PER_LADY);
   }
 
   recalculateMaxSpace() {
@@ -509,14 +501,38 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.recalculatePrice();
   }
 
-  changeTime() {
-    this.recalculatePrice();
-  }
+  /* CALENDAR AND TIME */
 
   onDateChange() {
     this.recalculatePrice();
     this.getAvailableTimesForDate();
   }
+
+  changeTime() {
+    this.recalculatePrice();
+  }
+
+  initDates() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const maxDate = new Date(today);
+    maxDate.setDate(tomorrow.getDate() + MAX_CALENDAR_DAYS);
+    this.dateMinDate = tomorrow;
+    this.dateMaxDate = maxDate;
+  }
+
+  // FIXME temp
+  // Filtration of the given day, whether enable it in cal
+  dateFilter = (d: Date | null): boolean => {
+    if (!d) return false;
+    // Logic, if its available in at least one cal, then its enabled
+    const theDate = d.toISOString().split('T')[0];
+    return this.availableCalendars.some(cal => cal.days.some(day => day.date === theDate));
+  };
+
+  /* ----- */
+
 
   checkInvalidFields() {
     const invalids = this.findInvalidControls();
