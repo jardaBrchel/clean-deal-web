@@ -199,6 +199,8 @@
                          [max]="dateMaxDate"
                          formControlName="date"
                          [matDatepicker]="matDatePicker"
+                         autocomplete="off"
+                         [placeholder]="'Vyberte datum'"
                          [matDatepickerFilter]="dateFilter"
                          (focus)="matDatePicker.open()"
                          (dateChange)="onDateChange()"
@@ -217,7 +219,7 @@
                   class="custom-select"
                   formControlName="time"
                   (change)="changeTime()">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.label}}</option>
+                  <option *ngFor="let item of availableTimesOptions" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
             </section>

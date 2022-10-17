@@ -14,7 +14,7 @@ import {
   FREQUENCY,
   HOME_TYPES,
   HOUSE_FLOORS,
-  KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOWS_METERS,
+  KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOWS_METERS, orderFormItem,
   OWN_CLEANING_STUFF,
   ROOMS,
   TIMES,
@@ -22,9 +22,15 @@ import {
   YARDAGE
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
-import {AvailableTimesResItem, OrderMultiplicators, SummaryPriceItem} from '../../../models/order.model';
+import {
+  AvailableTimesResItem,
+  CleanerAvailableDay,
+  OrderMultiplicators,
+  SummaryPriceItem
+} from '../../../models/order.model';
 import {OrderService} from '../../../services/order.service';
 import {WEB_URLS} from "../../../config/web.config";
+import {dateToYmdFormat} from '../../../helpers/datetime.helper';
 
 @Component({
   selector: 'app-new-order',
@@ -63,6 +69,8 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   dateMinDate: any;
   dateMaxDate: any;
   availableCalendars: AvailableTimesResItem[] = [];
+  availableTimes!: CleanerAvailableDay[];
+  availableTimesOptions!: orderFormItem[]
 
   // CALCULATED VALUES
   totalCleaningTime = 0;
@@ -117,18 +125,11 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     }, 2000);
   }
 
-
-
-  getAvailableTimesForDate() {
-
-  }
-
   getAvailableTimes() {
     this.orderService.getAvailableTimes().subscribe(
       {
         next: (res) => {
-          console.log('res', res)
-          this.availableCalendars = res;
+          this.availableCalendars = res?.cleaners || [];
         },
         error: (e) => {
           console.log('error on sending order', e);
@@ -147,13 +148,13 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       kitchens: this.kitchens[0].id,
       bathrooms: this.bathrooms[0].id,
       toilets: this.toilets[0].id,
-      date: this.dateMinDate,
       ownCleaningStuff: this.ownCleaningStuff[0].id,
       dirty: this.dirty[0].id,
       yardage: this.yardage[0].id,
       pets: '',
-      time: [undefined, [Validators.required]],
       comments: '',
+      date: [undefined, [Validators.required]],
+      time: [{value: undefined, disabled: true}, [Validators.required]],
       address: ['', [Validators.required]],
       pscNumber: ['', [Validators.required]],
       confirmation: [false, [Validators.requiredTrue]],
@@ -222,6 +223,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.recalculateCleaningHours();
     this.recalculateCleanersCount();
     this.recalculatePriceItems();
+    this.getAvailableTimesForDate();
   }
 
   checkSummaryOderDetails() {
@@ -503,9 +505,40 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   /* CALENDAR AND TIME */
 
+  getAvailableTimesForDate() {
+    if (!this.orderForm.value.date) return;
+    const theDate = dateToYmdFormat(this.orderForm.value.date);
+    this.availableTimes = this.availableCalendars
+      .map(cal => ({...cal.days.find(day => day.date === theDate), cleanerId: cal.cleanerId}))
+      .filter(day => !!day) as CleanerAvailableDay[];
+
+    this.setTimesToFormField();
+    // TODO if no times available, show alert and unselect date
+  }
+
+  setTimesToFormField() {
+    const neededHours = Math.ceil(this.realCleaningTime);
+    let timeOptions: orderFormItem[] = [];
+    const timeStarts: string[] = [];
+    this.availableTimes.forEach(time => {
+      const steps = time.to - time.from + 1 - neededHours;
+      if (!steps) return;
+      for(let i = 0; i < steps; i++) {
+        timeStarts.push(String(time.from + i));
+      }
+    })
+
+    timeOptions = [...timeOptions, ...TIMES.filter(time => timeStarts.includes(time.id))];
+
+    this.availableTimesOptions = timeOptions
+  }
+
   onDateChange() {
+    this.orderForm.controls['time']?.disable();
     this.recalculatePrice();
-    this.getAvailableTimesForDate();
+    this.orderForm.controls['time']?.enable();
+    this.orderForm.controls['time']?.patchValue(this.availableTimesOptions.length === 1 ? this.availableTimesOptions[0].id : null);
+    this.changeTime();
   }
 
   changeTime() {
@@ -522,13 +555,15 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.dateMaxDate = maxDate;
   }
 
-  // FIXME temp
   // Filtration of the given day, whether enable it in cal
+  // Available according to cleaners and time capacity
   dateFilter = (d: Date | null): boolean => {
     if (!d) return false;
-    // Logic, if its available in at least one cal, then its enabled
-    const theDate = d.toISOString().split('T')[0];
-    return this.availableCalendars.some(cal => cal.days.some(day => day.date === theDate));
+    const theDate = dateToYmdFormat(d);
+    const isDateInCleaners = this.availableCalendars.some(cal => cal.days.some(day => day.date === theDate));
+    const isDateHavingCapacity = null;
+
+    return isDateInCleaners;
   };
 
   /* ----- */
@@ -549,6 +584,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     }
 
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
+    // TODO add cleaner ID
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,

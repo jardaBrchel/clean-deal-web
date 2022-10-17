@@ -242,7 +242,7 @@ export const HOME_TYPES: orderFormItem[] = [
   },
 ]
 
-export const TIMES: any[] = [
+export const TIMES: orderFormItem[] = [
   {
     id: '8',
     label: '8:00 - 9:00',
