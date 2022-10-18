@@ -94,6 +94,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   orderSentSuccessfully = false;
   onlyConfirmationMissing = false;
   hideMobilePriceBar = false;
+  showNoDateCapacityModal = false;
 
 
   constructor(
@@ -101,7 +102,6 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     private datePipe: DatePipe,
     private orderService: OrderService,
   ) {
-    // TODO definovat prvni dostupny datum
     this.initDates();
   }
 
@@ -222,8 +222,9 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.checkSummaryTimeDetails();
     this.recalculateCleaningHours();
     this.recalculateCleanersCount();
+    this.recalculateRealCleaningHours();
     this.recalculatePriceItems();
-    this.getAvailableTimesForDate();
+    this.setTimesToFormField();
   }
 
   checkSummaryOderDetails() {
@@ -244,6 +245,9 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   recalculateCleaningHours() {
     // TODO Az bude Karcher, tak poladit hodiny kdyz budou nastavena okna, pac tam to bude nepomer
     this.totalCleaningTime = this.nonDiscountPrice / PRICE_HOUR_CONSTANT;
+  }
+
+  recalculateRealCleaningHours() {
     const realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
     this.realCleaningTime = Math.round(realCleaningTime * 2) / 2;
   }
@@ -505,32 +509,75 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   /* CALENDAR AND TIME */
 
-  getAvailableTimesForDate() {
-    if (!this.orderForm.value.date) return;
-    const theDate = dateToYmdFormat(this.orderForm.value.date);
-    this.availableTimes = this.availableCalendars
+  getAvailableTimesForDate(date: Date): CleanerAvailableDay[] {
+    if (!date) return [];
+    const theDate = dateToYmdFormat(date);
+    const times = this.availableCalendars
       .map(cal => ({...cal.days.find(day => day.date === theDate), cleanerId: cal.cleanerId}))
       .filter(day => !!day) as CleanerAvailableDay[];
-
-    this.setTimesToFormField();
-    // TODO if no times available, show alert and unselect date
+    return times;
   }
 
-  setTimesToFormField() {
+  getTimeOptionsFromAvailableTimes(availableTimes: CleanerAvailableDay[]): orderFormItem[] {
     const neededHours = Math.ceil(this.realCleaningTime);
-    let timeOptions: orderFormItem[] = [];
+    // let timeOptions: orderFormItem[] = [];
     const timeStarts: string[] = [];
-    this.availableTimes.forEach(time => {
+    availableTimes.forEach(time => {
       const steps = time.to - time.from + 1 - neededHours;
       if (!steps) return;
-      for(let i = 0; i < steps; i++) {
+      for (let i = 0; i < steps; i++) {
         timeStarts.push(String(time.from + i));
       }
     })
 
-    timeOptions = [...timeOptions, ...TIMES.filter(time => timeStarts.includes(time.id))];
+    return [...TIMES.filter(time => timeStarts.includes(time.id))];
+  }
 
-    this.availableTimesOptions = timeOptions
+  getTimeOptionsFromAvailableTimesMulti(availableTimes: CleanerAvailableDay[], cleaners: number): orderFormItem[] {
+    // Vratit pro dany datum casy, kde pro uklizecky existuje prunik casu
+    const neededHours = Math.ceil(this.realCleaningTime);
+    // times je pole polí dostupnych casu pro dane datum
+    let times: any[] = [];
+
+    availableTimes.forEach(time => {
+      const timeStarts: string[] = [];
+      const steps = time.to - time.from + 1 - neededHours;
+      if (!steps) return;
+      for (let i = 0; i < steps; i++) {
+        timeStarts.push(String(time.from + i));
+      }
+      times.push(timeStarts)
+    })
+
+    // pokud jsou dostupne casy uz ted mensi, nema smysl pokracovat, nesplnim kapacitu
+    if (times.length < cleaners) return [];
+
+    const allTimes = [...new Set([].concat(...times))];
+
+    let commonTimes: any[] = [];
+    allTimes.forEach((aTime: string) => {
+      const isIn = times.filter(t => t.includes(aTime)).length >= cleaners;
+      if (isIn) {
+        commonTimes.push(aTime);
+      }
+    })
+
+    return [...TIMES.filter(time => commonTimes.includes(time.id))];
+  }
+
+  setTimesToFormField() {
+    this.availableTimes = this.getAvailableTimesForDate(this.orderForm.value.date);
+
+    this.availableTimesOptions = this.ladiesForTheJob > 1
+      ? this.getTimeOptionsFromAvailableTimesMulti(this.availableTimes, this.ladiesForTheJob)
+      : this.getTimeOptionsFromAvailableTimes(this.availableTimes);
+
+    if (this.availableTimesOptions.length === 0 && !!this.orderForm.value.date) {
+      this.orderForm.controls['time']?.patchValue(null);
+      this.orderForm.controls['date']?.patchValue(null);
+      this.checkSummaryTimeDetails();
+      this.doShowNoDateCapacityModal();
+    }
   }
 
   onDateChange() {
@@ -560,10 +607,17 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   dateFilter = (d: Date | null): boolean => {
     if (!d) return false;
     const theDate = dateToYmdFormat(d);
-    const isDateInCleaners = this.availableCalendars.some(cal => cal.days.some(day => day.date === theDate));
-    const isDateHavingCapacity = null;
+    const isDateInCleaners = this.availableCalendars.filter(cal => cal.days.some(day => day.date === theDate));
+    const availableTimes = this.getAvailableTimesForDate(d);
+    let isDateHavingCapacity;
 
-    return isDateInCleaners;
+    if (this.ladiesForTheJob > 1) {
+      isDateHavingCapacity = this.getTimeOptionsFromAvailableTimesMulti(availableTimes, this.ladiesForTheJob);
+    } else {
+      isDateHavingCapacity = this.getTimeOptionsFromAvailableTimes(availableTimes);
+    }
+
+    return isDateInCleaners.length > 0 && !!isDateHavingCapacity.length;
   };
 
   /* ----- */
@@ -575,6 +629,14 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.onlyConfirmationMissing = invalids.length === 1 && invalids[0] === 'confirmation';
   }
 
+  getCleanersIdsForOrder(): string[] {
+    const time = Number(this.orderForm.value.time);
+    return this.availableTimes
+      .filter(at => time >= at.from && time < at.to)
+      .map(at => at.cleanerId)
+      .slice(0, this.ladiesForTheJob) as string[];
+  }
+
   onOrderSubmit() {
     this.orderSendClicked = true;
     this.checkInvalidFields();
@@ -583,8 +645,8 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    const cleanerId = this.getCleanersIdsForOrder();
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
-    // TODO add cleaner ID
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,
@@ -593,6 +655,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       cleaningDuration: Math.round(this.totalCleaningTime * 2) / 2,
       extras: this.getExtrasItem(),
       cleanersCount: this.ladiesForTheJob,
+      cleanerId: cleanerId,
     };
     this.sendingOrder = true;
 
@@ -628,6 +691,14 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   logScrolling(event: any) {
     this.hideMobilePriceBar = (event['srcElement'].scrollingElement.scrollTop + (window.screen?.height || 0)) > this.priceTotalTopY;
+  }
+
+  doShowNoDateCapacityModal() {
+    this.showNoDateCapacityModal = true;
+  }
+
+  doHideNoDateCapacityModal() {
+    this.showNoDateCapacityModal = false;
   }
 
 }

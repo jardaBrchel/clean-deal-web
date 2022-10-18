@@ -1,0 +1,44 @@
+.cd-modal {
+  z-index: 9999;
+  --bs-modal-margin: 1.75rem;
+  --bs-modal-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background: rgba(10,10,10,.5);
+  text-align: center;
+
+  .modal-body {
+    padding: 0 20px;
+
+    p {
+      color: var(--text-dark)
+    }
+
+  }
+
+  .modal-footer {
+    border: 0;
+    padding: 20px;
+    justify-content: center;
+
+
+    button {
+      border: 0;
+    }
+
+  }
+
+  .modal-content {
+   border: 0;
+    border-radius: 9px;
+  }
+
+  .modal-header {
+    border:0;
+    padding: 20px;
+    justify-content: center;
+
+  }
+
+  &.show {
+    display: block;
+  }
+}
