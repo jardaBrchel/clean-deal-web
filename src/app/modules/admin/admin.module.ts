@@ -13,6 +13,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { CleanersComponent } from './cleaners/cleaners.component';
 import { AddCleanerComponent } from './add-cleaner/add-cleaner.component';
 import { EditCleanerComponent } from './edit-cleaner/edit-cleaner.component';
+import { MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { EditCleanerComponent } from './edit-cleaner/edit-cleaner.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatIconModule,
   ],
   exports: [
     MatDatepickerModule,

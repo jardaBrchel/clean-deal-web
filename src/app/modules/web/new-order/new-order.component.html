@@ -199,6 +199,8 @@
                          [max]="dateMaxDate"
                          formControlName="date"
                          [matDatepicker]="matDatePicker"
+                         autocomplete="off"
+                         [placeholder]="'Vyberte datum'"
                          [matDatepickerFilter]="dateFilter"
                          (focus)="matDatePicker.open()"
                          (dateChange)="onDateChange()"
@@ -217,7 +219,7 @@
                   class="custom-select"
                   formControlName="time"
                   (change)="changeTime()">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.label}}</option>
+                  <option *ngFor="let item of availableTimesOptions" [value]="item.id">{{item.label}}</option>
                 </select>
               </div>
             </section>
@@ -425,4 +427,24 @@
       <span class="price">{{finalPrice}} Kč</span>
     </div>
   </section>
+</div>
+
+<!-- Modal -->
+<div class="modal fade cd-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true"
+     [ngClass]="{'show': showNoDateCapacityModal}"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Upozornění</h3>
+      </div>
+      <div class="modal-body">
+        <p>Pro daný datum nemáme potřebnou pracovní kapacitu. Vyberte si prosím jiný termín.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-one submit-form"
+        (click)="doHideNoDateCapacityModal()">Ok</button>
+      </div>
+    </div>
+  </div>
 </div>

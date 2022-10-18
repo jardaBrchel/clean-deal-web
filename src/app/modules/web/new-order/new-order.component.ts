@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} f
 import {
   BASE_PRICE,
   MAX_SPACE_AREA,
-  OWN_CLEANING_STUFF_PRICE, OWN_CLEANING_STUFF_PRICE_INCREASE,
+  OWN_CLEANING_STUFF_PRICE, OWN_CLEANING_STUFF_PRICE_INCREASE, PRICE_HOUR_CONSTANT,
   STEP_OVER_MAX_SPACE,
   WINDOW_CLEANING_METER_PRICE
 } from '../../../config/price-config';
@@ -14,7 +14,7 @@ import {
   FREQUENCY,
   HOME_TYPES,
   HOUSE_FLOORS,
-  KITCHENS,
+  KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOWS_METERS, orderFormItem,
   OWN_CLEANING_STUFF,
   ROOMS,
   TIMES,
@@ -22,9 +22,15 @@ import {
   YARDAGE
 } from '../../../config/order-config';
 import {DatePipe} from '@angular/common';
-import {OrderMultiplicators, SummaryPriceItem} from '../../../models/order.model';
+import {
+  AvailableTimesResItem,
+  CleanerAvailableDay,
+  OrderMultiplicators,
+  SummaryPriceItem
+} from '../../../models/order.model';
 import {OrderService} from '../../../services/order.service';
 import {WEB_URLS} from "../../../config/web.config";
+import {dateToYmdFormat} from '../../../helpers/datetime.helper';
 
 @Component({
   selector: 'app-new-order',
@@ -33,13 +39,14 @@ import {WEB_URLS} from "../../../config/web.config";
 })
 export class NewOrderComponent implements OnInit, AfterViewInit {
   @ViewChild("block") block!: ElementRef;
-  webUrls = WEB_URLS;
 
-  finalPrice = 0;
-  nonDiscountPrice = 0;
+  // FORMS
   orderForm: UntypedFormGroup = {} as any;
   userForm: UntypedFormGroup = {} as any;
   extrasForm: UntypedFormGroup = {} as any;
+
+  // CONSTANTS
+  webUrls = WEB_URLS;
   cleaningTypes = CLEANING_TYPES;
   homeTypes = HOME_TYPES;
   houseFloors = HOUSE_FLOORS;
@@ -54,24 +61,31 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   yardage = YARDAGE;
   maxSpaceArea = MAX_SPACE_AREA;
   multiplicators: OrderMultiplicators = {};
-  additions = {};
-  extras = {};
   homeType = HOME_TYPES[0].id;
-  summaryOrderDetails = '';
-  summaryTimeDetails = '';
+  maxWindowsMeters = MAX_WINDOWS_METERS;
+  priceTotalTopY!: number;
+
+  // CALENDAR VALUES
   dateMinDate: any;
   dateMaxDate: any;
+  availableCalendars: AvailableTimesResItem[] = [];
+  availableTimes!: CleanerAvailableDay[];
+  availableTimesOptions!: orderFormItem[]
+
+  // CALCULATED VALUES
   totalCleaningTime = 0;
   realCleaningTime = 0; // Kdyz se cas vydeli poctem uklizecek
-  priceHourConstant = 350;
-  maxHoursForOneLady = 6;
-  maxWindowsMeters = 20;
   ladiesForTheJob = 1;
   calculatedSpace = 0; // Vypocitana vymera
+  yardageOverPrice!: number;
+  finalPrice = 0;
+  nonDiscountPrice = 0;
+  additions = {};
+  extras = {};
+  summaryOrderDetails = '';
+  summaryTimeDetails = '';
   summaryPriceItems: SummaryPriceItem[] = [];
   extrasPriceItems: SummaryPriceItem[] = [];
-  yardageOverPrice!: number;
-  priceTotalTopY!: number;
 
   // FLAGS
   orderSendClicked = false;
@@ -80,6 +94,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   orderSentSuccessfully = false;
   onlyConfirmationMissing = false;
   hideMobilePriceBar = false;
+  showNoDateCapacityModal = false;
 
 
   constructor(
@@ -87,7 +102,6 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     private datePipe: DatePipe,
     private orderService: OrderService,
   ) {
-    // TODO definovat prvni dostupny datum
     this.initDates();
   }
 
@@ -111,25 +125,11 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     }, 2000);
   }
 
-  initDates() {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    const maxDate = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    maxDate.setDate(tomorrow.getDate() + 60);
-    this.dateMinDate = tomorrow;
-    this.dateMaxDate = maxDate;
-  }
-
-  getAvailableTimesForDate() {
-
-  }
-
   getAvailableTimes() {
     this.orderService.getAvailableTimes().subscribe(
       {
         next: (res) => {
-          // console.log('res', res)
+          this.availableCalendars = res?.cleaners || [];
         },
         error: (e) => {
           console.log('error on sending order', e);
@@ -148,13 +148,13 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       kitchens: this.kitchens[0].id,
       bathrooms: this.bathrooms[0].id,
       toilets: this.toilets[0].id,
-      date: this.dateMinDate,
       ownCleaningStuff: this.ownCleaningStuff[0].id,
       dirty: this.dirty[0].id,
       yardage: this.yardage[0].id,
       pets: '',
-      time: [undefined, [Validators.required]],
       comments: '',
+      date: [undefined, [Validators.required]],
+      time: [{value: undefined, disabled: true}, [Validators.required]],
       address: ['', [Validators.required]],
       pscNumber: ['', [Validators.required]],
       confirmation: [false, [Validators.requiredTrue]],
@@ -176,13 +176,6 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       windows: 0,
     });
   }
-
-  // FIXME temp
-  dateFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  };
 
   getAdditionsSum(): number {
     const additions: any = this.additions;
@@ -229,7 +222,9 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.checkSummaryTimeDetails();
     this.recalculateCleaningHours();
     this.recalculateCleanersCount();
+    this.recalculateRealCleaningHours();
     this.recalculatePriceItems();
+    this.setTimesToFormField();
   }
 
   checkSummaryOderDetails() {
@@ -249,13 +244,16 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   recalculateCleaningHours() {
     // TODO Az bude Karcher, tak poladit hodiny kdyz budou nastavena okna, pac tam to bude nepomer
-    this.totalCleaningTime = this.nonDiscountPrice / this.priceHourConstant;
+    this.totalCleaningTime = this.nonDiscountPrice / PRICE_HOUR_CONSTANT;
+  }
+
+  recalculateRealCleaningHours() {
     const realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
     this.realCleaningTime = Math.round(realCleaningTime * 2) / 2;
   }
 
   recalculateCleanersCount() {
-    this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / this.maxHoursForOneLady);
+    this.ladiesForTheJob = Math.ceil(this.totalCleaningTime / MAX_HOURS_PER_LADY);
   }
 
   recalculateMaxSpace() {
@@ -509,19 +507,134 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.recalculatePrice();
   }
 
+  /* CALENDAR AND TIME */
+
+  getAvailableTimesForDate(date: Date): CleanerAvailableDay[] {
+    if (!date) return [];
+    const theDate = dateToYmdFormat(date);
+    const times = this.availableCalendars
+      .map(cal => ({...cal.days.find(day => day.date === theDate), cleanerId: cal.cleanerId}))
+      .filter(day => !!day) as CleanerAvailableDay[];
+    return times;
+  }
+
+  getTimeOptionsFromAvailableTimes(availableTimes: CleanerAvailableDay[]): orderFormItem[] {
+    const neededHours = Math.ceil(this.realCleaningTime);
+    // let timeOptions: orderFormItem[] = [];
+    const timeStarts: string[] = [];
+    availableTimes.forEach(time => {
+      const steps = time.to - time.from + 1 - neededHours;
+      if (!steps) return;
+      for (let i = 0; i < steps; i++) {
+        timeStarts.push(String(time.from + i));
+      }
+    })
+
+    return [...TIMES.filter(time => timeStarts.includes(time.id))];
+  }
+
+  getTimeOptionsFromAvailableTimesMulti(availableTimes: CleanerAvailableDay[], cleaners: number): orderFormItem[] {
+    // Vratit pro dany datum casy, kde pro uklizecky existuje prunik casu
+    const neededHours = Math.ceil(this.realCleaningTime);
+    // times je pole polí dostupnych casu pro dane datum
+    let times: any[] = [];
+
+    availableTimes.forEach(time => {
+      const timeStarts: string[] = [];
+      const steps = time.to - time.from + 1 - neededHours;
+      if (!steps) return;
+      for (let i = 0; i < steps; i++) {
+        timeStarts.push(String(time.from + i));
+      }
+      times.push(timeStarts)
+    })
+
+    // pokud jsou dostupne casy uz ted mensi, nema smysl pokracovat, nesplnim kapacitu
+    if (times.length < cleaners) return [];
+
+    const allTimes = [...new Set([].concat(...times))];
+
+    let commonTimes: any[] = [];
+    allTimes.forEach((aTime: string) => {
+      const isIn = times.filter(t => t.includes(aTime)).length >= cleaners;
+      if (isIn) {
+        commonTimes.push(aTime);
+      }
+    })
+
+    return [...TIMES.filter(time => commonTimes.includes(time.id))];
+  }
+
+  setTimesToFormField() {
+    this.availableTimes = this.getAvailableTimesForDate(this.orderForm.value.date);
+
+    this.availableTimesOptions = this.ladiesForTheJob > 1
+      ? this.getTimeOptionsFromAvailableTimesMulti(this.availableTimes, this.ladiesForTheJob)
+      : this.getTimeOptionsFromAvailableTimes(this.availableTimes);
+
+    if (this.availableTimesOptions.length === 0 && !!this.orderForm.value.date) {
+      this.orderForm.controls['time']?.patchValue(null);
+      this.orderForm.controls['date']?.patchValue(null);
+      this.checkSummaryTimeDetails();
+      this.doShowNoDateCapacityModal();
+    }
+  }
+
+  onDateChange() {
+    this.orderForm.controls['time']?.disable();
+    this.recalculatePrice();
+    this.orderForm.controls['time']?.enable();
+    this.orderForm.controls['time']?.patchValue(this.availableTimesOptions.length === 1 ? this.availableTimesOptions[0].id : null);
+    this.changeTime();
+  }
+
   changeTime() {
     this.recalculatePrice();
   }
 
-  onDateChange() {
-    this.recalculatePrice();
-    this.getAvailableTimesForDate();
+  initDates() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const maxDate = new Date(today);
+    maxDate.setDate(tomorrow.getDate() + MAX_CALENDAR_DAYS);
+    this.dateMinDate = tomorrow;
+    this.dateMaxDate = maxDate;
   }
+
+  // Filtration of the given day, whether enable it in cal
+  // Available according to cleaners and time capacity
+  dateFilter = (d: Date | null): boolean => {
+    if (!d) return false;
+    const theDate = dateToYmdFormat(d);
+    const isDateInCleaners = this.availableCalendars.filter(cal => cal.days.some(day => day.date === theDate));
+    const availableTimes = this.getAvailableTimesForDate(d);
+    let isDateHavingCapacity;
+
+    if (this.ladiesForTheJob > 1) {
+      isDateHavingCapacity = this.getTimeOptionsFromAvailableTimesMulti(availableTimes, this.ladiesForTheJob);
+    } else {
+      isDateHavingCapacity = this.getTimeOptionsFromAvailableTimes(availableTimes);
+    }
+
+    return isDateInCleaners.length > 0 && !!isDateHavingCapacity.length;
+  };
+
+  /* ----- */
+
 
   checkInvalidFields() {
     const invalids = this.findInvalidControls();
 
     this.onlyConfirmationMissing = invalids.length === 1 && invalids[0] === 'confirmation';
+  }
+
+  getCleanersIdsForOrder(): string[] {
+    const time = Number(this.orderForm.value.time);
+    return this.availableTimes
+      .filter(at => time >= at.from && time < at.to)
+      .map(at => at.cleanerId)
+      .slice(0, this.ladiesForTheJob) as string[];
   }
 
   onOrderSubmit() {
@@ -532,6 +645,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    const cleanerId = this.getCleanersIdsForOrder();
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const data = {
       ...this.orderForm.value,
@@ -541,6 +655,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       cleaningDuration: Math.round(this.totalCleaningTime * 2) / 2,
       extras: this.getExtrasItem(),
       cleanersCount: this.ladiesForTheJob,
+      cleanerId: cleanerId,
     };
     this.sendingOrder = true;
 
@@ -576,6 +691,14 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   logScrolling(event: any) {
     this.hideMobilePriceBar = (event['srcElement'].scrollingElement.scrollTop + (window.screen?.height || 0)) > this.priceTotalTopY;
+  }
+
+  doShowNoDateCapacityModal() {
+    this.showNoDateCapacityModal = true;
+  }
+
+  doHideNoDateCapacityModal() {
+    this.showNoDateCapacityModal = false;
   }
 
 }

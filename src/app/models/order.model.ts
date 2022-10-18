@@ -8,3 +8,40 @@ export interface SummaryPriceItem {
   name: string;
   price: string;
 }
+
+export interface AvailableTimesResItem {
+  name: string;
+  cleanerId: string;
+  days: CleanerAvailableDay[];
+}
+
+export interface AvailableTimesRes {
+  cleaners: AvailableTimesResItem[];
+}
+
+export interface CleanerAvailableDay {
+  date: string; // yyyy-mm-dd
+  from: number;
+  to: number;
+  cleanerId?: string;
+}
+
+// MOCKS
+
+export const TimesMock = [
+  {
+    name: 'Test',
+    days: [
+      {
+        date: '2022-10-18',
+        from: 8,
+        to: 16,
+      },
+      {
+        date: '2022-10-23',
+        from: 12,
+        to: 16,
+      }
+    ]
+  }
+]

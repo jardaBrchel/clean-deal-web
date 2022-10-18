@@ -1,5 +1,7 @@
 // All prices are in CZK
 
+export const PRICE_HOUR_CONSTANT = 350;
+
 export const BASE_PRICE = 800;
 
 export const HOUSE_FLOOR_PRICE = 100;
