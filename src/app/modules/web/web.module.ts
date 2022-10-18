@@ -15,6 +15,7 @@ import {ContactsComponent} from './contacts/contacts.component';
 import {CustomDateAdapter} from '../../components/custom-date-adapter';
 import { TermsComponent } from './terms/terms.component';
 import { GdprComponent } from './gdpr/gdpr.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { GdprComponent } from './gdpr/gdpr.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatIconModule,
   ],
   exports: [
     MatDatepickerModule,

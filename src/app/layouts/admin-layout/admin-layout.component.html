@@ -2,22 +2,28 @@
   <nav id="sidebar" [ngClass]="{'active': showSidebar}" *ngIf="isLogged">
 
     <div class="p-4 pb-0">
-      <h4 class="admin-username">{{adminUser.username}}</h4>
+      <h4 class="admin-username">CleanDeal Admin</h4>
+<!--      <h4 class="admin-username">{{adminUser.username}}</h4>-->
     </div>
 
     <div class="p-4">
       <ul class="list-unstyled components mb-5" >
         <li>
-          <a [routerLink]="['/', 'admin']">Přehled</a>
+          <a [routerLink]="['/', 'admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon aria-hidden="false" fontIcon="home"></mat-icon> Přehled</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'orders']">Objednávky</a>
+          <a [routerLink]="['/', 'admin', 'orders']" routerLinkActive="active">
+            <mat-icon aria-hidden="false" fontIcon="wash"></mat-icon> Objednávky</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'cleaners']">Uklízečky</a>
+          <a [routerLink]="['/', 'admin', 'cleaners']" routerLinkActive="active">
+            <mat-icon aria-hidden="false" fontIcon="groups"></mat-icon> Uklízečky</a>
         </li>
+        <br>
         <li>
-          <a (click)="logoutUser()">Odhlásit se</a>
+          <a (click)="logoutUser()">
+            <mat-icon aria-hidden="false" fontIcon="logout"></mat-icon> Odhlásit se</a>
         </li>
       </ul>
     </div>
@@ -25,12 +31,14 @@
 
   <!-- Page Content  -->
   <div id="content" class="">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="isLogged">
+    <nav class="navbar navbar-top navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none " *ngIf="isLogged">
       <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" class="btn btn-primary" (click)="toggleSidebar()">
-          <i class="fa fa-bars"></i>
-          <span class="sr-only">Toggle Menu</span>
-        </button>
+        <mat-icon *ngIf="!showSidebar" aria-hidden="false" fontIcon="menu" (click)="toggleSidebar()"></mat-icon>
+        <mat-icon *ngIf="showSidebar" aria-hidden="false" fontIcon="close" (click)="toggleSidebar()"></mat-icon>
+<!--        <button type="button" id="sidebarCollapse" class="btn btn-primary" >-->
+<!--&lt;!&ndash;          <i class="fa fa-bars"></i>&ndash;&gt;-->
+<!--          <span class="sr-only">Toggle Menu</span>-->
+<!--        </button>-->
       </div>
     </nav>
 
