@@ -79,6 +79,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   calculatedSpace = 0; // Vypocitana vymera
   yardageOverPrice!: number;
   finalPrice = 0;
+  repeatedPrice = 0;
   nonDiscountPrice = 0;
   additions = {};
   extras = {};
@@ -168,6 +169,8 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       surname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
+      contactAddressMatchesCleaning: [false],
+      contactAddress: ['', [Validators.required]],
     });
   }
 
@@ -224,6 +227,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.recalculateCleanersCount();
     this.recalculateRealCleaningHours();
     this.recalculatePriceItems();
+    this.recalculateRepeatedPrice();
     this.setTimesToFormField();
   }
 
@@ -275,6 +279,17 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     );
 
     this.orderForm.get('yardage')?.patchValue(yardage?.id);
+  }
+
+  recalculateRepeatedPrice() {
+    const item = FREQUENCY.find(t => t.id === this.orderForm.value.frequency) || {} as any;
+
+    if (item.multiplication !== 1) {
+      const monthMulti = item.id === 'WEEKLY' ? 4 : 2;
+      this.repeatedPrice = this.finalPrice * monthMulti;
+    } else {
+      this.repeatedPrice = 0;
+    }
   }
 
   recalculatePriceItems() {
@@ -507,6 +522,18 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.recalculatePrice();
   }
 
+  changeContactAddressMatch() {
+    const checkboxVal = this.userForm.value.contactAddressMatchesCleaning;
+    if (checkboxVal) {
+      this.userForm.controls['contactAddress']?.setValidators([]);
+      this.userForm.controls['contactAddress']?.disable();
+    } else {
+      this.userForm.controls['contactAddress']?.setValidators([Validators.required]);
+      this.userForm.controls['contactAddress']?.enable();
+
+    }
+  }
+
   /* CALENDAR AND TIME */
 
   getAvailableTimesForDate(date: Date): CleanerAvailableDay[] {
@@ -647,6 +674,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
     const cleanerId = this.getCleanersIdsForOrder();
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
+    const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true ? undefined : this.userForm.value?.contactAddress;
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,
@@ -656,6 +684,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       extras: this.getExtrasItem(),
       cleanersCount: this.ladiesForTheJob,
       cleanerId: cleanerId,
+      contactAddress: contactAddress,
     };
     this.sendingOrder = true;
 

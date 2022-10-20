@@ -295,6 +295,19 @@
                   formControlName="phone">
               </div>
             </section>
+
+            <section class="form-section">
+              <h5 class="label">Kontaktní adresa (Ulice, č.p., město, PSČ)</h5>
+
+              <div class="address-match"><input type="checkbox" formControlName="contactAddressMatchesCleaning" (change)="changeContactAddressMatch()"/> Adresa je shodná s adresou uklízeného objektu</div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  formControlName="contactAddress">
+              </div>
+            </section>
           </form>
 
           <form [formGroup]="orderForm">
@@ -318,7 +331,6 @@
 
         <div class="white-block summary-block">
           <div class="title">Souhrn objednávky</div>
-
           <div class="summary-block-item">
             <section class="section-icon">
               <img src="assets/images/icon/order/home.svg" alt="">
@@ -391,6 +403,10 @@
           <div class="price-total" id="price-total" #block>
             <span>Celkem</span>
             <span class="price">{{finalPrice}} Kč</span>
+          </div>
+          <div *ngIf="!!repeatedPrice" class="price-total repeated">
+            <span>Cena za měsíc</span>
+            <span class="price">{{repeatedPrice}} Kč</span>
           </div>
         </div>
         <br>

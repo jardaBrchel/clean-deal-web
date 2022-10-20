@@ -10,7 +10,7 @@ import {
 
 interface PriceItem {
   name: string;
-  price: number;
+  price: number | string;
   description?: string;
   isPercentage?: boolean;
 }
@@ -63,7 +63,8 @@ export class PricesComponent implements OnInit {
       },
       {
         name: 'Čisticí prostředky',
-        price: OWN_CLEANING_STUFF_PRICE,
+        price: `${OWN_CLEANING_STUFF_PRICE} - 450`,
+        description: 'Závislé na výměře uklízených prostor'
       },
       {
         name: 'Generální úklid',
