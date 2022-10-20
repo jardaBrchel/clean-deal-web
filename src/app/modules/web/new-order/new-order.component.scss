@@ -62,12 +62,13 @@
       justify-content: space-between;
 
     }
-      .prices-table-headline {
-        //color: var(--text-dark);
-        text-transform: uppercase;
-        font-size: 12px;
-        font-weight: 600;
-      }
+
+    .prices-table-headline {
+      //color: var(--text-dark);
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+    }
   }
 
   .date-input mat-form-field {
@@ -101,6 +102,17 @@
       color: var(--main-orange);
       font-size: 24px;
       font-weight: 600;
+    }
+
+    &.repeated {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--color-grey-secondary);
+
+      .price {
+        font-size: 15px;
+        color: var(--color-grey-secondary);
+      }
     }
   }
 
@@ -151,7 +163,7 @@
       display: block;
       margin-top: 10px;
     }
-}
+  }
 
   .agree-to-terms {
     font-size: 13px;
@@ -173,6 +185,16 @@
 
   .bottom-price-bar {
     display: none;
+  }
+
+  .address-match {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+  }
+
+  input[type=checkbox] {
+    margin-right: 4px;
   }
 
 
