@@ -169,7 +169,7 @@
           <h5 class="subsection-headline">Dodatečné služby</h5>
 
           <form [formGroup]="extrasForm">
-            <section class="form-section half-section no-spacing">
+            <section class="form-section half-section">
               <h5 class="label">Mytí a leštěšní oken (m<sup>2</sup> plochy skel)</h5>
               <!--              TODO pridat info ikonu a vysvetlit mereni oken-->
               <div class="input-group">
@@ -182,6 +182,22 @@
                   name="windows"
                   formControlName="windows"
                   (change)="windowsChanged($event)"/>
+              </div>
+            </section>
+
+            <section class="form-section half-section no-spacing">
+              <h5 class="label">Čištění žaluzií (m<sup>2</sup> plochy)</h5>
+              <!--              TODO pridat info ikonu a vysvetlit mereni oken-->
+              <div class="input-group">
+                <input
+                  type="number"
+                  min="0"
+                  [max]="maxWindowBlindsMeters"
+                  step="1"
+                  class="form-control"
+                  name="windowBlinds"
+                  formControlName="windowBlinds"
+                  (change)="windowBlindsChanged($event)"/>
               </div>
             </section>
           </form>
@@ -299,7 +315,8 @@
             <section class="form-section">
               <h5 class="label">Kontaktní adresa (Ulice, č.p., město, PSČ)</h5>
 
-              <div class="address-match"><input type="checkbox" formControlName="contactAddressMatchesCleaning" (change)="changeContactAddressMatch()"/> Adresa je shodná s adresou uklízeného objektu</div>
+              <div class="address-match"><input type="checkbox" id="contactAddressMatchesCleaning" formControlName="contactAddressMatchesCleaning" (change)="changeContactAddressMatch()"/>
+                <label for="contactAddressMatchesCleaning">Adresa je shodná s adresou uklízeného objektu</label></div>
               <div class="input-group">
                 <input
                   type="text"
@@ -312,9 +329,10 @@
 
           <form [formGroup]="orderForm">
           <span class="agree-to-terms">
-            <input type="checkbox" formControlName="confirmation"/>
-            Souhlasím s <a [routerLink]="['/' , webUrls.TERMS]">obchodními podmínkami</a> a <a
-            [routerLink]="['/', webUrls.GDPR]">ochranou osobních údajů</a></span>
+            <input type="checkbox" formControlName="confirmation" id="confirmation"/>
+            <label for="confirmation">Souhlasím s <a [routerLink]="['/' , webUrls.TERMS]" target="_blank">obchodními podmínkami</a> a <a
+              [routerLink]="['/', webUrls.GDPR]" target="_blank">ochranou osobních údajů</a></label>
+          </span>
           </form>
           <span *ngIf="orderSendClicked && !onlyConfirmationMissing && (!orderForm.valid || !userForm.valid)"
                 class="fill-required">Vyplňte prosím všechna povinná pole</span>
@@ -425,10 +443,11 @@
         <div class="white-block"
              [ngClass]="{'order-sent': orderSendClicked}">
           <div class="sec-title text-center">
-            <h3>Úklid byl odeslán</h3>
-            <div class="title">Děkujeme za Vaši objednávku!</div>
+<!--            <h3>Úklid byl odeslán</h3>-->
+            <div class="title">Děkujeme za Vaši poptávku</div>
             <br>
-            <p>Detaily objednávky jsme Vám zaslali na e-mail <strong>{{userForm.value?.email}}</strong>. </p>
+            <p>Souhrn jsme Vám zaslali na e-mail <strong>{{userForm.value?.email}}</strong> </p>
+            <p class="orange">Prosíme o <u>potvrzení</u> této poptávky přímo v zaslaném emailu.</p>
           </div>
         </div>
       </div>

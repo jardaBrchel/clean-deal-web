@@ -57,6 +57,11 @@
   padding: 120px 0 110px;
   z-index: 1;
 
+  a {
+    color: var(--main-orange-darker);
+    text-decoration: underline;
+  }
+
   h4 {
     margin-bottom: 10px;
   }
@@ -89,10 +94,7 @@
         color: var(--text-dark);
         margin-bottom: 20px;
 
-        a {
-          color: var(--main-orange-darker);
-          text-decoration: underline;
-        }
+
       }
     }
 

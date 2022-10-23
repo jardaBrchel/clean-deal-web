@@ -62,6 +62,13 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
+  // Jobs, Vacations...
+  getCleanerInfo(cleanerId: string) {
+    console.log('service, cleanerId', cleanerId);
+    const url = Config.urlApi + '/admin/cleaner-info/' + cleanerId;
+    return this.http.get<any>(url);
+  }
+
   addNewCleaner(data: any) {
     const url = Config.urlApi + '/admin/cleaner';
     return this.http.post<any>(url, data);

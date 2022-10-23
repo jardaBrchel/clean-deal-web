@@ -1,6 +1,6 @@
 // All prices are in CZK
 
-export const PRICE_HOUR_CONSTANT = 350;
+export const PRICE_HOUR_CONSTANT = 400;
 
 export const BASE_PRICE = 800;
 
@@ -18,7 +18,9 @@ export const OWN_CLEANING_STUFF_PRICE = 150;
 
 export const OWN_CLEANING_STUFF_PRICE_INCREASE = 50;
 
-export const WINDOW_CLEANING_METER_PRICE = 55;
+export const WINDOW_CLEANING_METER_PRICE = 60;
+
+export const WINDOW_BLINDS_CLEANING_METER_PRICE = 50;
 
 export const GENERAL_CLEANING_MULTIPLY = 1.9;
 

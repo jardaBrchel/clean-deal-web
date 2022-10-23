@@ -3,7 +3,7 @@ import {
   BASE_PRICE,
   MAX_SPACE_AREA,
   OWN_CLEANING_STUFF_PRICE, OWN_CLEANING_STUFF_PRICE_INCREASE, PRICE_HOUR_CONSTANT,
-  STEP_OVER_MAX_SPACE,
+  STEP_OVER_MAX_SPACE, WINDOW_BLINDS_CLEANING_METER_PRICE,
   WINDOW_CLEANING_METER_PRICE
 } from '../../../config/price-config';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
@@ -14,7 +14,7 @@ import {
   FREQUENCY,
   HOME_TYPES,
   HOUSE_FLOORS,
-  KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOWS_METERS, orderFormItem,
+  KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOW_BLINDS_METERS, MAX_WINDOWS_METERS, orderFormItem,
   OWN_CLEANING_STUFF,
   ROOMS,
   TIMES,
@@ -63,6 +63,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   multiplicators: OrderMultiplicators = {};
   homeType = HOME_TYPES[0].id;
   maxWindowsMeters = MAX_WINDOWS_METERS;
+  maxWindowBlindsMeters = MAX_WINDOW_BLINDS_METERS;
   priceTotalTopY!: number;
 
   // CALENDAR VALUES
@@ -177,6 +178,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   initExtrasFormValue() {
     this.extrasForm = this.formBuilder.group({
       windows: 0,
+      windowBlinds: 0,
     });
   }
 
@@ -361,6 +363,10 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
           label = `Mytí oken ${this.extrasForm.value.windows}m<sup>2</sup>`;
           price = this.extrasForm.value.windows * WINDOW_CLEANING_METER_PRICE;
           break;
+        case 'windowBlinds':
+          label = `Čištění žaluzií ${this.extrasForm.value.windowBlinds}m<sup>2</sup>`;
+          price = this.extrasForm.value.windowBlinds * WINDOW_BLINDS_CLEANING_METER_PRICE;
+          break;
       }
 
       if (!!price && price != 0) {
@@ -510,6 +516,17 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     }
     const windowsPrice = WINDOW_CLEANING_METER_PRICE * insertedValue;
     this.extras = {...this.extras, windows: windowsPrice};
+
+    this.recalculatePrice();
+  }
+
+  windowBlindsChanged(event: any) {
+    const insertedValue = event.target.value;
+    if (insertedValue > this.maxWindowBlindsMeters) {
+      this.extrasForm.get('windowBlinds')?.patchValue(this.maxWindowBlindsMeters);
+    }
+    const windowBlindsPrice = WINDOW_BLINDS_CLEANING_METER_PRICE * insertedValue;
+    this.extras = {...this.extras, windowBlinds: windowBlindsPrice};
 
     this.recalculatePrice();
   }
@@ -674,7 +691,9 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
     const cleanerId = this.getCleanersIdsForOrder();
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
-    const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true ? undefined : this.userForm.value?.contactAddress;
+    const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true
+      ? `${this.userForm.value?.address}, ${this.userForm.value?.pscNumber}`
+      : this.userForm.value?.contactAddress;
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,
