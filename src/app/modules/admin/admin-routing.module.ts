@@ -7,6 +7,7 @@ import {OrdersComponent} from './orders/orders.component';
 import {CleanersComponent} from './cleaners/cleaners.component';
 import {AddCleanerComponent} from './add-cleaner/add-cleaner.component';
 import {EditCleanerComponent} from './edit-cleaner/edit-cleaner.component';
+import {CleanerDetailComponent} from './cleaner-detail/cleaner-detail.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     path: 'edit-cleaner/:cleanerId',
     canActivate: [AdminAuthGuard],
     component: EditCleanerComponent
+  },
+  {
+    path: 'cleaner-detail/:cleanerId',
+    canActivate: [AdminAuthGuard],
+    component: CleanerDetailComponent
   },
 ];
 

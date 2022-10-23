@@ -14,6 +14,7 @@ import { CleanersComponent } from './cleaners/cleaners.component';
 import { AddCleanerComponent } from './add-cleaner/add-cleaner.component';
 import { EditCleanerComponent } from './edit-cleaner/edit-cleaner.component';
 import { MatIconModule} from '@angular/material/icon';
+import { CleanerDetailComponent } from './cleaner-detail/cleaner-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MatIconModule} from '@angular/material/icon';
     OrdersComponent,
     CleanersComponent,
     AddCleanerComponent,
-    EditCleanerComponent
+    EditCleanerComponent,
+    CleanerDetailComponent
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let cleaner of cleaners">
-            <td><strong>{{cleaner.name}}</strong></td>
+            <td><a [routerLink]="['/', 'admin', 'cleaner-detail', cleaner.cleanerId]"><strong>{{cleaner.name}}</strong></a></td>
             <td>{{cleaner.mo || '-'}}</td>
             <td>{{cleaner.tu || '-'}}</td>
             <td>{{cleaner.we || '-'}}</td>

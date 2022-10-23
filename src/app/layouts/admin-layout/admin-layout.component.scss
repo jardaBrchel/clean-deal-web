@@ -97,6 +97,7 @@
       color: var(--admin-text-color);
       box-shadow: 0 2px 6px 0 rgb(67 89 113 / 12%);
       overflow: hidden;
+      margin-bottom: 30px;
 
       &.full {
         width: 100%;
@@ -118,6 +119,10 @@
         color: var(--admin-text-color-light);
         line-height: 23px;
         margin: 0;
+      }
+
+      a {
+        color: var(--admin-text-color);
       }
     }
 
