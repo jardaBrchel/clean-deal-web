@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {UntypedFormBuilder} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../services/admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MAX_CALENDAR_DAYS} from '../../../config/order-config';
 
 @Component({
   selector: 'app-cleaner-detail',
@@ -10,6 +11,15 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class CleanerDetailComponent implements OnInit {
   cleanerId!: string;
+  cleaner: any;
+
+  // VACATION VALUES
+  vacationForm: UntypedFormGroup = {} as any;
+  dateMinDate: any;
+  dateMaxDate: any;
+  vacationTimes: any[] = [];
+  savingVacation = false;
+  vacationAdded = false;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -21,24 +31,101 @@ export class CleanerDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.cleanerId = this.route.snapshot.paramMap.get('cleanerId') || '';
+    this.initDates();
     this.fetchCleaner();
+    this.initVacationFormValues();
+  }
+
+  initDates() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const maxDate = new Date(today);
+    maxDate.setDate(tomorrow.getDate() + 90);
+    this.dateMinDate = tomorrow;
+    this.dateMaxDate = maxDate;
+    this.vacationTimes = [];
+
+    for (let i = 6; i <= 20; i++) {
+      this.vacationTimes.push({
+        id: i,
+      })
+    }
+  }
+
+  onDateChange() {
+
+  }
+
+  onAddVacation() {
+    if (this.savingVacation) return;
+
+    this.savingVacation = true;
+    const data = {
+      cleanerId: this.cleanerId,
+      vacationDate: this.vacationForm.value.date,
+      from: Number(this.vacationForm.value.from),
+      to: Number(this.vacationForm.value.to),
+    }
+
+    this.adminService.addCleanerVacation(data).subscribe(
+      {
+        next: (res) => {
+          this.savingVacation = false;
+          this.vacationAdded = true;
+          this.cleaner.vacations = [...this.cleaner.vacations, res];
+          this.clearVacationForm();
+        },
+        error: (e) => {
+          console.log('error ', e);
+          this.savingVacation = false;
+        },
+      }
+    )
+
+    console.log('data', data);
+  }
+
+  removeVacation(id: number) {
+    this.adminService.removeCleanerVacation(id).subscribe(
+      {
+        next: (res) => {
+          this.cleaner.vacations = [...this.cleaner.vacations.filter((v: any) => v.id !== id)];
+        },
+        error: (e) => {
+          console.log('error ', e);
+        },
+      }
+    )
+  }
+
+  clearVacationForm() {
+    this.vacationForm.controls['date']?.patchValue(null);
+    this.vacationForm.controls['from']?.patchValue(null);
+    this.vacationForm.controls['to']?.patchValue(null);
   }
 
   fetchCleaner() {
     this.adminService.getCleanerInfo(this.cleanerId).subscribe(
       {
         next: (res) => {
-          // TODO set vacations and orders for next 90 days
+          this.cleaner = res;
           console.log('details', res);
         },
         error: (e) => {
           console.log('error ', e);
         },
-
       }
     )
   }
 
+  initVacationFormValues() {
+    this.vacationForm = this.formBuilder.group({
+      date: [undefined, [Validators.required]],
+      from: [''],
+      to: [''],
+    });
+  }
 
 
 }

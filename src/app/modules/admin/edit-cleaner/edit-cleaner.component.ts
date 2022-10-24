@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./edit-cleaner.component.scss']
 })
 export class EditCleanerComponent implements OnInit {
-  cleanerId: string;
+  cleanerId!: string;
   cleanerForm: UntypedFormGroup = {} as any;
   timesForm: UntypedFormGroup = {} as any;
   times = [

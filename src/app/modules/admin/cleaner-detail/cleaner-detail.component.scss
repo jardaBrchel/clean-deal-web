@@ -1,0 +1,38 @@
+:host {
+  .date-input {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .vacations-form {
+    span.label {
+      margin-right: 14px;
+    }
+
+    .form-group {
+      .col-sm-6 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+
+  ul.grey-pills-list {
+    li {
+      .date,
+      .time {
+        font-size: 13px;
+        font-weight: 500;
+        display: inline-block;
+        margin-right: 15px;
+      }
+
+      .remove-btn {
+        color: var(--text-dark);
+        cursor: pointer;
+      }
+    }
+  }
+}

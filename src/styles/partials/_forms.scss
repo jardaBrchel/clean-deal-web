@@ -30,7 +30,6 @@
 }
 
 form {
-
   .subtitle {
     font-size: 24px;
     line-height: 38px;
@@ -56,4 +55,19 @@ form {
 hr.dashed {
   border-style: dashed;
 }
+
+ul.grey-pills-list{
+  li {
+    background-color: var(--admin-lightest-background);
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+
+    &.flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
 

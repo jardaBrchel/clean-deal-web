@@ -74,6 +74,21 @@ export class AdminService {
     return this.http.post<any>(url, data);
   }
 
+  addCleanerVacation(data: any) {
+    const url = Config.urlApi + '/admin/cleaner-vacation';
+    return this.http.post<any>(url, data);
+  }
+
+  editCleanerVacation(data: any) {
+    const url = Config.urlApi + '/admin/cleaner-vacation';
+    return this.http.put<any>(url, data);
+  }
+
+  removeCleanerVacation(id: number) {
+    const url = Config.urlApi + '/admin/cleaner-vacation/' + id;
+    return this.http.delete<any>(url);
+  }
+
   editCleaner(data: any) {
     const url = Config.urlApi + '/admin/cleaner';
     return this.http.put<any>(url, data);

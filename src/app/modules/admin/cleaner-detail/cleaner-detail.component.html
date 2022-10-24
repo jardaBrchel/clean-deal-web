@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="d-flex justify-content-between align-items-center">
-        <h1 class="admin-headline">Detail uklízečky</h1>
+        <h1 class="admin-headline"><span class="text-muted fw-light">Uklízečky / </span>{{cleaner?.name}}</h1>
       </div>
       <br>
     </div>
@@ -20,24 +20,86 @@
       </div>
     </div>
 
-    <div class="col-lg-9">
+    <div class="col-lg-8">
       <div class="admin-card full">
         <div class="admin-card-body">
           <h5 class="admin-card-title">
             Naplánované úklidy
           </h5>
-         ...
+          ...
         </div>
       </div>
     </div>
 
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <div class="admin-card full">
         <div class="admin-card-body">
           <h5 class="admin-card-title">
-            Dovolené
+            Naplánované dovolené
           </h5>
-         ...
+          <span *ngIf="!cleaner || !cleaner.vacations?.length">Žádné naplánované dovolené</span>
+
+          <ul *ngIf="cleaner?.vacations?.length" class="grey-pills-list">
+            <li *ngFor="let item of cleaner?.vacations" class="flex">
+              <section>
+                <span class="date">{{item.vacationDate|date: 'dd.MM.yyyy'}}</span>
+                <span *ngIf="item.from && item.to" class="time">{{item.from}} - {{item.to}} hod</span>
+              </section>
+              <mat-icon aria-hidden="false" fontIcon="delete" class="remove-btn"
+                        (click)="removeVacation(item.id)"></mat-icon>
+            </li>
+          </ul>
+        </div>
+        <hr>
+        <div class="admin-card-body">
+
+<!--          <h5 class="admin-subheadline">-->
+<!--            Nová dovolená-->
+<!--          </h5>-->
+          <form [formGroup]="vacationForm" class="vacations-form">
+
+            <div class="input-group date-input">
+              <mat-form-field appearance="outline">
+                <input matInput
+                       [min]="dateMinDate"
+                       [max]="dateMaxDate"
+                       formControlName="date"
+                       [matDatepicker]="matDatePicker"
+                       autocomplete="off"
+                       [placeholder]="'Vyberte datum'"
+                       (focus)="matDatePicker.open()"
+                       (dateChange)="onDateChange()"
+                />
+                <mat-datepicker-toggle matPrefix [for]="matDatePicker">
+                </mat-datepicker-toggle>
+                <mat-datepicker #matDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <span class="label">Od:</span>
+                <select
+                  class="custom-select"
+                  formControlName="from">
+                  <option *ngFor="let item of vacationTimes" [value]="item.id">{{item.id}}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <span class="label">Do:</span>
+                <select
+                  class="custom-select"
+                  formControlName="to">
+                  <option *ngFor="let item of vacationTimes" [value]="item.id">{{item.id}}</option>
+                </select>
+              </div>
+            </div>
+
+            <button *ngIf="!vacationAdded" type="submit" class="btn btn-success btn-block" (click)="onAddVacation()"
+                    [disabled]="savingVacation">Přidat dovolenou
+            </button>
+            <span *ngIf="vacationAdded">Dovolená byla přidána</span>
+          </form>
         </div>
       </div>
     </div>
