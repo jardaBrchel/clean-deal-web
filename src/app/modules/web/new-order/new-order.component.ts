@@ -564,13 +564,17 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
   getTimeOptionsFromAvailableTimes(availableTimes: CleanerAvailableDay[]): orderFormItem[] {
     const neededHours = Math.ceil(this.realCleaningTime);
-    // let timeOptions: orderFormItem[] = [];
     const timeStarts: string[] = [];
-    availableTimes.forEach(time => {
+    availableTimes.forEach((time: CleanerAvailableDay) => {
+      // TODO check offHours
       const steps = time.to - time.from + 1 - neededHours;
       if (!steps) return;
       for (let i = 0; i < steps; i++) {
-        timeStarts.push(String(time.from + i));
+        const pushTime = time.from + i;
+        // console.log('pushTime', pushTime);
+        if (time.offHours?.includes(pushTime)) continue;
+        console.log('offHours', time.offHours);
+        timeStarts.push(String(pushTime));
       }
     })
 
@@ -586,7 +590,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     availableTimes.forEach(time => {
       const timeStarts: string[] = [];
       const steps = time.to - time.from + 1 - neededHours;
-      if (!steps) return;
+      if (!steps || steps < 1) return;
       for (let i = 0; i < steps; i++) {
         timeStarts.push(String(time.from + i));
       }
@@ -690,6 +694,9 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     }
 
     const cleanerId = this.getCleanersIdsForOrder();
+    const cleanDate = new Date(this.orderForm.value.date);
+    cleanDate.setHours(12);
+
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true
       ? `${this.userForm.value?.address}, ${this.userForm.value?.pscNumber}`
@@ -697,6 +704,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     const data = {
       ...this.orderForm.value,
       ...this.userForm.value,
+      date: cleanDate,
       price: this.finalPrice,
       ownCleaningStuff,
       cleaningDuration: Math.round(this.totalCleaningTime * 2) / 2,

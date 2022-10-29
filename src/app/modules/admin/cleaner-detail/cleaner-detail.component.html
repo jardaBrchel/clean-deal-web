@@ -26,7 +26,16 @@
           <h5 class="admin-card-title">
             Naplánované úklidy
           </h5>
-          ...
+          <ul *ngIf="cleaner?.orders?.length" class="grey-pills-list">
+            <li *ngFor="let item of cleaner?.orders" class="flex">
+              <section>
+                <span class="date">{{item.cleaningDate|date: 'dd.MM.yyyy'}} </span>
+                <span class="time">od {{item.cleaningTime}}:00 na {{item.cleaningDuration}} hod.</span>
+              </section>
+              <mat-icon aria-hidden="false" fontIcon="delete" class="remove-btn"
+                        (click)="removeOrder(item.orderId)"></mat-icon>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

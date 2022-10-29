@@ -89,6 +89,11 @@ export class AdminService {
     return this.http.delete<any>(url);
   }
 
+  removeOrder(id: number) {
+    const url = Config.urlApi + '/admin/order/' + id;
+    return this.http.delete<any>(url);
+  }
+
   editCleaner(data: any) {
     const url = Config.urlApi + '/admin/cleaner';
     return this.http.put<any>(url, data);
