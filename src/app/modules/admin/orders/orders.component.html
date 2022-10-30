@@ -1,27 +1,41 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-12">
-      <h1 class="admin-headline">Objednávky</h1>
+    <div class="col-lg-12 mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+      <h1 class="admin-headline">Úklidy</h1>
+      <button type="button" class="btn  btn-success" [routerLink]="['/', 'admin', 'create-order']">
+        Vytvořit objednávku
+      </button>
+      </div>
     </div>
-    <div class="col-lg-12">
-      <table class="table table-hover">
-        <thead class="thead-dark">
-        <tr>
-          <th>Datum objednávky</th>
-          <th>Klient</th>
-          <th>Domov</th>
-          <th>Typ úklidu</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        </tbody>
-      </table>
+
+    <div class="col-lg-12 mb-0">
+      <ul class="nav nav-tabs mb-0" role="tablist">
+        <li class="nav-item" *ngFor="let tab of tabs; let i = index">
+          <button
+            type="button"
+            (click)="changeTab(i)"
+            [ngClass]="{'active': tab.active}" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home" aria-selected="true">
+            {{tab.label}} <span class="badge badge-info">{{tab.count}}</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-lg-12" *ngIf="!ordersLoaded">
+      <span>Načítám objednávky</span>
+    </div>
+    <div class="col-lg-12" *ngIf="ordersLoaded">
+      <ag-grid-angular
+        *ngIf="tabs[0].active"
+        class="ag-theme-alpine with-tabs"
+        [gridOptions]="plannedOrdersOptions"
+      ></ag-grid-angular>
+      <ag-grid-angular
+        *ngIf="tabs[1].active"
+        class="ag-theme-alpine with-tabs"
+        [gridOptions]="historyOrdersOptions"
+      ></ag-grid-angular>
     </div>
   </div>
 </div>

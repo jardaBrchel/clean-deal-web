@@ -1,0 +1,9 @@
+<a [routerLink]="['/', 'admin', type, 'detail', itemId]">
+  <mat-icon aria-hidden="false" fontIcon="visibility"></mat-icon>
+</a>
+<a [routerLink]="['/', 'admin', type, 'edit', itemId]">
+  <mat-icon aria-hidden="false" fontIcon="edit"></mat-icon>
+</a>
+<a (click)="deleteItem()">
+  <mat-icon aria-hidden="false" fontIcon="delete"></mat-icon>
+</a>

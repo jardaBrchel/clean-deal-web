@@ -62,9 +62,8 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
-  // Jobs, Vacations...
+  // CLEANERS- Jobs, Vacations...
   getCleanerInfo(cleanerId: string) {
-    console.log('service, cleanerId', cleanerId);
     const url = Config.urlApi + '/admin/cleaner-info/' + cleanerId;
     return this.http.get<any>(url);
   }
@@ -103,6 +102,25 @@ export class AdminService {
     const url = Config.urlApi + '/admin/cleaner/' + cleanerId;
     return this.http.delete<any>(url);
   }
+
+  // ORDERS
+  getOrders() {
+    const url = Config.urlApi + '/admin/orders';
+    return this.http.get<any>(url);
+  }
+
+  // CLIENTS
+  getClients() {
+    const url = Config.urlApi + '/admin/clients';
+    return this.http.get<any>(url);
+  }
+
+  // HOMES
+  getHomes() {
+    const url = Config.urlApi + '/admin/homes';
+    return this.http.get<any>(url);
+  }
+
 
   logout() {
     this.store.dispatch(removeAdminUser());

@@ -15,6 +15,12 @@ import { AddCleanerComponent } from './add-cleaner/add-cleaner.component';
 import { EditCleanerComponent } from './edit-cleaner/edit-cleaner.component';
 import { MatIconModule} from '@angular/material/icon';
 import { CleanerDetailComponent } from './cleaner-detail/cleaner-detail.component';
+import {AgGridModule} from 'ag-grid-angular';
+import { HomesComponent } from './homes/homes.component';
+import { HomeDetailComponent } from './home-detail/home-detail.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ClientDetailComponent } from './client-detail/client-detail.component';
+import { GridOrderActionsComponent } from './grid-order-actions/grid-order-actions.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,12 @@ import { CleanerDetailComponent } from './cleaner-detail/cleaner-detail.componen
     CleanersComponent,
     AddCleanerComponent,
     EditCleanerComponent,
-    CleanerDetailComponent
+    CleanerDetailComponent,
+    HomesComponent,
+    HomeDetailComponent,
+    ClientsComponent,
+    ClientDetailComponent,
+    GridOrderActionsComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +47,7 @@ import { CleanerDetailComponent } from './cleaner-detail/cleaner-detail.componen
     MatNativeDateModule,
     MatInputModule,
     MatIconModule,
+    AgGridModule,
   ],
   exports: [
     MatDatepickerModule,
