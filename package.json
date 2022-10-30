@@ -24,6 +24,8 @@
     "@angular/router": "^14.2.1",
     "@ngrx/store": "^14.3.1",
     "@ngrx/store-devtools": "^14.3.1",
+    "ag-grid-angular": "^28.2.0",
+    "ag-grid-community": "^28.2.0",
     "moment": "^2.29.4",
     "patch-package": "^6.4.7",
     "tslib": "^2.3.0",

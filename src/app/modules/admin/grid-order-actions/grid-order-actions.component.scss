@@ -1,0 +1,16 @@
+:host {
+  height: 40px;
+  display: block;
+
+  a {
+    display: inline-block;
+    line-height: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 14px;
+  }
+
+  mat-icon {
+    color: var(--admin-text-color);
+  }
+}

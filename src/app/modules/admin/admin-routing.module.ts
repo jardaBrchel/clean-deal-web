@@ -8,6 +8,10 @@ import {CleanersComponent} from './cleaners/cleaners.component';
 import {AddCleanerComponent} from './add-cleaner/add-cleaner.component';
 import {EditCleanerComponent} from './edit-cleaner/edit-cleaner.component';
 import {CleanerDetailComponent} from './cleaner-detail/cleaner-detail.component';
+import {HomesComponent} from './homes/homes.component';
+import {ClientsComponent} from './clients/clients.component';
+import {HomeDetailComponent} from './home-detail/home-detail.component';
+import {ClientDetailComponent} from './client-detail/client-detail.component';
 
 const routes: Routes = [
   {
@@ -44,6 +48,26 @@ const routes: Routes = [
     path: 'cleaner-detail/:cleanerId',
     canActivate: [AdminAuthGuard],
     component: CleanerDetailComponent
+  },
+  {
+    path: 'homes',
+    canActivate: [AdminAuthGuard],
+    component: HomesComponent
+  },
+  {
+    path: 'home/:homeId',
+    canActivate: [AdminAuthGuard],
+    component: HomeDetailComponent
+  },
+  {
+    path: 'clients',
+    canActivate: [AdminAuthGuard],
+    component: ClientsComponent
+  },
+  {
+    path: 'client/:clientId',
+    canActivate: [AdminAuthGuard],
+    component: ClientDetailComponent
   },
 ];
 

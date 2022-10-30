@@ -93,16 +93,32 @@
       li {
         color: var(--text-dark);
         margin-bottom: 20px;
-
-
       }
     }
 
     &.numbered-list {
       color: var(--text-dark);
+
       li {
         list-style: decimal !important;
       }
+    }
+  }
+}
+
+// TABS
+.nav-tabs {
+  border-width: 0;
+
+  .nav-link {
+    background: var(--grey-tab-bg);
+    color: var(--admin-text-color-light);
+    letter-spacing: 0.06em;
+    border-radius: 8px 8px 0 0;
+      border-width: 0;
+
+    &.active {
+    color: var(--admin-text-color);
     }
   }
 }

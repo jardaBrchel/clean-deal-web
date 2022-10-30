@@ -11,15 +11,23 @@
       <ul class="list-unstyled components mb-5" >
         <li>
           <a [routerLink]="['/', 'admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <mat-icon aria-hidden="false" fontIcon="home"></mat-icon> Přehled</a>
+            <mat-icon aria-hidden="false" fontIcon="dashboard"></mat-icon> Přehled</a>
         </li>
         <li>
           <a [routerLink]="['/', 'admin', 'orders']" routerLinkActive="active">
-            <mat-icon aria-hidden="false" fontIcon="wash"></mat-icon> Objednávky</a>
+            <mat-icon aria-hidden="false" fontIcon="wash"></mat-icon> Úklidy</a>
+        </li>
+        <li>
+          <a [routerLink]="['/', 'admin', 'homes']" routerLinkActive="active">
+            <mat-icon aria-hidden="false" fontIcon="house"></mat-icon> Domovy</a>
+        </li>
+        <li>
+          <a [routerLink]="['/', 'admin', 'clients']" routerLinkActive="active">
+            <mat-icon aria-hidden="false" fontIcon="groups"></mat-icon> Zákazníci</a>
         </li>
         <li>
           <a [routerLink]="['/', 'admin', 'cleaners']" routerLinkActive="active">
-            <mat-icon aria-hidden="false" fontIcon="groups"></mat-icon> Uklízečky</a>
+            <mat-icon aria-hidden="false" fontIcon="work"></mat-icon> Pracovníci</a>
         </li>
         <br>
         <li>

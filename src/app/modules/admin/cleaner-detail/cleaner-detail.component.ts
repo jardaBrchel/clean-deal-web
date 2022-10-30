@@ -61,9 +61,12 @@ export class CleanerDetailComponent implements OnInit {
     if (this.savingVacation) return;
 
     this.savingVacation = true;
+    const vacDate = new Date(this.vacationForm.value.date);
+    vacDate.setHours(12);
+
     const data = {
       cleanerId: this.cleanerId,
-      vacationDate: this.vacationForm.value.date,
+      vacationDate: vacDate,
       from: Number(this.vacationForm.value.from),
       to: Number(this.vacationForm.value.to),
     }
@@ -84,6 +87,20 @@ export class CleanerDetailComponent implements OnInit {
     )
 
     console.log('data', data);
+  }
+
+  removeOrder(orderId: number) {
+    console.log('orderId', orderId);
+    this.adminService.removeOrder(orderId).subscribe(
+      {
+        next: (res) => {
+          this.cleaner.orders = [...this.cleaner.orders.filter((v: any) => v.orderId !== orderId)];
+        },
+        error: (e) => {
+          console.log('error ', e);
+        },
+      }
+    )
   }
 
   removeVacation(id: number) {

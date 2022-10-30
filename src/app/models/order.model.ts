@@ -23,6 +23,7 @@ export interface CleanerAvailableDay {
   date: string; // yyyy-mm-dd
   from: number;
   to: number;
+  offHours?: number[];
   cleanerId?: string;
 }
 

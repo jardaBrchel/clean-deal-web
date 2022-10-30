@@ -14,6 +14,7 @@ import {reducers, metaReducers} from './reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {MatIconModule} from '@angular/material/icon';
+import {AgGridModule} from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserAnimationsModule,
     HttpClientModule,
     MatIconModule,
+    AgGridModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
