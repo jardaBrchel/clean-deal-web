@@ -337,10 +337,10 @@
           <span *ngIf="orderSendClicked && !onlyConfirmationMissing && (!orderForm.valid || !userForm.valid)"
                 class="fill-required">Vyplňte prosím všechna povinná pole</span>
           <span *ngIf="orderSendClicked && onlyConfirmationMissing" class="fill-required">Musíte zaškrnout souhlas s obchodními podmínkami a ochranou osobních údajů</span>
-          <span *ngIf="errorOnSubmit" class="fill-required">Omlouváme se, ale při odesílání objednávky došlo k chybě. Zkuste to prosím později.</span>
+          <span *ngIf="errorOnSubmit" class="fill-required">Omlouváme se, ale při odesílání poptávky došlo k chybě. Zkuste to prosím později.</span>
           <div class="link-box centered">
             <a *ngIf="!sendingOrder" class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat poptávku úklidu</a>
-            <a *ngIf="sendingOrder" class="btn-one submit-form disabled">Odesílám objednávku...</a>
+            <a *ngIf="sendingOrder" class="btn-one submit-form disabled">Odesílám poptávku...</a>
           </div>
         </div>
       </div>
