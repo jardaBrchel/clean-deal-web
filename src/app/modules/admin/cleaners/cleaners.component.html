@@ -12,7 +12,7 @@
     <div class="col-lg-12">
       <p *ngIf="cleaners && cleaners.length === 0">Zatím nemakají žádné uklízečky</p>
 
-      <div class="admin-card full">
+      <div class="admin-card full" *ngIf="cleaners.length > 0">
         <table class="table admin-table ">
           <thead>
           <tr>
@@ -29,7 +29,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let cleaner of cleaners">
-            <td><a [routerLink]="['/', 'admin', 'cleaner-detail', cleaner.cleanerId]"><strong>{{cleaner.name}}</strong></a></td>
+            <td><a [routerLink]="['/', 'admin', 'cleaners', 'detail', cleaner.cleanerId]"><strong>{{cleaner.name}}</strong></a></td>
             <td>{{cleaner.mo || '-'}}</td>
             <td>{{cleaner.tu || '-'}}</td>
             <td>{{cleaner.we || '-'}}</td>
@@ -38,7 +38,7 @@
             <td>{{cleaner.sa || '-'}}</td>
             <td>{{cleaner.su || '-'}}</td>
             <td>
-              <button [routerLink]="['/', 'admin', 'edit-cleaner', cleaner.cleanerId]">
+              <button [routerLink]="['/', 'admin', 'cleaners', 'edit', cleaner.cleanerId]">
                 <mat-icon aria-hidden="false" fontIcon="edit"></mat-icon>
               </button>
               &nbsp;

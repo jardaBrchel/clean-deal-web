@@ -32,6 +32,7 @@ export interface AdminClient {
   surname: string;
   createdAt: string;
   updatedAt: string;
+  homes?: AdminHome[];
 }
 
 export interface AdminHome {
@@ -51,6 +52,7 @@ export interface AdminHome {
   toilets: number
   updatedAt: string;
   yardage: string;
+  client?: AdminClient;
 }
 
 export interface AdminOrder {

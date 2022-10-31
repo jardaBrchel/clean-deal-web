@@ -699,7 +699,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
 
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true
-      ? `${this.userForm.value?.address}, ${this.userForm.value?.pscNumber}`
+      ? `${this.orderForm.value?.address}, ${this.orderForm.value?.pscNumber}`
       : this.userForm.value?.contactAddress;
     const data = {
       ...this.orderForm.value,

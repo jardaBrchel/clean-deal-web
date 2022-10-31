@@ -23,6 +23,7 @@ import { ClientDetailComponent } from './client-detail/client-detail.component';
 import { GridOrderActionsComponent } from './grid-order-actions/grid-order-actions.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { CreateOrderComponent } from './create-order/create-order.component';
     MatInputModule,
     MatIconModule,
     AgGridModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatDatepickerModule,

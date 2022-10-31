@@ -39,7 +39,7 @@ export class AdminService {
   }
 
   setUserToStorage(adminUser: AdminUser) {
-    this.storage.set(this.adminUserStorage, JSON.stringify(adminUser) );
+    this.storage.set(this.adminUserStorage, JSON.stringify(adminUser));
   }
 
   loginViaEmail(username: string, password: string) {
@@ -120,9 +120,24 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
+  getClient(clientId: string) {
+    const url = Config.urlApi + '/admin/client/' + clientId;
+    return this.http.get<any>(url);
+  }
+
+  saveClientInfo(clientId: string, data: string) {
+    const url = Config.urlApi + '/admin/client-info/' + clientId;
+    return this.http.post<any>(url, {data});
+  }
+
   // HOMES
   getHomes() {
     const url = Config.urlApi + '/admin/homes';
+    return this.http.get<any>(url);
+  }
+
+  getHome(id: string) {
+    const url = Config.urlApi + '/admin/home/' + id;
     return this.http.get<any>(url);
   }
 

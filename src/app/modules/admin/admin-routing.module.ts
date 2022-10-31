@@ -32,7 +32,7 @@ const routes: Routes = [
     component: OrdersComponent
   },
   {
-    path: 'order/detail/:orderId',
+    path: 'orders/detail/:orderId',
     canActivate: [AdminAuthGuard],
     component: OrderDetailComponent
   },
@@ -47,12 +47,12 @@ const routes: Routes = [
     component: AddCleanerComponent
   },
   {
-    path: 'edit-cleaner/:cleanerId',
+    path: 'cleaners/edit/:cleanerId',
     canActivate: [AdminAuthGuard],
     component: EditCleanerComponent
   },
   {
-    path: 'cleaner-detail/:cleanerId',
+    path: 'cleaners/detail/:cleanerId',
     canActivate: [AdminAuthGuard],
     component: CleanerDetailComponent
   },
@@ -62,7 +62,7 @@ const routes: Routes = [
     component: HomesComponent
   },
   {
-    path: 'home/:homeId',
+    path: 'homes/detail/:homeId',
     canActivate: [AdminAuthGuard],
     component: HomeDetailComponent
   },
@@ -72,7 +72,7 @@ const routes: Routes = [
     component: ClientsComponent
   },
   {
-    path: 'client/detail/:clientId',
+    path: 'clients/detail/:clientId',
     canActivate: [AdminAuthGuard],
     component: ClientDetailComponent
   },
