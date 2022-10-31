@@ -79,3 +79,10 @@ export enum PAGE_TYPE {
   CLIENT = 'client',
   HOME = 'home',
 }
+
+export interface OrderDataRes {
+  order: AdminOrder,
+  home: AdminHome,
+  client: AdminClient,
+  cleaner: Cleaner[],
+}

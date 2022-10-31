@@ -13,14 +13,15 @@ export class ClientsComponent implements OnInit {
   clientsLoaded = false;
   clientCount = 0;
   colDefs: ColDef[] = [
-    {field: 'name', headerName: 'Jméno'},
-    {field: 'surname', headerName: 'Příjmení'},
-    {field: 'email', headerName: 'E-mail'},
-    {field: 'phone', headerName: 'Telefon'},
+    {field: 'name', headerName: 'Jméno', minWidth: 150},
+    {field: 'surname', headerName: 'Příjmení', minWidth: 150},
+    {field: 'email', headerName: 'E-mail', minWidth: 220},
+    {field: 'phone', headerName: 'Telefon', minWidth: 150},
     {
       field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
         type: 'client'
       },
+      minWidth: 150
     },];
   gridOptions: any;
 

@@ -2,37 +2,35 @@
   <nav id="sidebar" [ngClass]="{'active': showSidebar}" *ngIf="isLogged">
 
     <div class="p-4 pb-0">
-<!--      <h4 class="admin-username">CleanDeal Admin</h4>-->
       <img src="/assets/images/resources/logo_admin.svg" alt="">
-<!--      <h4 class="admin-username">{{adminUser.username}}</h4>-->
     </div>
 
     <div class="p-4">
       <ul class="list-unstyled components mb-5" >
         <li>
-          <a [routerLink]="['/', 'admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/', 'admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="hideSidebarMobile()" >
             <mat-icon aria-hidden="false" fontIcon="dashboard"></mat-icon> Přehled</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'orders']" routerLinkActive="active">
+          <a [routerLink]="['/', 'admin', 'orders']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="wash"></mat-icon> Úklidy</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'homes']" routerLinkActive="active">
+          <a [routerLink]="['/', 'admin', 'homes']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="house"></mat-icon> Domovy</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'clients']" routerLinkActive="active">
+          <a [routerLink]="['/', 'admin', 'clients']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="groups"></mat-icon> Zákazníci</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'cleaners']" routerLinkActive="active">
+          <a [routerLink]="['/', 'admin', 'cleaners']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="work"></mat-icon> Pracovníci</a>
         </li>
         <br>
         <li>
           <a (click)="logoutUser()">
-            <mat-icon aria-hidden="false" fontIcon="logout"></mat-icon> Odhlásit se</a>
+            <mat-icon aria-hidden="false" fontIcon="logout" ></mat-icon> Odhlásit se</a>
         </li>
       </ul>
     </div>
@@ -44,10 +42,6 @@
       <div class="container-fluid">
         <mat-icon *ngIf="!showSidebar" aria-hidden="false" fontIcon="menu" (click)="toggleSidebar()"></mat-icon>
         <mat-icon *ngIf="showSidebar" aria-hidden="false" fontIcon="close" (click)="toggleSidebar()"></mat-icon>
-<!--        <button type="button" id="sidebarCollapse" class="btn btn-primary" >-->
-<!--&lt;!&ndash;          <i class="fa fa-bars"></i>&ndash;&gt;-->
-<!--          <span class="sr-only">Toggle Menu</span>-->
-<!--        </button>-->
       </div>
     </nav>
 

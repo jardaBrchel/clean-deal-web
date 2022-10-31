@@ -1,0 +1,146 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="admin-headline">Detail úklidu</h1>
+        <button type="button" class="btn  btn-outline-primary" [routerLink]="['/', 'admin', 'edit-order', orderData.order.orderId]">
+          Upravit úklid
+        </button>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-12" *ngIf="!!orderData">
+      <div class="admin-card">
+        <div class="admin-card-body">
+          <h5 class="admin-card-title">
+            Úklid
+          </h5>
+
+          <h1 class="heading-1">{{orderData.order.cleaningDate|date:'d.M.Y'}} &nbsp;&nbsp; <i>{{orderData.order.cleaningTime}}</i></h1>
+
+          <table class="admin-data-table">
+            <tr>
+              <td>Doba úklidu</td>
+              <td>{{orderData.order.cleaningDuration/orderData.order.cleanersCount}} hod.</td>
+            </tr>
+            <tr>
+              <td>Frekvence</td>
+              <td>{{orderData.order.frequency}}</td>
+            </tr>
+            <tr>
+              <td>Počet uklízeček</td>
+              <td>{{orderData.order.cleanersCount}} ({{cleaners}})</td>
+            </tr>
+            <tr>
+              <td>Typ úklidu</td>
+              <td>{{orderData.order.cleaningType}}</td>
+            </tr>
+            <tr>
+              <td>Cena</td>
+              <td>{{orderData.order.price| number}} Kč</td>
+            </tr>
+            <tr>
+              <td>Doplňkové služby</td>
+              <td>
+                <span *ngIf="extras.length === 0">-</span>
+                <span class="d-block" *ngFor="let extra of extras">{{extra.label}}: {{extra.value}}<i [innerHTML]="extra.units"></i></span>
+              </td>
+            </tr>
+            <tr>
+              <td>Je potvrzeno</td>
+              <td>
+                <span *ngIf="!orderData.order.isConfirmed" class="badge badge-pill badge-danger">{{isConfirmed}}</span>
+                <span *ngIf="orderData.order.isConfirmed" class="badge badge-pill badge-success">{{isConfirmed}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Je zaplaceno</td>
+              <td>
+                <span *ngIf="!orderData.order.isPaid" class="badge badge-pill badge-danger">{{isPaid}}</span>
+                <span *ngIf="orderData.order.isPaid" class="badge badge-pill badge-success">{{isPaid}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-12" *ngIf="!!orderData">
+      <div class="admin-card">
+        <div class="admin-card-body">
+          <h5 class="admin-card-title">
+            Zákazník
+          </h5>
+
+          <table class="admin-data-table">
+            <tr>
+              <td>Jméno</td>
+              <td>{{orderData.client.name}}</td>
+            </tr>
+            <tr>
+              <td>Příjmení</td>
+              <td>{{orderData.client.surname}}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{orderData.client.email}}</td>
+            </tr>
+            <tr>
+              <td>Telefon</td>
+              <td>{{orderData.client.phone}}</td>
+            </tr>
+          </table>
+
+          <button class="btn btn-outline-primary" [routerLink]="['/admin', 'client', 'detail', orderData.client.clientId]" >Detail zákazníka</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-12" *ngIf="!!orderData">
+      <div class="admin-card">
+        <div class="admin-card-body">
+          <h5 class="admin-card-title">
+            Domov
+          </h5>
+
+          <table class="admin-data-table">
+            <tr>
+              <td>Adresa</td>
+              <td>{{orderData.home.address}}</td>
+            </tr>
+            <tr>
+              <td>PSČ</td>
+              <td>{{orderData.home.pscNumber}}</td>
+            </tr>
+            <tr>
+              <td>Typ objektu</td>
+              <td>{{homeType}}</td>
+            </tr>
+            <tr>
+              <td>Počet pater</td>
+              <td>{{orderData.home.houseFloors}}</td>
+            </tr>
+            <tr>
+              <td>Počet kuchyní</td>
+              <td>{{orderData.home.kitchens}}</td>
+            </tr>
+            <tr>
+              <td>Počet koupelen</td>
+              <td>{{orderData.home.bathrooms}}</td>
+            </tr>
+            <tr>
+              <td>Počet místností</td>
+              <td>{{orderData.home.rooms}}</td>
+            </tr>
+          </table>
+
+          <button class="btn btn-outline-primary" [routerLink]="['/admin', 'home', 'detail', orderData.home.homeId]" >Detail domova</button>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

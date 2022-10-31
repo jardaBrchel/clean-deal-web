@@ -12,6 +12,8 @@ import {HomesComponent} from './homes/homes.component';
 import {ClientsComponent} from './clients/clients.component';
 import {HomeDetailComponent} from './home-detail/home-detail.component';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
+import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {CreateOrderComponent} from './create-order/create-order.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,11 @@ const routes: Routes = [
     path: 'orders',
     canActivate: [AdminAuthGuard],
     component: OrdersComponent
+  },
+  {
+    path: 'order/detail/:orderId',
+    canActivate: [AdminAuthGuard],
+    component: OrderDetailComponent
   },
   {
     path: 'cleaners',
@@ -65,9 +72,14 @@ const routes: Routes = [
     component: ClientsComponent
   },
   {
-    path: 'client/:clientId',
+    path: 'client/detail/:clientId',
     canActivate: [AdminAuthGuard],
     component: ClientDetailComponent
+  },
+  {
+    path: 'create-order',
+    canActivate: [AdminAuthGuard],
+    component: CreateOrderComponent
   },
 ];
 

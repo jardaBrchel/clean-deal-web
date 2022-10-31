@@ -17,19 +17,20 @@ export class HomesComponent implements OnInit {
     return params.value+' m<sup>2</sup>';
   }
   colDefs: ColDef[] = [
-    {field: 'address', headerName: 'Adresa'},
-    {field: 'psc', headerName: 'PSČ'},
-    {field: 'homeType', headerName: 'Typ objektu'},
-    {field: 'houseFloors', headerName: 'Podlaží'},
-    {field: 'rooms', headerName: 'Místností'},
-    {field: 'kitchens', headerName: 'Kuchyní'},
-    {field: 'bathrooms', headerName: 'Koupelen'},
-    {field: 'toilets', headerName: 'Záchody'},
-    {field: 'yardage', headerName: 'Výměra', cellRenderer: this.mSquareDef},
+    {field: 'address', headerName: 'Adresa', minWidth: 200},
+    {field: 'psc', headerName: 'PSČ', minWidth: 120},
+    {field: 'homeType', headerName: 'Typ objektu', minWidth: 160},
+    {field: 'houseFloors', headerName: 'Podlaží', minWidth: 150},
+    {field: 'rooms', headerName: 'Místnosti', minWidth: 150},
+    {field: 'kitchens', headerName: 'Kuchyně', minWidth: 120},
+    {field: 'bathrooms', headerName: 'Koupelny', minWidth: 120},
+    {field: 'toilets', headerName: 'Záchody', minWidth: 120},
+    {field: 'yardage', headerName: 'Výměra', cellRenderer: this.mSquareDef, minWidth: 150},
     {
       field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
         type: 'home'
       },
+      minWidth: 150
     },];
   gridOptions: any;
 

@@ -21,6 +21,8 @@ import { HomeDetailComponent } from './home-detail/home-detail.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientDetailComponent } from './client-detail/client-detail.component';
 import { GridOrderActionsComponent } from './grid-order-actions/grid-order-actions.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { GridOrderActionsComponent } from './grid-order-actions/grid-order-actio
     HomeDetailComponent,
     ClientsComponent,
     ClientDetailComponent,
-    GridOrderActionsComponent
+    GridOrderActionsComponent,
+    OrderDetailComponent,
+    CreateOrderComponent,
   ],
   imports: [
     CommonModule,

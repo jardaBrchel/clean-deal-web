@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AdminService} from '../../../services/admin.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-client-detail',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private adminService: AdminService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
+
   }
 
 }

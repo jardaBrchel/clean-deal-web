@@ -109,6 +109,11 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
+  getOrderDetail(orderId: number) {
+    const url = Config.urlApi + '/admin/order/' + orderId;
+    return this.http.get<any>(url);
+  }
+
   // CLIENTS
   getClients() {
     const url = Config.urlApi + '/admin/clients';
