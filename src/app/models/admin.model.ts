@@ -32,6 +32,7 @@ export interface AdminClient {
   surname: string;
   createdAt: string;
   updatedAt: string;
+  homes?: AdminHome[];
 }
 
 export interface AdminHome {
@@ -51,6 +52,7 @@ export interface AdminHome {
   toilets: number
   updatedAt: string;
   yardage: string;
+  client?: AdminClient;
 }
 
 export interface AdminOrder {
@@ -78,4 +80,11 @@ export enum PAGE_TYPE {
   ORDER = 'order',
   CLIENT = 'client',
   HOME = 'home',
+}
+
+export interface OrderDataRes {
+  order: AdminOrder,
+  home: AdminHome,
+  client: AdminClient,
+  cleaner: Cleaner[],
 }

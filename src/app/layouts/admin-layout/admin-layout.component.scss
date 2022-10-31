@@ -10,8 +10,19 @@
       h1 {
         margin-bottom: 30px;
       }
+
+      h1.heading-1 {
+        font-size: 38px;
+        font-weight: 300;
+        color: var(--admin-text-color);
+
+        i {
+          color: var(--admin-text-color-lighter);
+        }
+      }
     }
   }
+
 
   .admin-username {
     color: var(--admin-text-color);
@@ -237,6 +248,7 @@
       }
     }
   }
+
   /* ----- */
 
   /* AG Grid */
@@ -273,6 +285,23 @@
   }
 
   /* ----- */
+
+  ::ng-deep .admin-data-table {
+    tr {
+      td {
+        font-size: 15px;
+        padding: 10px 15px;
+        vertical-align: top;
+          line-height: 20px;
+
+        &:first-child {
+          color: var(--admin-text-label);
+          padding-left: 0;
+        }
+
+      }
+    }
+  }
 
 
   @media only screen and (max-width: 767px) {

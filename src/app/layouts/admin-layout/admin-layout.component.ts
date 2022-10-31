@@ -41,7 +41,12 @@ export class AdminLayoutComponent implements OnInit {
     this.showSidebar = !this.showSidebar;
   }
 
+  hideSidebarMobile() {
+    this.showSidebar = false;
+  }
+
   logoutUser() {
+    this.toggleSidebar();
     this.adminService.logout();
     this.router.navigate(['/admin', 'login']);
   }

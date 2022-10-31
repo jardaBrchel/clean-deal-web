@@ -12,6 +12,8 @@ import {HomesComponent} from './homes/homes.component';
 import {ClientsComponent} from './clients/clients.component';
 import {HomeDetailComponent} from './home-detail/home-detail.component';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
+import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {CreateOrderComponent} from './create-order/create-order.component';
 
 const routes: Routes = [
   {
@@ -30,6 +32,11 @@ const routes: Routes = [
     component: OrdersComponent
   },
   {
+    path: 'orders/detail/:orderId',
+    canActivate: [AdminAuthGuard],
+    component: OrderDetailComponent
+  },
+  {
     path: 'cleaners',
     canActivate: [AdminAuthGuard],
     component: CleanersComponent
@@ -40,12 +47,12 @@ const routes: Routes = [
     component: AddCleanerComponent
   },
   {
-    path: 'edit-cleaner/:cleanerId',
+    path: 'cleaners/edit/:cleanerId',
     canActivate: [AdminAuthGuard],
     component: EditCleanerComponent
   },
   {
-    path: 'cleaner-detail/:cleanerId',
+    path: 'cleaners/detail/:cleanerId',
     canActivate: [AdminAuthGuard],
     component: CleanerDetailComponent
   },
@@ -55,7 +62,7 @@ const routes: Routes = [
     component: HomesComponent
   },
   {
-    path: 'home/:homeId',
+    path: 'homes/detail/:homeId',
     canActivate: [AdminAuthGuard],
     component: HomeDetailComponent
   },
@@ -65,9 +72,14 @@ const routes: Routes = [
     component: ClientsComponent
   },
   {
-    path: 'client/:clientId',
+    path: 'clients/detail/:clientId',
     canActivate: [AdminAuthGuard],
     component: ClientDetailComponent
+  },
+  {
+    path: 'create-order',
+    canActivate: [AdminAuthGuard],
+    component: CreateOrderComponent
   },
 ];
 

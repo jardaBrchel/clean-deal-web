@@ -14,19 +14,23 @@ import {GridOrderActionsComponent} from '../grid-order-actions/grid-order-action
 })
 export class OrdersComponent implements OnInit {
   ordersLoaded = false;
-  colDefs: ColDef[] = [
-    {field: 'date', headerName: 'Datum'},
-    {field: 'time', headerName: 'Čas'},
-    {field: 'client', headerName: 'Klient'},
-    {field: 'home', headerName: 'Domov'},
-    {field: 'duration', headerName: 'Doba'},
-    {field: 'price', headerName: 'Cena'},
-    {field: 'confirmed', headerName: 'Je potvrzeno'},
-    {field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
-        type: 'order'
+  colDefs = (historyOrders: boolean = false): ColDef[] => {
+    return [
+      {field: 'date', headerName: 'Datum', minWidth: 120 },
+      {field: 'time', headerName: 'Čas', minWidth: 150},
+      {field: 'client', headerName: 'Klient', minWidth: 150},
+      {field: 'home', headerName: 'Domov', minWidth: 220},
+      {field: 'duration', headerName: 'Doba', minWidth: 100},
+      {field: 'price', headerName: 'Cena', minWidth: 100},
+      {field: 'confirmed', headerName: 'Je potvrzeno', minWidth: 150},
+      {field: 'paid', headerName: 'Je zaplaceno', minWidth: 150, initialHide: !historyOrders},
+      {field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
+          type: 'order'
+        },
+        minWidth: 150
       },
-    },
-  ];
+    ];
+  };
 
   tabs = [
     {
@@ -44,7 +48,6 @@ export class OrdersComponent implements OnInit {
   ]
 
   gridOptions = {
-    columnDefs: this.colDefs,
     onGridReady: (params: any) => {
       params.api.sizeColumnsToFit();
     },
@@ -81,6 +84,7 @@ export class OrdersComponent implements OnInit {
       price: `${order.price} Kč`,
       cleaner: "",
       confirmed: booleanToYesNo(order.isConfirmed),
+      paid: booleanToYesNo(order.isPaid),
     }
   }
 
@@ -91,15 +95,16 @@ export class OrdersComponent implements OnInit {
           this.ordersLoaded = true;
           this.plannedOrdersOptions = {
             ...this.gridOptions,
+            columnDefs: this.colDefs(),
             rowData: orders.plannedOrders.map(this.mapOrdersToGrid),
           }
           this.historyOrdersOptions = {
             ...this.gridOptions,
+            columnDefs: this.colDefs(true),
             rowData: orders.historyOrders.map(this.mapOrdersToGrid),
           }
           this.tabs[0].count = orders.plannedOrders.length;
           this.tabs[1].count = orders.historyOrders.length;
-          console.log('orders', orders);
         },
         error: (e) => {
         },

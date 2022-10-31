@@ -11,7 +11,7 @@ export class GridOrderActionsComponent implements ICellRendererAngularComp  {
   private params: any;
   public refresh: any;
   public itemId!: number| string;
-  public type!: 'order'|'client'|'home';
+  public type!: 'order'|'client'|'homes';
 
   constructor(
     private adminService: AdminService,
