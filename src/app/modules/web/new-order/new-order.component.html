@@ -206,7 +206,12 @@
           <form [formGroup]="orderForm">
             <h3 class="subtitle">Kdy preferuji úklid a kde</h3>
 
-            <section class="form-section half-section">
+            <ng-container *ngIf="!availableCalendars.length">
+            <p class="centered">Načítám časy dostupnosti pracovníků...</p>
+            </ng-container>
+
+            <ng-container *ngIf="!!availableCalendars.length">
+            <section class="form-section half-section" >
               <h5 class="label">Datum</h5>
               <div class="input-group date-input">
                 <mat-form-field appearance="outline">
@@ -261,6 +266,7 @@
                   formControlName="pscNumber"/>
               </div>
             </section>
+            </ng-container>
           </form>
 
           <hr>
@@ -323,6 +329,18 @@
                   class="form-control"
                   name="address"
                   formControlName="contactAddress">
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h5 class="label">Způsob úhrady</h5>
+
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  formControlName="paymentMethod">
+                  <option *ngFor="let item of paymentMethods" [value]="item.id">{{item.label}}</option>
+                </select>
               </div>
             </section>
           </form>
