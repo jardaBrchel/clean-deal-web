@@ -190,6 +190,20 @@ export const DIRTY: orderFormItem[] = [
   },
 ]
 
+export const PAYMENT_CASH = 'CASH';
+export const PAYMENT_TRANSFER = 'TRANSFER';
+
+export const PAYMENT_METHODS: orderFormItem[] = [
+  {
+    id: PAYMENT_CASH,
+    label: 'V hotovosti',
+  },
+  {
+    id: PAYMENT_TRANSFER,
+    label: 'Převodem',
+  },
+]
+
 export const YARDAGE: orderFormItem[] = [
   {
     id: '59',

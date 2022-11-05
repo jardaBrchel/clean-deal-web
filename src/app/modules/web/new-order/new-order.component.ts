@@ -15,7 +15,7 @@ import {
   HOME_TYPES,
   HOUSE_FLOORS,
   KITCHENS, MAX_CALENDAR_DAYS, MAX_HOURS_PER_LADY, MAX_WINDOW_BLINDS_METERS, MAX_WINDOWS_METERS, orderFormItem,
-  OWN_CLEANING_STUFF,
+  OWN_CLEANING_STUFF, PAYMENT_METHODS, PAYMENT_TRANSFER,
   ROOMS,
   TIMES,
   TOILETS,
@@ -60,6 +60,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   dirty = DIRTY;
   yardage = YARDAGE;
   maxSpaceArea = MAX_SPACE_AREA;
+  paymentMethods = PAYMENT_METHODS;
   multiplicators: OrderMultiplicators = {};
   homeType = HOME_TYPES[0].id;
   maxWindowsMeters = MAX_WINDOWS_METERS;
@@ -172,6 +173,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       phone: ['', [Validators.required]],
       contactAddressMatchesCleaning: [false],
       contactAddress: ['', [Validators.required]],
+      paymentMethod: [PAYMENT_TRANSFER, [Validators.required]],
     });
   }
 
