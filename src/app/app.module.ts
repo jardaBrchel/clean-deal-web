@@ -15,12 +15,14 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {MatIconModule} from '@angular/material/icon';
 import {AgGridModule} from 'ag-grid-angular';
+import {ClientLayoutComponent} from './layouts/client-layout/client-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WebLayoutComponent,
     AdminLayoutComponent,
+    ClientLayoutComponent,
   ],
   imports: [
     BrowserModule,

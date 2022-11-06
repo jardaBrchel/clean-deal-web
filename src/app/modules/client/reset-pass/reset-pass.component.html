@@ -1,0 +1,61 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-lg-6 offset-lg-3 ">
+
+
+      <!-- Default Card Example -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-body">
+          <h5 class="admin-card-title center">
+            <img src="/assets/images/resources/logo_klient.svg" alt="">
+            <br>
+            Nastavte si nové heslo
+          </h5>
+          <br>
+          <form [formGroup]="resetPassForm" *ngIf="!invalidEmail">
+            <div class="form-group">
+              <label for="pass">Heslo</label>
+              <input
+                type="password"
+                class="form-control"
+                id="pass"
+                formControlName="password"
+                placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="passAgain">Zopakujte heslo</label>
+              <input
+                type="password"
+                class="form-control"
+                id="passAgain"
+                formControlName="passwordAgain"
+                placeholder="">
+            </div>
+            <div class="form-group button-section">
+              <button type="submit" class="btn btn-orange" (click)="onPassResetSubmit()">Uložit nové heslo</button>
+            </div>
+          </form>
+
+          <div class="alert alert-danger" role="alert" *ngIf="invalidEmail">
+            Zadaný odkaz není validní
+          </div>
+
+          <div class="alert alert-danger" role="alert" *ngIf="errorOnSubmit">
+            Při odesílání došlo k chybě, zkuste to prosím později.
+          </div>
+
+          <div class="alert alert-danger" role="alert" *ngIf="resetPassForm.touched && !this.passwordsMatch">
+            Hesla se neshodují
+          </div>
+
+          <div class="alert alert-danger" role="alert"
+               *ngIf="formSent && !resetPassForm.valid">
+            Minimální délka hesla je 6 znaků
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

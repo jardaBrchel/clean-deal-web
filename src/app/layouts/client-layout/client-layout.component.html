@@ -1,31 +1,22 @@
 <div class="wrapper d-flex align-items-stretch" [ngClass]="{'bg-image-container': !isLogged}">
-  <nav id="sidebar" [ngClass]="{'active': showSidebar}" *ngIf="isLogged">
+<nav id="sidebar" [ngClass]="{'active': showSidebar}" *ngIf="isLogged">
 
-    <div class="p-4 pb-0">
-      <img src="/assets/images/resources/logo_admin.svg" alt="">
+    <div class="logo-wrap">
+      <img src="/assets/images/resources/logo_klient.svg" alt="">
     </div>
 
-    <div class="p-4">
+    <div class="sidemenu-wrap">
       <ul class="list-unstyled components mb-5" >
-        <li>
-          <a [routerLink]="['/', 'admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="hideSidebarMobile()" >
-            <mat-icon aria-hidden="false" fontIcon="dashboard"></mat-icon> Přehled</a>
+        <li class="username">
+          <p>{{client?.name}} {{client?.surname}}</p>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'orders']" routerLinkActive="active" (click)="hideSidebarMobile()">
+          <a [routerLink]="['/', 'client', 'orders']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="wash"></mat-icon> Úklidy</a>
         </li>
         <li>
-          <a [routerLink]="['/', 'admin', 'homes']" routerLinkActive="active" (click)="hideSidebarMobile()">
+          <a [routerLink]="['/', 'client', 'homes']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="house"></mat-icon> Domovy</a>
-        </li>
-        <li>
-          <a [routerLink]="['/', 'admin', 'clients']" routerLinkActive="active" (click)="hideSidebarMobile()">
-            <mat-icon aria-hidden="false" fontIcon="groups"></mat-icon> Zákazníci</a>
-        </li>
-        <li>
-          <a [routerLink]="['/', 'admin', 'cleaners']" routerLinkActive="active" (click)="hideSidebarMobile()">
-            <mat-icon aria-hidden="false" fontIcon="work"></mat-icon> Pracovníci</a>
         </li>
         <br>
         <li>

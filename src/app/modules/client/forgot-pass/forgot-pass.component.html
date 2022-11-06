@@ -1,0 +1,35 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-lg-6 offset-lg-3 ">
+
+
+      <!-- Default Card Example -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-body">
+          <h5 class="admin-card-title center">
+            <img src="/assets/images/resources/logo_klient.svg" alt="">
+            <br>
+            Zapomenuté heslo
+          </h5>
+          <br>
+          <form [formGroup]="resetPassForm">
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="">
+            </div>
+            <div class="form-group button-section">
+              <button type="submit" class="btn btn-orange" (click)="onPassResetSubmit()">Odeslat odkaz na změnu hesla</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>

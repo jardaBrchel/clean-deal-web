@@ -5,3 +5,6 @@ export class Config {
   static urlApi = '';
   static isProduction = false;
 }
+
+export const CLIENT_ID_SALT = '7aYb9kJ5OKhFYPUjSJ';
+
