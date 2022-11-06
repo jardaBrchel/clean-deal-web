@@ -1,27 +1,22 @@
 <div class="container">
-
   <div class="row">
-
     <div class="col-lg-6 offset-lg-3 ">
-
-
       <!-- Default Card Example -->
       <div class="admin-card mb-4">
         <div class="admin-card-body">
           <h5 class="admin-card-title center">
-            <img src="/assets/images/resources/logo_admin.svg" alt="">
-
+            <img src="/assets/images/resources/logo_klient.svg" alt="">
           </h5>
           <br>
           <form [formGroup]="loginForm">
             <div class="form-group">
-              <label for="username">Jméno</label>
+              <label for="email">E-mail</label>
               <input
-                type="text"
+                type="email"
                 class="form-control"
-                id="username"
+                id="email"
                 formControlName="username"
-                placeholder="Jméno">
+                placeholder="E-mail">
             </div>
             <div class="form-group">
               <label for="pass">Heslo</label>
@@ -33,7 +28,8 @@
                 placeholder="">
             </div>
             <div class="form-group button-section">
-            <button type="submit" class="btn btn-orange" (click)="onLoginSubmit()">Přihlásit se</button>
+              <button type="submit" class="btn btn-orange" (click)="onLoginSubmit()">Přihlásit se</button>
+              <a [routerLink]="['/','client', 'forgot-pass']" class="link">Zapomněli jste heslo?</a>
             </div>
           </form>
         </div>

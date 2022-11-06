@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ColDef} from 'ag-grid-community';
-import {AdminOrder, AdminOrdersRes, Cleaner} from '../../../models/admin.model';
+import {GridOrderActionsComponent} from '../../admin/grid-order-actions/grid-order-actions.component';
 import {AdminService} from '../../../services/admin.service';
-import {booleanToYesNo} from '../../../helpers/logic.helper';
-import {TIMES} from '../../../config/order-config';
+import {AdminOrder, AdminOrdersRes} from '../../../models/admin.model';
 import {dateToDmyFormat} from '../../../helpers/datetime.helper';
-import {GridOrderActionsComponent} from '../grid-order-actions/grid-order-actions.component';
+import {TIMES} from '../../../config/order-config';
+import {booleanToYesNo} from '../../../helpers/logic.helper';
+import {ClientService} from '../../../services/client.service';
 
 @Component({
   selector: 'app-orders',
@@ -18,7 +19,6 @@ export class OrdersComponent implements OnInit {
     return [
       {field: 'date', headerName: 'Datum', minWidth: 120 },
       {field: 'time', headerName: 'Čas', minWidth: 150},
-      {field: 'client', headerName: 'Klient', minWidth: 150},
       {field: 'home', headerName: 'Domov', minWidth: 220},
       {field: 'duration', headerName: 'Doba', minWidth: 100},
       {field: 'price', headerName: 'Cena', minWidth: 100},
@@ -67,7 +67,7 @@ export class OrdersComponent implements OnInit {
   canceledOrdersOptions: any;
 
   constructor(
-    private adminService: AdminService,
+    private clientService: ClientService,
   ) {
   }
 
@@ -85,7 +85,6 @@ export class OrdersComponent implements OnInit {
       orderId: order.orderId,
       date: dateToDmyFormat(order.cleaningDate),
       time: TIMES.find(t => t.id === order.cleaningTime)?.label,
-      client: order.clientName,
       home: order.homeName,
       duration: `${order.cleaningDuration / order.cleanersCount} hod.`,
       price: `${order.price} Kč`,
@@ -96,7 +95,7 @@ export class OrdersComponent implements OnInit {
   }
 
   fetchOrders() {
-    this.adminService.getOrders().subscribe(
+    this.clientService.getClientOrders(this.clientService.getCurrentUser()?.clientId || '').subscribe(
       {
         next: (orders: AdminOrdersRes) => {
           this.ordersLoaded = true;

@@ -17,9 +17,9 @@ export class AdminLayoutComponent implements OnInit {
   isLogged = false;
 
   constructor(
-    private adminService: AdminService,
-    private router: Router,
-    private store: Store<AppState>,
+    public adminService: AdminService,
+    public router: Router,
+    public store: Store<AppState>,
   ) {
   }
 

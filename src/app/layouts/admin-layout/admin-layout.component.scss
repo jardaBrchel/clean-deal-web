@@ -3,6 +3,44 @@
 :host {
   color: var(--admin-text-color);
 
+  .logo-wrap {
+    padding: 30px 24px 0;
+  }
+
+  .sidemenu-wrap {
+    padding: 24px;
+  }
+
+  .bg-image-container {
+    background-image: url(/assets/images/slides/faq.jpg);
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  .username {
+    position: relative;
+
+    p {
+      color: var(--admin-text-color-light);
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      margin-bottom: 30px;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: -24px;
+      top: 14px;
+      width: 10px;
+      height: 1px;
+      transition: all 0.3s ease-in-out;
+      background-color: #a1acb8 !important;
+    }
+  }
+
   .inner-content {
     padding: 0 30px;
 
@@ -82,11 +120,19 @@
           }
         }
       }
+
+      &.active {
+        margin-left: 0 !important;
+      }
     }
 
     #content {
       background: var(--admin-background);
       padding: 40px 0;
+    }
+
+    .bg-image-container #content {
+      background: none;
     }
 
     .bg-light {
@@ -132,6 +178,10 @@
         font-weight: 400;
         color: var(--admin-text-color);
         margin-bottom: 14px;
+
+        &.center {
+          text-align: center;
+        }
       }
 
       .admin-card-body {
@@ -247,6 +297,20 @@
         //margin-bottom: 0;
       }
     }
+
+    .form-group {
+      &.button-section {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .link {
+        text-decoration: underline;
+        font-size: 14px;
+        display: block;
+        margin-top: 15px;
+      }
+    }
   }
 
   /* ----- */
@@ -292,7 +356,7 @@
         font-size: 15px;
         padding: 10px 15px;
         vertical-align: top;
-          line-height: 20px;
+        line-height: 20px;
 
         &:first-child {
           color: var(--admin-text-label);

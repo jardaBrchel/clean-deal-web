@@ -115,10 +115,21 @@
     color: var(--admin-text-color-light);
     letter-spacing: 0.06em;
     border-radius: 8px 8px 0 0;
-      border-width: 0;
+    border-width: 0;
+    margin-right: 8px;
 
     &.active {
-    color: var(--admin-text-color);
+      color: var(--admin-text-color);
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .nav-tabs {
+    font-size: 14px;
+
+    .nav-link {
+      margin-right: 0;
     }
   }
 }

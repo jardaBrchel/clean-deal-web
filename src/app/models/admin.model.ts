@@ -19,6 +19,7 @@ export interface Cleaner {
 export interface AdminOrdersRes {
   plannedOrders: AdminOrder[],
   historyOrders: AdminOrder[],
+  canceledOrders: AdminOrder[],
 }
 
 export interface AdminClient {
