@@ -1,0 +1,412 @@
+<form [formGroup]="homesForm" *ngIf="isClientForm && !isEditOrder">
+  <section class="form-section">
+    <h5 class="label">Domov</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="home"
+        (change)="changeHome($event)">
+        <option *ngFor="let item of homesData" [value]="item.homeId">{{item.address}}, {{item.pscNumber}}</option>
+      </select>
+    </div>
+  </section>
+</form>
+
+<form [formGroup]="orderForm">
+
+  <section class="form-section">
+    <h5 class="label">Typ úklidu</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="cleaningType"
+        (change)="changeCleaningType($event)">
+        <option *ngFor="let ct of cleaningTypes" [value]="ct.id">{{ct.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <ng-container *ngIf="!isClientForm">
+    <section class="form-section half-section">
+      <h5 class="label">Typ objektu</h5>
+      <div class="input-group">
+        <select
+          class="custom-select"
+          formControlName="homeType"
+          (change)="changeHomeType($event)">
+          <option *ngFor="let item of homeTypes" [value]="item.id">{{item.label}}</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="form-section half-section no-spacing">
+      <h5 class="label">Počet pater</h5>
+      <div class="input-group">
+        <select
+          class="custom-select"
+          formControlName="houseFloors"
+          (change)="changeHouseFloors($event)">
+          <option *ngFor="let item of houseFloors" [value]="item.id">{{item.label}}</option>
+        </select>
+      </div>
+    </section>
+  </ng-container>
+
+
+  <section class="form-section" *ngIf="!isEditOrder">
+    <h5 class="label">Jak často bude probíhat úklid</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="frequency"
+        (change)="changeFrequency($event)">
+        <option *ngFor="let item of frequency" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <ng-container *ngIf="!isClientForm">
+  <section class="form-section half-section">
+    <h5 class="label">Počet koupelen</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="bathrooms"
+        (change)="changeBathrooms($event)">
+        <option *ngFor="let item of bathrooms" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Počet kuchyní / kuchyňských koutů</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="kitchens"
+        (change)="changeKitchens($event)">
+        <option *ngFor="let item of kitchens" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="form-section half-section">
+    <h5 class="label">Počet ostatních místností</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="rooms"
+        (change)="changeRooms($event)">
+        <option *ngFor="let item of rooms" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Počet samostatných WC</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="toilets"
+        (change)="changeToilets($event)">
+        <option *ngFor="let item of toilets" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="form-section half-section">
+    <h5 class="label">Máte vlastní čisticí prostředky</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="ownCleaningStuff"
+        (change)="changeOwnCleaningStuff($event)">
+        <option *ngFor="let item of ownCleaningStuff" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Domácí zvířata</h5>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="pets"
+        formControlName="pets"/>
+    </div>
+  </section>
+  </ng-container>
+
+
+  <section class="form-section half-section">
+    <h5 class="label">Míra znečištění</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="dirty"
+        (change)="changeDirty($event)">
+        <option *ngFor="let item of dirty" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+
+  <ng-container *ngIf="!isClientForm">
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Výměra domácnosti (m<sup>2</sup>)</h5>
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="yardage"
+        (change)="changeYardage($event)">
+        <option *ngFor="let item of yardage" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+  </ng-container>
+
+  <section class="form-section">
+    <h5 class="label">Dodatečné informace k úklidu</h5>
+    <div class="input-group">
+                <textarea
+                  class="form-control"
+                  placeholder="Vyplňte, co bychom měli vědět před započetím úklidu"
+                  formControlName="comments">
+                </textarea>
+    </div>
+  </section>
+</form>
+
+<hr class="dashed">
+<h5 class="subsection-headline">Dodatečné služby</h5>
+
+<form [formGroup]="extrasForm">
+  <section class="form-section half-section">
+    <h5 class="label">Mytí a leštěšní oken (m<sup>2</sup> plochy skel)</h5>
+    <!--              TODO pridat info ikonu a vysvetlit mereni oken-->
+    <div class="input-group">
+      <input
+        type="number"
+        min="0"
+        [max]="maxWindowsMeters"
+        step="1"
+        class="form-control"
+        name="windows"
+        formControlName="windows"
+        (change)="windowsChanged($event)"/>
+    </div>
+  </section>
+
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Čištění žaluzií (m<sup>2</sup> plochy)</h5>
+    <!--              TODO pridat info ikonu a vysvetlit mereni oken-->
+    <div class="input-group">
+      <input
+        type="number"
+        min="0"
+        [max]="maxWindowBlindsMeters"
+        step="1"
+        class="form-control"
+        name="windowBlinds"
+        formControlName="windowBlinds"
+        (change)="windowBlindsChanged($event)"/>
+    </div>
+  </section>
+</form>
+
+<hr>
+<form [formGroup]="orderForm">
+  <h3 class="subtitle">Kdy preferuji úklid a kde</h3>
+
+  <ng-container *ngIf="!availableCalendars.length">
+    <p class="centered">Načítám časy dostupnosti pracovníků...</p>
+  </ng-container>
+
+  <ng-container *ngIf="!!availableCalendars.length">
+    <section class="form-section half-section" >
+      <h5 class="label">Datum</h5>
+      <div class="input-group date-input">
+        <mat-form-field appearance="outline">
+          <input matInput
+                 [min]="dateMinDate"
+                 [max]="dateMaxDate"
+                 formControlName="date"
+                 [matDatepicker]="matDatePicker"
+                 autocomplete="off"
+                 [placeholder]="'Vyberte datum'"
+                 [matDatepickerFilter]="dateFilter"
+                 (focus)="matDatePicker.open()"
+                 (dateChange)="onDateChange()"
+          />
+          <mat-datepicker-toggle matPrefix [for]="matDatePicker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #matDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </section>
+
+    <section class="form-section half-section no-spacing">
+      <h5 class="label">Čas zahájení úklidu</h5>
+      <div class="input-group">
+        <select
+          class="custom-select"
+          formControlName="time"
+          (change)="changeTime()">
+          <option *ngFor="let item of availableTimesOptions" [value]="item.id">{{item.label}}</option>
+        </select>
+      </div>
+    </section>
+
+    <ng-container *ngIf="!isClientForm">
+    <section class="form-section half-section">
+      <h5 class="label">Adresa, č.p. (pouze Praha)</h5>
+      <div class="input-group text-input">
+        <input
+          type="text"
+          class="form-control"
+          name="street"
+          formControlName="address"/>
+      </div>
+    </section>
+
+    <section class="form-section half-section no-spacing">
+      <h5 class="label">PSČ</h5>
+      <div class="input-group text-input">
+        <input
+          type="text"
+          class="form-control"
+          name="zip"
+          formControlName="pscNumber"/>
+      </div>
+    </section>
+    </ng-container>
+  </ng-container>
+</form>
+
+<hr>
+
+<form [formGroup]="userForm" *ngIf="!isClientForm">
+  <h3 class="subtitle">Informace o vás</h3>
+
+  <section class="form-section half-section">
+    <h5 class="label">Jméno</h5>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        formControlName="name">
+    </div>
+  </section>
+
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Příjmení</h5>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="surname"
+        formControlName="surname">
+    </div>
+  </section>
+
+  <section class="form-section half-section">
+    <h5 class="label">E-mail</h5>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="email"
+        (change)="changeEmail()"
+        formControlName="email">
+    </div>
+  </section>
+
+  <section class="form-section half-section no-spacing">
+    <h5 class="label">Telefon</h5>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="phone"
+        formControlName="phone">
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h5 class="label">Kontaktní adresa (Ulice, č.p., město, PSČ)</h5>
+
+    <div class="address-match"><input type="checkbox" id="contactAddressMatchesCleaning" formControlName="contactAddressMatchesCleaning" (change)="changeContactAddressMatch()"/>
+      <label for="contactAddressMatchesCleaning">Adresa je shodná s adresou uklízeného objektu</label></div>
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        name="address"
+        formControlName="contactAddress">
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h5 class="label">Způsob úhrady</h5>
+
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="paymentMethod">
+        <option *ngFor="let item of paymentMethods" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+</form>
+
+<form [formGroup]="userForm" *ngIf="isClientForm">
+  <section class="form-section">
+    <h5 class="label">Způsob úhrady</h5>
+
+    <div class="input-group">
+      <select
+        class="custom-select"
+        formControlName="paymentMethod">
+        <option *ngFor="let item of paymentMethods" [value]="item.id">{{item.label}}</option>
+      </select>
+    </div>
+  </section>
+</form>
+
+<form [formGroup]="orderForm">
+          <span class="agree-to-terms">
+            <input type="checkbox" formControlName="confirmation" id="confirmation"/>
+            <label for="confirmation">Souhlasím s <a [routerLink]="['/' , webUrls.TERMS]" target="_blank">obchodními podmínkami</a> a <a
+              [routerLink]="['/', webUrls.GDPR]" target="_blank">ochranou osobních údajů</a></label>
+          </span>
+</form>
+<span *ngIf="orderSendClicked && !onlyConfirmationMissing && (!orderForm.valid || !userForm.valid)"
+      class="fill-required">Vyplňte prosím všechna povinná pole</span>
+<span *ngIf="orderSendClicked && onlyConfirmationMissing" class="fill-required">Musíte zaškrnout souhlas s obchodními podmínkami a ochranou osobních údajů</span>
+<span *ngIf="errorOnSubmit" class="fill-required">Omlouváme se, ale při odesílání poptávky došlo k chybě. Zkuste to prosím později.</span>
+<div class="link-box centered">
+  <a *ngIf="!sendingOrder" class="btn-one submit-form" (click)="onOrderSubmit()">Odeslat poptávku úklidu</a>
+  <a *ngIf="sendingOrder" class="btn-one submit-form disabled">Odesílám poptávku...</a>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade cd-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true"
+     [ngClass]="{'show': showNoDateCapacityModal}"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Upozornění</h3>
+      </div>
+      <div class="modal-body">
+        <p>Pro daný datum nemáme potřebnou pracovní kapacitu. Vyberte si prosím jiný termín.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-one submit-form"
+                (click)="doHideNoDateCapacityModal()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,9 @@
-<a [routerLink]="['/', 'admin', type + 's', 'detail', itemId]">
+<a [routerLink]="['/', module, type + 's', 'detail', itemId]">
   <mat-icon aria-hidden="false" fontIcon="visibility"></mat-icon>
 </a>
-<a [routerLink]="['/', 'admin', type, 'edit', itemId]">
+<a [routerLink]="['/', module, type+ 's', 'edit', itemId]" *ngIf="isEditable">
   <mat-icon aria-hidden="false" fontIcon="edit"></mat-icon>
 </a>
-<a (click)="deleteItem()">
+<a (click)="deleteItem()" *ngIf="isEditable">
   <mat-icon aria-hidden="false" fontIcon="delete"></mat-icon>
 </a>

@@ -3,20 +3,20 @@
     <div class="col-lg-12 mb-4">
       <div class="d-flex justify-content-between align-items-center">
         <h1 class="admin-headline">Detail úklidu</h1>
-        <button type="button" class="btn  btn-outline-primary" [routerLink]="['/', 'admin', 'edit-order', orderData.order.orderId]">
+        <button type="button" class="btn  btn-outline-primary" [routerLink]="['/', 'client', 'edit-order', orderData?.order?.orderId]">
           Upravit úklid
         </button>
       </div>
     </div>
 
-    <div class="col-xl-6 col-md-12" *ngIf="!!orderData">
+    <div class="col-xl-9 col-md-12" *ngIf="!!orderData">
       <div class="admin-card">
         <div class="admin-card-body">
           <h5 class="admin-card-title">
             Úklid
           </h5>
 
-          <h1 class="heading-1">{{orderData.order.cleaningDate|date:'d.M.Y'}} &nbsp;&nbsp; <i>{{orderData.order.cleaningTime}}</i></h1>
+          <h1 class="heading-1">{{orderData.order.cleaningDate|date:'d.M.Y'}} &nbsp;&nbsp; <i>{{orderData?.order?.cleaningTime}}</i></h1>
 
           <table class="admin-data-table">
             <tr>
@@ -28,8 +28,8 @@
               <td>{{orderData.order.frequency}}</td>
             </tr>
             <tr>
-              <td>Počet uklízeček</td>
-              <td>{{orderData.order.cleanersCount}} ({{cleaners}})</td>
+              <td>Počet pracovníků</td>
+              <td>{{orderData.order.cleanersCount}}</td>
             </tr>
             <tr>
               <td>Typ úklidu</td>
@@ -73,37 +73,6 @@
       <div class="admin-card">
         <div class="admin-card-body">
           <h5 class="admin-card-title">
-            Zákazník
-          </h5>
-
-          <table class="admin-data-table">
-            <tr>
-              <td>Jméno</td>
-              <td>{{orderData.client.name}}</td>
-            </tr>
-            <tr>
-              <td>Příjmení</td>
-              <td>{{orderData.client.surname}}</td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td>{{orderData.client.email}}</td>
-            </tr>
-            <tr>
-              <td>Telefon</td>
-              <td>{{orderData.client.phone}}</td>
-            </tr>
-          </table>
-
-          <button class="btn btn-outline-primary" [routerLink]="['/admin', 'clients', 'detail', orderData.client.clientId]" >Detail zákazníka</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-md-12" *ngIf="!!orderData">
-      <div class="admin-card">
-        <div class="admin-card-body">
-          <h5 class="admin-card-title">
             Domov
           </h5>
 
@@ -137,8 +106,6 @@
               <td>{{orderData.home.rooms}}</td>
             </tr>
           </table>
-
-          <button class="btn btn-outline-primary" [routerLink]="['/admin', 'homes', 'detail', orderData.home.homeId]" >Detail domova</button>
 
         </div>
       </div>

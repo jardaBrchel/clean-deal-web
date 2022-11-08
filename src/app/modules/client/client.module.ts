@@ -15,15 +15,25 @@ import {OrdersComponent} from './orders/orders.component';
 import {HomesComponent} from './homes/homes.component';
 import {ForgotPassComponent} from './forgot-pass/forgot-pass.component';
 import {ClientAuthGuard} from '../../guards/client-auth.guard';
+import { HomeDetailComponent } from './home-detail/home-detail.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { EditHomeComponent } from './edit-home/edit-home.component';
+import { EditOrderComponent } from './edit-order/edit-order.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-
     ClientLoginComponent,
        ResetPassComponent,
        OrdersComponent,
        HomesComponent,
-       ForgotPassComponent
+       ForgotPassComponent,
+       HomeDetailComponent,
+       OrderDetailComponent,
+       EditHomeComponent,
+       EditOrderComponent,
+       CreateOrderComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +47,7 @@ import {ClientAuthGuard} from '../../guards/client-auth.guard';
     MatIconModule,
     AgGridModule,
     MatAutocompleteModule,
+    SharedModule,
   ],
   exports: [
     MatDatepickerModule,

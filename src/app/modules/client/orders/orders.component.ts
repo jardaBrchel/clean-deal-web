@@ -15,7 +15,7 @@ import {ClientService} from '../../../services/client.service';
 })
 export class OrdersComponent implements OnInit {
   ordersLoaded = false;
-  colDefs = (historyOrders: boolean = false): ColDef[] => {
+  colDefs = (historyOrders: boolean = false, isEditable = true): ColDef[] => {
     return [
       {field: 'date', headerName: 'Datum', minWidth: 120 },
       {field: 'time', headerName: 'Čas', minWidth: 150},
@@ -25,7 +25,9 @@ export class OrdersComponent implements OnInit {
       {field: 'confirmed', headerName: 'Je potvrzeno', minWidth: 150},
       {field: 'paid', headerName: 'Je zaplaceno', minWidth: 150, initialHide: !historyOrders},
       {field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
-          type: 'order'
+          type: 'order',
+          module: 'client',
+          isEditable: isEditable,
         },
         minWidth: 150
       },
@@ -101,17 +103,17 @@ export class OrdersComponent implements OnInit {
           this.ordersLoaded = true;
           this.plannedOrdersOptions = {
             ...this.gridOptions,
-            columnDefs: this.colDefs(),
+            columnDefs: this.colDefs(false, true),
             rowData: orders.plannedOrders.map(this.mapOrdersToGrid),
           }
           this.historyOrdersOptions = {
             ...this.gridOptions,
-            columnDefs: this.colDefs(true),
+            columnDefs: this.colDefs(true, false),
             rowData: orders.historyOrders.map(this.mapOrdersToGrid),
           }
           this.canceledOrdersOptions = {
             ...this.gridOptions,
-            columnDefs: this.colDefs(),
+            columnDefs: this.colDefs(true, false),
             rowData: orders.canceledOrders.map(this.mapOrdersToGrid),
           }
           this.tabs[0].count = orders.plannedOrders.length;

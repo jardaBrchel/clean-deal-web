@@ -37,22 +37,22 @@ export interface AdminClient {
 }
 
 export interface AdminHome {
-  homeId: string;
-  address: string;
-  bathrooms: number;
-  createdAt: string;
-  dirty: string;
-  homeType: string;
-  houseFloors: number;
-  info: string;
-  kitchens: number;
-  ownCleaningStuff: boolean
-  pets: string;
-  pscNumber: string;
-  rooms: number
-  toilets: number
-  updatedAt: string;
-  yardage: string;
+  homeId?: string;
+  address?: string;
+  bathrooms?: number;
+  createdAt?: string;
+  dirty?: string;
+  homeType?: string;
+  houseFloors?: number;
+  info?: string;
+  kitchens?: number;
+  ownCleaningStuff?: boolean
+  pets?: string;
+  pscNumber?: string;
+  rooms?: number
+  toilets?: number
+  updatedAt?: string;
+  yardage?: string;
   client?: AdminClient;
 }
 
@@ -75,6 +75,7 @@ export interface AdminOrder {
   extras?: string;
   clientName?: string;
   homeName?: string;
+  variableSymbol?: string;
 }
 
 export enum PAGE_TYPE {

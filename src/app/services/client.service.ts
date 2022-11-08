@@ -67,6 +67,14 @@ export class ClientService {
     return this.http.post<any>(url, data);
   }
 
+  getHomes(clientId: string) {
+    const url = Config.urlApi + '/client/homes';
+    const data = {
+      clientId,
+    };
+    return this.http.post<any>(url, data);
+  }
+
   sendForgotPass(email: string) {
     const url = Config.urlApi + '/client/send-forgot-pass';
     const data = {

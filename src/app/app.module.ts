@@ -16,6 +16,7 @@ import {environment} from '../environments/environment';
 import {MatIconModule} from '@angular/material/icon';
 import {AgGridModule} from 'ag-grid-angular';
 import {ClientLayoutComponent} from './layouts/client-layout/client-layout.component';
+import {SharedModule} from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {ClientLayoutComponent} from './layouts/client-layout/client-layout.compo
     HttpClientModule,
     MatIconModule,
     AgGridModule,
+    SharedModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
