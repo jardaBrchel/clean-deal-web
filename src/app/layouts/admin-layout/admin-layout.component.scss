@@ -367,6 +367,14 @@
     }
   }
 
+  ::ng-deep app-order-form{
+    .input-group > input,
+    .input-group > textarea,
+    .input-group > .custom-select {
+      width: 100% !important;
+    }
+  }
+
 
   @media only screen and (max-width: 767px) {
     .inner-content {

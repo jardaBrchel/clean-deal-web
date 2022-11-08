@@ -18,9 +18,17 @@ export class OrderService {
     return this.http.post<any>(url, data);
   }
 
-  getAvailableTimes(): Observable<AvailableTimesRes> {
+  editOrder(data: any, orderId: number) {
+    const url = Config.urlApi + '/order/' + orderId;
+    return this.http.put<any>(url, data);
+  }
+
+  getAvailableTimes(orderId: number): Observable<AvailableTimesRes> {
     const url = Config.urlApi + '/cleaner/available-times';
-    return this.http.get<any>(url);
+    const data = {
+      orderId,
+    }
+    return this.http.post<any>(url, data);
     // FIXME remove mock
     // return of(TimesMock);
   }

@@ -1,0 +1,137 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="admin-headline">Vytvoření úklidu</h1>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-12" *ngIf="!orderSentSuccessfully">
+      <div class="admin-card">
+        <div class="admin-card-body">
+          <app-order-form
+            *ngIf="homesDataLoaded"
+            (summaryPriceItemsChanged)="onSummaryPriceItemsChanged($event)"
+            (extrasPriceItemsChanged)="onExtrasPriceItemsChanged($event)"
+            (realCleaningTimeChanged)="onRealCleaningTimeChanged($event)"
+            (ladiesForTheJobChanged)="onLadiesForTheJobChanged($event)"
+            (finalPriceChanged)="onFinalPriceChanged($event)"
+            (repeatedPriceChanged)="onRepeatedPriceChanged($event)"
+            (orderSentSuccessfullyChanged)="onOrderSentSuccessfullyChanged($event)"
+            (orderSendClickedChanged)="onOrderSendClickedChanged($event)"
+            (summaryTimeDetailsChanged)="onSummaryTimeDetailsChanged($event)"
+            (emailChanged)="onEmailChanged($event)"
+            (hideMobilePriceBarChanged)="onHideMobilePriceBarChanged($event)"
+            [clientData]="clientData"
+            [homesData]="homesData"
+            [isClientForm]="true"
+          ></app-order-form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-12" *ngIf="!orderSentSuccessfully">
+      <div class="admin-card">
+
+        <div class="admin-card-body">
+          <h5 class="admin-card-title">
+            Souhrn poptávky
+          </h5>
+          <br>
+
+          <div class="summary-block">
+            <div class="summary-block-item">
+              <section class="section-icon">
+                <img src="assets/images/icon/order/home.svg" alt="">
+              </section>
+              <div class="prices-block">
+                <section class="prices-table" *ngFor="let item of summaryPriceItems">
+                  <div class="items">
+                    <section [innerHTML]="item.name">
+                    </section>
+                  </div>
+                  <div class="prices">
+                    {{item.price}}
+                  </div>
+                </section>
+                <hr class="dashed" *ngIf="extrasPriceItems.length > 0">
+                <span class="prices-table-headline" *ngIf="extrasPriceItems.length > 0">Doplňkové služby</span>
+                <section class="prices-table" *ngFor="let item of extrasPriceItems">
+                  <div class="items">
+                    <section [innerHTML]="item.name">
+                    </section>
+                  </div>
+                  <div class="prices">
+                    {{item.price}}
+                  </div>
+                </section>
+              </div>
+            </div>
+            <div class="summary-block-item">
+              <section class="section-icon">
+                <img src="assets/images/icon/order/calendar.svg" alt="">
+              </section>
+              <div class="prices-block">
+                <section class="prices-table" *ngIf="summaryTimeDetails">
+                  <div class="items">
+                    <section>
+                      Příjezd
+                    </section>
+                  </div>
+                  <div class="prices">
+                    {{summaryTimeDetails}}
+                  </div>
+                </section>
+                <section class="prices-table" *ngIf="realCleaningTime">
+                  <div class="items">
+                    <section>
+                      Orientační doba úklidu
+                    </section>
+                  </div>
+                  <div class="prices">
+                    {{realCleaningTime|number: '1.1-1'}} {{realCleaningTime < 5 ? 'hodiny' : 'hodin'}}
+                  </div>
+                </section>
+                <section class="prices-table" *ngIf="ladiesForTheJob > 1">
+                  <div class="items">
+                    <section>
+                      Dam na úklid
+                    </section>
+                  </div>
+                  <div class="prices">
+                    {{ladiesForTheJob}}
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="price-total" id="price-total" #block>
+              <span>Celkem</span>
+              <span class="price">{{finalPrice}} Kč</span>
+            </div>
+            <div *ngIf="!!repeatedPrice" class="price-total repeated">
+              <span>Cena za měsíc</span>
+              <span class="price">{{repeatedPrice}} Kč</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12" *ngIf="orderSentSuccessfully">
+      <div class="white-block"
+           [ngClass]="{'order-sent': orderSendClicked}">
+        <div class="sec-title text-center">
+          <div class="title">Děkujeme za Vaši poptávku</div>
+          <br>
+          <p>Souhrn jsme Vám zaslali na e-mail <strong>{{email}}</strong></p>
+          <p class="orange">Prosíme o <u>potvrzení</u> této nabídky přímo v zaslaném emailu.</p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

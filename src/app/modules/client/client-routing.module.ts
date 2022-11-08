@@ -5,6 +5,11 @@ import {ResetPassComponent} from './reset-pass/reset-pass.component';
 import {ForgotPassComponent} from './forgot-pass/forgot-pass.component';
 import {ClientAuthGuard} from '../../guards/client-auth.guard';
 import {OrdersComponent} from './orders/orders.component';
+import {HomesComponent} from './homes/homes.component';
+import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {HomeDetailComponent} from './home-detail/home-detail.component';
+import {CreateOrderComponent} from './create-order/create-order.component';
+import {EditOrderComponent} from './edit-order/edit-order.component';
 
 const routes: Routes = [
   {
@@ -17,6 +22,31 @@ const routes: Routes = [
     path: 'orders',
     canActivate: [ClientAuthGuard],
     component: OrdersComponent
+  },
+  {
+    path: 'orders/detail/:orderId',
+    canActivate: [ClientAuthGuard],
+    component: OrderDetailComponent
+  },
+  {
+    path: 'orders/edit/:orderId',
+    canActivate: [ClientAuthGuard],
+    component: EditOrderComponent
+  },
+  {
+    path: 'orders/create-order',
+    canActivate: [ClientAuthGuard],
+    component: CreateOrderComponent
+  },
+  {
+    path: 'homes',
+    canActivate: [ClientAuthGuard],
+    component: HomesComponent
+  },
+  {
+    path: 'homes/detail/:homeId',
+    canActivate: [ClientAuthGuard],
+    component: HomeDetailComponent
   },
   {
     path: 'login',

@@ -1,0 +1,205 @@
+:host {
+  .pricing-area:before {
+    background-size: contain;
+    background-repeat: repeat-y;
+  }
+
+  .summary-line {
+    text-transform: lowercase;
+  }
+
+  .summary-block {
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span {
+        color: var(--text-dark);
+        font-weight: 400;
+        display: block;
+      }
+    }
+
+    .summary-list {
+      line-height: 20px;
+      list-style: circle;
+
+      li {
+        list-style: outside;
+        margin-bottom: 10px;
+      }
+    }
+
+    .summary-block-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+
+      .section-icon {
+        margin-right: 20px;
+        display: block;
+        width: 30px;
+        min-width: 30px;
+        text-align: center;
+      }
+    }
+
+    .prices-block {
+      width: 100%;
+      display: block;
+    }
+
+    .prices-table {
+      color: var(--text-dark);
+      font-weight: 400;
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    .prices-table-headline {
+      //color: var(--text-dark);
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+  .date-input mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 8px 0;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  textarea::-webkit-input-placeholder,
+  textarea::placeholder {
+    color: var(--color-grey-secondary) !important;
+  }
+
+  .price-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-dark);
+
+    .price {
+      color: var(--main-orange);
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    &.repeated {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--color-grey-secondary);
+
+      .price {
+        font-size: 15px;
+        color: var(--color-grey-secondary);
+      }
+    }
+  }
+
+  ::ng-deep .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button, .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+    color: var(--main-orange) !important;
+  }
+
+  .mat-calendar-body-selected {
+    background-color: var(--main-orange);
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 5px 0 9px;
+
+    > input {
+      &::placeholder {
+        color: var(--color-grey-secondary) !important;
+      }
+    }
+  }
+
+  .order-sent {
+    select.ng-invalid,
+    input.ng-invalid:not([type=checkbox]) {
+      border: 1px solid var(--main-red);
+      background-color: var(--red-lightest);
+      display: block;
+
+      &:after {
+        content: "povinné pole";
+      }
+    }
+
+    section.form-section {
+      position: relative;
+    }
+
+    .fill-required {
+      color: var(--main-red);
+      font-size: 12px;
+      font-weight: 400;
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+    }
+  }
+
+  .agree-to-terms {
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 6px;
+
+    a {
+      color: var(--main-orange);
+    }
+  }
+
+  .subsection-headline {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .bottom-price-bar {
+    display: none;
+  }
+
+  .address-match {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+
+    label {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  input[type=checkbox] {
+    margin-right: 4px;
+  }
+
+
+}

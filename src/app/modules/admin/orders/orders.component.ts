@@ -25,7 +25,8 @@ export class OrdersComponent implements OnInit {
       {field: 'confirmed', headerName: 'Je potvrzeno', minWidth: 150},
       {field: 'paid', headerName: 'Je zaplaceno', minWidth: 150, initialHide: !historyOrders},
       {field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
-          type: 'order'
+          type: 'order',
+          module: 'admin',
         },
         minWidth: 150
       },

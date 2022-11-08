@@ -12,6 +12,9 @@ export class GridOrderActionsComponent implements ICellRendererAngularComp  {
   public refresh: any;
   public itemId!: number| string;
   public type!: 'order'|'client'|'homes';
+  public module!: 'client'|'admin';
+  public isEditable!: true;
+
 
   constructor(
     private adminService: AdminService,
@@ -23,6 +26,8 @@ export class GridOrderActionsComponent implements ICellRendererAngularComp  {
   agInit(params: any): void {
     this.params = params;
     this.type = params.type;
+    this.module = params.module;
+    this.isEditable = params.isEditable;
     this.itemId = params.data[params.type + 'Id'];
   }
 

@@ -28,7 +28,8 @@ export class HomesComponent implements OnInit {
     {field: 'yardage', headerName: 'Výměra', cellRenderer: this.mSquareDef, minWidth: 150},
     {
       field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
-        type: 'home'
+        type: 'home',
+        module: 'admin',
       },
       minWidth: 150
     },];

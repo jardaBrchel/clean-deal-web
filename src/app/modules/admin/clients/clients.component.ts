@@ -19,7 +19,8 @@ export class ClientsComponent implements OnInit {
     {field: 'phone', headerName: 'Telefon', minWidth: 150},
     {
       field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
-        type: 'client'
+        type: 'client',
+        module: 'client',
       },
       minWidth: 150
     },];

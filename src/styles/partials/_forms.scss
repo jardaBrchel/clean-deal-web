@@ -56,7 +56,7 @@ hr.dashed {
   border-style: dashed;
 }
 
-ul.grey-pills-list{
+ul.grey-pills-list {
   li {
     background-color: var(--admin-lightest-background);
     border-radius: 6px;
@@ -70,10 +70,35 @@ ul.grey-pills-list{
   }
 }
 
-button.btn.btn-orange {
-  background-color: var(--main-orange);
-  border-color: var(--main-orange);
-  color: #FFFFFF;
+.badge {
+  &.badge-info {
+    background-color: var(--main-blue);
+    border-radius: 50%;
+  }
+}
+
+button.btn {
+  &.btn-orange {
+    background-color: var(--main-orange);
+    border-color: var(--main-orange);
+    color: #FFFFFF;
+  }
+
+  &.btn-blue {
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
+    color: #FFFFFF;
+
+    &.outline {
+      background-color: transparent;
+      color: var(--main-blue);
+
+      &:hover {
+        background-color: var(--main-blue);
+        color: #FFFFFF;
+      }
+    }
+  }
 }
 
 
