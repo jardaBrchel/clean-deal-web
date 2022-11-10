@@ -3,6 +3,7 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {WebLayoutComponent} from './layouts/web-layout/web-layout.component';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
 import {ClientLayoutComponent} from './layouts/client-layout/client-layout.component';
+import {InvoiceLayoutComponent} from './layouts/invoice-layout/invoice-layout.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,14 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: () => import('./modules/client/client.module').then( m => m.ClientModule)
+    }]
+  },
+  {
+    path: 'invoice',
+    component: InvoiceLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./modules/invoice/invoice.module').then( m => m.InvoiceModule)
     }]
   },
 ];

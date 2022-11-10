@@ -1,5 +1,6 @@
 import {Injectable, isDevMode} from '@angular/core';
 import {Config} from '../config/api.config';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import {Config} from '../config/api.config';
 export class HelpService {
 
   constructor(
+    public http: HttpClient,
   ) {
   }
 
@@ -27,6 +29,11 @@ export class HelpService {
     if (!isDevMode()) {
       Config.isProduction = true;
     }
+  }
+  public getQrPayment() {
+    const url = 'http://api.paylibo.com/paylibo/generator/czech/image?accountNumber=222885&bankCode=5500&amount=250.00&currency=CZK&vs=333&message=FOND%20HUMANITY%20CCK';
+
+    return this.http.get<any>(url);
   }
 
 
