@@ -17,6 +17,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {AgGridModule} from 'ag-grid-angular';
 import {ClientLayoutComponent} from './layouts/client-layout/client-layout.component';
 import {SharedModule} from './modules/shared/shared.module';
+import {InvoiceLayoutComponent} from './layouts/invoice-layout/invoice-layout.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {SharedModule} from './modules/shared/shared.module';
     WebLayoutComponent,
     AdminLayoutComponent,
     ClientLayoutComponent,
+    InvoiceLayoutComponent,
   ],
   imports: [
     BrowserModule,

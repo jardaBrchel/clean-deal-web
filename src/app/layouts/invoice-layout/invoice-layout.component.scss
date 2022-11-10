@@ -1,0 +1,93 @@
+:host {
+  padding: 30px;
+  display: block;
+  color: var(--text-dark);
+
+  ::ng-deep {
+    table.invoice-wrap {
+      width: 100%;
+      //border: 1px solid black;
+    }
+
+    tr.invoice-header {
+      td {
+        padding: 20px 20px 80px 20px;
+
+        .logo {
+          width: 150px;
+        }
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+
+    tr.invoice-data,
+    tr.invoice-body {
+      td {
+        padding: 20px;
+        width: 50%;
+        vertical-align: top;
+      }
+    }
+
+
+    table.triple-col {
+      width: 100%;
+
+      tr {
+        td {
+          width: 33%;
+
+        }
+      }
+    }
+
+    table.invoice-items {
+      width: 100%;
+      border: 1px solid var(--admin-text-label);
+
+      tr {
+        td, th {
+          width: 20%;
+
+          &:last-child {
+            text-align: right;
+          }
+        }
+      }
+
+      thead {
+        tr {
+          th {
+            padding: 8px 16px;
+            background: var(--admin-text-label);
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            padding: 8px 16px;
+
+          }
+        }
+      }
+    }
+
+    td.no-padding-col {
+      padding: 0 !important;
+    }
+
+    .invoice-total {
+      td:last-child {
+        text-align: right;
+        margin-bottom: 50px;
+      }
+
+    }
+  }
+
+}

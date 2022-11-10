@@ -23,6 +23,11 @@ export class OrderService {
     return this.http.put<any>(url, data);
   }
 
+  getOrderForInvoice(orderId: number) {
+    const url = Config.urlApi + '/order/invoice/' + orderId;
+    return this.http.get<any>(url);
+  }
+
   getAvailableTimes(orderId: number): Observable<AvailableTimesRes> {
     const url = Config.urlApi + '/cleaner/available-times';
     const data = {
