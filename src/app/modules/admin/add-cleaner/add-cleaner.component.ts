@@ -67,7 +67,11 @@ export class AddCleanerComponent implements OnInit {
 
   ngOnInit(): void {
     this.cleanerForm = this.formBuilder.group({
+      name: [''],
+      surname: [''],
       username: ['', [Validators.required]],
+      password: [''],
+      bankAccount: [''],
     });
     this.timesForm = this.formBuilder.group({
       moFrom: [''],
@@ -105,7 +109,7 @@ export class AddCleanerComponent implements OnInit {
     const su = this.getTimeFormatted(times.suFrom, times.suTo);
 
     const cleanerData = {
-      name: this.cleanerForm.value?.username,
+      ...this.cleanerForm.value,
       mo,
       tu,
       we,
@@ -114,9 +118,6 @@ export class AddCleanerComponent implements OnInit {
       sa,
       su,
     };
-
-    console.log('cleanerData', cleanerData);
-    // TODO save to DB
 
     this.adminService.addNewCleaner(cleanerData).subscribe({
       next: (res) => {

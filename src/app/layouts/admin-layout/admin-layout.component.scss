@@ -310,6 +310,12 @@
         display: block;
         margin-top: 15px;
       }
+
+      input {
+        &::placeholder {
+          color: var(--color-grey-secondary) !important;
+        }
+      }
     }
   }
 
