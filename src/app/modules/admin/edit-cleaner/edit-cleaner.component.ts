@@ -89,7 +89,11 @@ export class EditCleanerComponent implements OnInit {
   setFormData(data: any) {
      console.log('data', data)
     const days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
-    this.cleanerForm.get('username')?.patchValue(data.name);
+    this.cleanerForm.get('username')?.patchValue(data.username);
+    this.cleanerForm.get('name')?.patchValue(data.name);
+    this.cleanerForm.get('surname')?.patchValue(data.surname);
+    this.cleanerForm.get('email')?.patchValue(data.email);
+    this.cleanerForm.get('bankAccount')?.patchValue(data.bankAccount);
 
     days.forEach(day => {
       if (data[day]) {
@@ -109,7 +113,11 @@ export class EditCleanerComponent implements OnInit {
 
     console.log('this.cleanerId', this.cleanerId);
     this.cleanerForm = this.formBuilder.group({
+      name: [''],
+      surname: [''],
       username: ['', [Validators.required]],
+      password: [''],
+      bankAccount: [''],
     });
     this.timesForm = this.formBuilder.group({
       moFrom: [''],

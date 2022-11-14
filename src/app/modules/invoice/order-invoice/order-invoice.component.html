@@ -1,7 +1,7 @@
 <table class="invoice-wrap">
   <tr class="invoice-header">
     <td><img class="logo" src="https://clean-deal-web-services-8fo3q.ondigitalocean.app/assets/images/clean-deal/logo-main_v2.svg" alt=""></td>
-    <td><h1>Faktura č. {{order?.variableSymbol}}</h1> </td>
+    <td><h1>Faktura č. {{order.variableSymbol}}</h1> </td>
   </tr>
   <tr class="invoice-body">
     <td>
@@ -15,8 +15,8 @@
     </td>
     <td>
       <strong>Odběratel:</strong> <br>
-      {{client?.name}} {{client?.surname}} <br>
-      {{client?.contactAddress}}
+      {{client.name}} {{client.surname}} <br>
+      {{client.contactAddress}}
     </td>
   </tr>
   <tr class="invoice-data">
@@ -36,7 +36,7 @@
           </td>
           <td>
             <strong>Variabilní symbol</strong>  <br>
-            {{order?.variableSymbol}}
+            {{order.variableSymbol}}
           </td>
           <td>
             <strong>Datum vystavení:</strong> {{today|date: 'dd.MM.YYYY'}} <br>
@@ -64,8 +64,8 @@
           <td>Úklid</td>
           <td>Ks</td>
           <td>1</td>
-          <td>{{totalPrice || order?.price}} Kč</td>
-          <td>{{totalPrice || order?.price}} Kč</td>
+          <td>{{totalPrice || order.price}} Kč</td>
+          <td>{{totalPrice || order.price}} Kč</td>
         </tr>
         </tbody>
       </table>
@@ -78,7 +78,7 @@
       <canvas id="canvas"></canvas>
     </td>
     <td colspan="" class="">
-      <h4>Celkem k úhradě: {{totalPrice || order?.price}} Kč</h4>
+      <h4>Celkem k úhradě: {{totalPrice || order.price}} Kč</h4>
     </td>
   </tr>
 

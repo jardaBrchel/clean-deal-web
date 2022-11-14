@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderDataRes} from '../../../models/admin.model';
 import {AdminService} from '../../../services/admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CLEANING_TYPES, FREQUENCY, HOME_TYPES, TIMES} from '../../../config/order-config';
+import {CLEANING_TYPES, FREQUENCY, HOME_TYPES, PAYMENT_METHODS, TIMES} from '../../../config/order-config';
 import {booleanToYesNo} from '../../../helpers/logic.helper';
-import {ClientService} from '../../../services/client.service';
 
 @Component({
   selector: 'app-order-detail',
@@ -19,6 +18,7 @@ export class OrderDetailComponent implements OnInit {
   isPaid!: string;
   cleaners!: string;
   homeType!: string;
+  paymentMethod!: string;
 
   constructor(
     private adminService: AdminService,
@@ -70,6 +70,7 @@ export class OrderDetailComponent implements OnInit {
           this.isPaid = booleanToYesNo(res.order.isPaid);
           this.cleaners = res.cleaner.map(c => c.name).join(', ');
           this.homeType = HOME_TYPES.find(t => t.id === res.home.homeType)?.label || '';
+          this.paymentMethod = PAYMENT_METHODS.find(t => t.id === res.order.paymentMethod)?.label || '';
           this.setExtras();
           console.log('res', res);
         },

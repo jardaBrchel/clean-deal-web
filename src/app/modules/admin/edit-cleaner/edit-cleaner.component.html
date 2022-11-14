@@ -13,16 +13,54 @@
         <form [formGroup]="cleanerForm">
 
           <div class="form-group row">
-            <label for="username" class="col-sm-2 col-form-label">Jméno</label>
-            <div class="col-sm-10">
+            <label for="name" class="col-sm-3 col-form-label">Jméno</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                placeholder="Jméno ">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="surname" class="col-sm-3 col-form-label">Příjmení</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="surname"
+                formControlName="surname"
+                placeholder="Příjmení">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="username" class="col-sm-3 col-form-label">Uživatelské jméno</label>
+            <div class="col-sm-9">
               <input
                 type="text"
                 class="form-control"
                 id="username"
                 formControlName="username"
-                placeholder="Jméno uklízečky">
+                placeholder="Login">
             </div>
           </div>
+
+          <div class="form-group row">
+            <label for="bankAccount" class="col-sm-3 col-form-label">Bank. účet</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="bankAccount"
+                formControlName="bankAccount"
+                placeholder="">
+            </div>
+          </div>
+
+
         </form>
         <form [formGroup]="timesForm">
           <div class="form-group row">

@@ -76,6 +76,7 @@ export interface AdminOrder {
   clientName?: string;
   homeName?: string;
   variableSymbol?: string;
+  paymentMethod?: string;
 }
 
 export enum PAGE_TYPE {
