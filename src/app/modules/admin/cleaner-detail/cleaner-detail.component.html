@@ -24,18 +24,23 @@
       <div class="admin-card full">
         <div class="admin-card-body">
           <h5 class="admin-card-title">
-            Naplánované úklidy
+            Naplánované úklidy a dovolené
           </h5>
-          <ul *ngIf="cleaner?.orders?.length" class="grey-pills-list">
-            <li *ngFor="let item of cleaner?.orders" class="flex">
-              <section>
-                <span class="date">{{item.cleaningDate|date: 'dd.MM.yyyy'}} </span>
-                <span class="time">od {{item.cleaningTime}}:00 na {{item.cleaningDuration}} hod.</span>
-              </section>
-              <mat-icon aria-hidden="false" fontIcon="delete" class="remove-btn"
-                        (click)="removeOrder(item.orderId)"></mat-icon>
-            </li>
-          </ul>
+          <app-events-calendar
+            *ngIf="this.cleaner"
+          [cleanings]="cleaner.orders || []"
+          [vacations]="cleaner.vacations || []"
+          ></app-events-calendar>
+<!--          <ul *ngIf="cleaner?.orders?.length" class="grey-pills-list">-->
+<!--            <li *ngFor="let item of cleaner?.orders" class="flex">-->
+<!--              <section>-->
+<!--                <span class="date">{{item.cleaningDate|date: 'dd.MM.yyyy'}} </span>-->
+<!--                <span class="time">od {{item.cleaningTime}}:00 na {{item.cleaningDuration}} hod.</span>-->
+<!--              </section>-->
+<!--              <mat-icon aria-hidden="false" fontIcon="delete" class="remove-btn"-->
+<!--                        (click)="removeOrder(item.orderId)"></mat-icon>-->
+<!--            </li>-->
+<!--          </ul>-->
         </div>
       </div>
     </div>
@@ -44,23 +49,21 @@
       <div class="admin-card full">
         <div class="admin-card-body">
           <h5 class="admin-card-title">
-            Naplánované dovolené
+            Nová dovolená
           </h5>
-          <span *ngIf="!cleaner || !cleaner.vacations?.length">Žádné naplánované dovolené</span>
+<!--          <span *ngIf="!cleaner || !cleaner.vacations?.length">Žádné naplánované dovolené</span>-->
 
-          <ul *ngIf="cleaner?.vacations?.length" class="grey-pills-list">
-            <li *ngFor="let item of cleaner?.vacations" class="flex">
-              <section>
-                <span class="date">{{item.vacationDate|date: 'dd.MM.yyyy'}}</span>
-                <span *ngIf="item.from && item.to" class="time">{{item.from}} - {{item.to}} hod</span>
-              </section>
-              <mat-icon aria-hidden="false" fontIcon="delete" class="remove-btn"
-                        (click)="removeVacation(item.id)"></mat-icon>
-            </li>
-          </ul>
-        </div>
-        <hr>
-        <div class="admin-card-body">
+<!--          <ul *ngIf="cleaner?.vacations?.length" class="grey-pills-list">-->
+<!--            <li *ngFor="let item of cleaner?.vacations" class="flex">-->
+<!--              <section>-->
+<!--                <span class="date">{{item.vacationDate|date: 'dd.MM.yyyy'}}</span>-->
+<!--                <span *ngIf="item.from && item.to" class="time">{{item.from}} - {{item.to}} hod</span>-->
+<!--              </section>-->
+<!--              <mat-icon aria-hidden="false" fontIcon="delete" class="remove-btn"-->
+<!--                        (click)="removeVacation(item.id)"></mat-icon>-->
+<!--            </li>-->
+<!--          </ul>-->
+
 
 <!--          <h5 class="admin-subheadline">-->
 <!--            Nová dovolená-->

@@ -24,6 +24,9 @@ import { GridOrderActionsComponent } from './grid-order-actions/grid-order-actio
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {momentAdapterFactory} from '../../app.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatIconModule,
     AgGridModule,
     MatAutocompleteModule,
+    SharedModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
   exports: [
     MatDatepickerModule,

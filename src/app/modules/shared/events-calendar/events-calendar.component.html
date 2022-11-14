@@ -1,0 +1,33 @@
+<div class="calendar-header">
+  <h4>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h4>
+
+  <div class="btn-group">
+    <div
+      class="btn btn-outline-grey"
+      mwlCalendarPreviousView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="changeDate(viewDate)">
+      &lt;
+    </div>
+    <div
+      class="btn btn-outline-grey"
+      mwlCalendarNextView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="changeDate(viewDate)">
+      &gt;
+    </div>
+  </div>
+</div>
+
+<mwl-calendar-week-view
+  [viewDate]="viewDate"
+  [events]="events"
+  [refresh]="refresh"
+  [weekStartsOn]="weekStartsOn"
+  [dayStartHour]="6"
+  [dayEndHour]="22"
+  [locale]="locale"
+  (eventClicked)="handleEvent('Clicked', $event.event)"
+></mwl-calendar-week-view>

@@ -14,7 +14,7 @@ import {GridOrderActionsComponent} from '../grid-order-actions/grid-order-action
 })
 export class OrdersComponent implements OnInit {
   ordersLoaded = false;
-  colDefs = (historyOrders: boolean = false): ColDef[] => {
+  colDefs = (historyOrders: boolean = false, isEditable = true): ColDef[] => {
     return [
       {field: 'date', headerName: 'Datum', minWidth: 120 },
       {field: 'time', headerName: 'Čas', minWidth: 150},
@@ -27,6 +27,7 @@ export class OrdersComponent implements OnInit {
       {field: 'actions', headerName: 'Akce', cellRenderer: GridOrderActionsComponent, cellRendererParams: {
           type: 'order',
           module: 'admin',
+          isEditable: isEditable,
         },
         minWidth: 150
       },
@@ -103,17 +104,17 @@ export class OrdersComponent implements OnInit {
           this.ordersLoaded = true;
           this.plannedOrdersOptions = {
             ...this.gridOptions,
-            columnDefs: this.colDefs(),
+            columnDefs: this.colDefs(false, true),
             rowData: orders.plannedOrders.map(this.mapOrdersToGrid),
           }
           this.historyOrdersOptions = {
             ...this.gridOptions,
-            columnDefs: this.colDefs(true),
+            columnDefs: this.colDefs(true, false),
             rowData: orders.historyOrders.map(this.mapOrdersToGrid),
           }
           this.canceledOrdersOptions = {
             ...this.gridOptions,
-            columnDefs: this.colDefs(),
+            columnDefs: this.colDefs(true, false),
             rowData: orders.canceledOrders.map(this.mapOrdersToGrid),
           }
           this.tabs[0].count = orders.plannedOrders.length;

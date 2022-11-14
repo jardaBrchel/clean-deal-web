@@ -1,0 +1,33 @@
+:host {
+  ::ng-deep {
+    .cleaning .cal-event-title {
+      color: black;
+    }
+    .cal-week-view .cal-header.cal-today {
+      background-color: var(--orange-lightest);
+
+      b {
+        color: var(--main-orange);
+      }
+    }
+  }
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .btn-outline-grey {
+      color: var(--admin-text-color-light);
+      border-color: var(--admin-text-color-light);
+      background: transparent;
+      padding: 6px 20px;
+
+      &:hover {
+        color: #FFF;
+        border-color: var(--admin-text-color-light);
+        background:  var(--admin-text-color-light);;
+      }
+    }
+  }
+}

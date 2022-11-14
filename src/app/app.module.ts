@@ -18,6 +18,13 @@ import {AgGridModule} from 'ag-grid-angular';
 import {ClientLayoutComponent} from './layouts/client-layout/client-layout.component';
 import {SharedModule} from './modules/shared/shared.module';
 import {InvoiceLayoutComponent} from './layouts/invoice-layout/invoice-layout.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 @NgModule({
   declarations: [
@@ -45,6 +52,7 @@ import {InvoiceLayoutComponent} from './layouts/invoice-layout/invoice-layout.co
       }
     }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
   providers: [
     {
