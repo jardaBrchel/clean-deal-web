@@ -4,6 +4,7 @@ import {WebLayoutComponent} from './layouts/web-layout/web-layout.component';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
 import {ClientLayoutComponent} from './layouts/client-layout/client-layout.component';
 import {InvoiceLayoutComponent} from './layouts/invoice-layout/invoice-layout.component';
+import {CleanerLayoutComponent} from './layouts/cleaner-layout/cleaner-layout.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,14 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: () => import('./modules/admin/admin.module').then( m => m.AdminModule)
+    }]
+  },
+  {
+    path: 'cleaner',
+    component: CleanerLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./modules/cleaner/cleaner.module').then( m => m.CleanerModule)
     }]
   },
   {

@@ -21,6 +21,7 @@ import {InvoiceLayoutComponent} from './layouts/invoice-layout/invoice-layout.co
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
+import {CleanerLayoutComponent} from './layouts/cleaner-layout/cleaner-layout.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -32,6 +33,7 @@ export function momentAdapterFactory() {
     WebLayoutComponent,
     AdminLayoutComponent,
     ClientLayoutComponent,
+    CleanerLayoutComponent,
     InvoiceLayoutComponent,
   ],
   imports: [
