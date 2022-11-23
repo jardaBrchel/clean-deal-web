@@ -31,3 +31,24 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  :host {
+    max-width: 100%;
+    //overflow-x: scroll;
+    //overflow-y: hidden;
+    display: block;
+
+    .week-view-wrap {
+      max-width: 100%;
+      display: block;
+      overflow-x: scroll;
+    overflow-y: hidden;
+    }
+
+    mwl-calendar-week-view {
+      min-width: 300%;
+      display: block;
+    }
+  }
+}

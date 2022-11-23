@@ -226,7 +226,7 @@
     <section class="form-section half-section" >
       <h5 class="label">Datum</h5>
       <div class="input-group date-input">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" [ngClass]="{'disabled': !areAvailableDates }">
           <input matInput
                  [min]="dateMinDate"
                  [max]="dateMaxDate"
@@ -234,6 +234,7 @@
                  [matDatepicker]="matDatePicker"
                  autocomplete="off"
                  [placeholder]="'Vyberte datum'"
+                 [disabled]="!areAvailableDates"
                  [matDatepickerFilter]="dateFilter"
                  (focus)="matDatePicker.open()"
                  (dateChange)="onDateChange()"
@@ -242,6 +243,7 @@
           </mat-datepicker-toggle>
           <mat-datepicker #matDatePicker></mat-datepicker>
         </mat-form-field>
+        <span class="form-error" *ngIf="!areAvailableDates">Pro danou pracnost nemáme dostupné termíny</span>
       </div>
     </section>
 

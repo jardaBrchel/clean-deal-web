@@ -20,14 +20,16 @@
     </div>
   </div>
 </div>
-
-<mwl-calendar-week-view
-  [viewDate]="viewDate"
-  [events]="events"
-  [refresh]="refresh"
-  [weekStartsOn]="weekStartsOn"
-  [dayStartHour]="6"
-  [dayEndHour]="22"
-  [locale]="locale"
-  (eventClicked)="handleEvent('Clicked', $event.event)"
-></mwl-calendar-week-view>
+<div class="week-view-wrap">
+  <mwl-calendar-week-view
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [weekStartsOn]="weekStartsOn"
+    [dayStartHour]="6"
+    [dayEndHour]="22"
+    [locale]="locale"
+    [daysInWeek]="7"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+  ></mwl-calendar-week-view>
+</div>

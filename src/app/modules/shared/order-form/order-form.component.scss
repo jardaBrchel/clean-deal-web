@@ -73,6 +73,11 @@
 
   .date-input mat-form-field {
     width: 100%;
+
+    &.disabled {
+      color: #6c757d;
+      background-color: #e9ecef;
+    }
   }
 
   .mat-form-field-appearance-outline .mat-form-field-wrapper {
@@ -155,7 +160,7 @@
       position: relative;
     }
 
-    .fill-required {
+    ::ng-deep .fill-required {
       color: var(--main-red);
       font-size: 12px;
       font-weight: 400;
