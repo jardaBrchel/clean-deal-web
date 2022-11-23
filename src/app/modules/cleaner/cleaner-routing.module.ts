@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {CleanerAuthGuard} from '../../guards/cleaner-auth.guard';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {OrdersComponent} from './orders/orders.component';
+import {OrderDetailComponent} from './order-detail/order-detail.component';
 
 const routes: Routes = [
   {
@@ -15,16 +17,16 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  // {
-  //   path: 'orders',
-  //   canActivate: [CleanerAuthGuard],
-  //   component: OrdersComponent
-  // },
-  // {
-  //   path: 'orders/detail/:orderId',
-  //   canActivate: [CleanerAuthGuard],
-  //   component: OrderDetailComponent
-  // },
+  {
+    path: 'orders',
+    canActivate: [CleanerAuthGuard],
+    component: OrdersComponent
+  },
+  {
+    path: 'orders/detail/:orderId',
+    canActivate: [CleanerAuthGuard],
+    component: OrderDetailComponent
+  },
 ];
 
 @NgModule({

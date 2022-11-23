@@ -5,7 +5,8 @@ import {addHours, startOfDay,} from 'date-fns';
 import {CalendarColors} from './colors.config';
 import {CustomDateFormatter} from './custom-date-formatter.provider';
 import {Client} from '../../../models/client.model';
-import {AdminOrder} from '../../../models/admin.model';
+import {AdminOrder, CleanerPlannedOrder} from '../../../models/admin.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-events-calendar',
@@ -20,7 +21,7 @@ import {AdminOrder} from '../../../models/admin.model';
   ],
 })
 export class EventsCalendarComponent implements OnInit {
-  @Input() cleanings: AdminOrder[] = [];
+  @Input() cleanings: CleanerPlannedOrder[] = [];
   @Input() vacations: any[] = [];
   view: CalendarView = CalendarView.Week;
   locale: string = 'cs';
@@ -30,7 +31,9 @@ export class EventsCalendarComponent implements OnInit {
   events: CalendarEvent[] = [
   ];
 
-  constructor() {
+  constructor(
+    public router: Router,
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,9 +43,11 @@ export class EventsCalendarComponent implements OnInit {
 
   mapCleanings() {
     const events = this.cleanings.map(c => ({
+      id: c.orderId,
+      meta: {type: 'order'},
       start: addHours(startOfDay(new Date(c.cleaningDate)), Number(c.cleaningTime)),
       end: addHours(startOfDay(new Date(c.cleaningDate)), Number(c.cleaningTime) + (c.cleaningDuration / c.cleanersCount)),
-      title: 'Úklid ' + c.orderId,
+      title: c.home.address,
       color: {...CalendarColors['blue']},
       resizable: {
         beforeStart: false,
@@ -58,6 +63,7 @@ export class EventsCalendarComponent implements OnInit {
   mapVacations() {
     console.log('this.vacations', this.vacations);
     const events = this.vacations.map(c => ({
+      id: c.orderId,
       start: addHours(startOfDay(new Date(c.vacationDate)), Number(c.from)),
       end: addHours(startOfDay(new Date(c.vacationDate)), Number(c.to)),
       title: 'Dovolená',
@@ -74,6 +80,12 @@ export class EventsCalendarComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
+    // route
+    console.log('event', event);
+
+    if (event.meta.type === 'order') {
+      this.router.navigate(['/admin/orders/detail', event.id]);    }
+
   }
 
   changeDate(date: Date) {

@@ -14,10 +14,16 @@ import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {momentAdapterFactory} from '../../app.module';
 import {CleanerAuthGuard} from '../../guards/cleaner-auth.guard';
 import {CleanerRoutingModule} from './cleaner-routing.module';
+import { OrdersComponent } from './orders/orders.component';
+import { SettingsComponent } from './settings/settings.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
+    OrdersComponent,
+    SettingsComponent,
+    OrderDetailComponent,
   ],
   imports: [
     CommonModule,

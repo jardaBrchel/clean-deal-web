@@ -11,6 +11,10 @@
           <p>{{cleaner?.name}} {{cleaner?.surname}}</p>
         </li>
         <li>
+          <a [routerLink]="['/', 'cleaner']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="hideSidebarMobile()" >
+            <mat-icon aria-hidden="false" fontIcon="dashboard"></mat-icon> Přehled</a>
+        </li>
+        <li>
           <a [routerLink]="['/', 'cleaner', 'orders']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="wash"></mat-icon> Úklidy</a>
         </li>

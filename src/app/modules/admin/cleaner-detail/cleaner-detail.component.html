@@ -27,7 +27,7 @@
             Naplánované úklidy a dovolené
           </h5>
           <app-events-calendar
-            *ngIf="this.cleaner"
+            *ngIf="cleaner"
           [cleanings]="cleaner.orders || []"
           [vacations]="cleaner.vacations || []"
           ></app-events-calendar>

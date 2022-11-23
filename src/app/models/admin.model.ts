@@ -79,6 +79,10 @@ export interface AdminOrder {
   paymentMethod?: string;
 }
 
+export interface CleanerPlannedOrder extends AdminOrder {
+  home: AdminHome;
+}
+
 export enum PAGE_TYPE {
   ORDER = 'order',
   CLIENT = 'client',

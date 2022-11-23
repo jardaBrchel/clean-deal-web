@@ -27,6 +27,7 @@ import {DatePipe} from '@angular/common';
 import {OrderService} from '../../../services/order.service';
 import {Client} from '../../../models/client.model';
 import {AdminHome, AdminOrder} from '../../../models/admin.model';
+import {MatDatepicker} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-order-form',
@@ -110,6 +111,7 @@ export class OrderFormComponent implements OnInit {
   onlyConfirmationMissing = false;
   hideMobilePriceBar = false;
   showNoDateCapacityModal = false;
+  areAvailableDates = true;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -134,7 +136,6 @@ export class OrderFormComponent implements OnInit {
   }
 
   prefillOrderForms(order: AdminOrder) {
-    console.log('date to prefill', new Date(order.cleaningDate));
     this.orderForm.get('cleaningType')?.patchValue(order.cleaningType);
     this.orderForm.get('date')?.patchValue(new Date(order.cleaningDate));
     this.orderForm.get('time')?.patchValue(order.cleaningTime);
@@ -182,18 +183,21 @@ export class OrderFormComponent implements OnInit {
       {
         next: (res) => {
           this.availableCalendars = res?.cleaners || [];
+          this.checkAvailableDatesInCal();
 
           if (this.orderData) {
             this.prefillOrderForms(this.orderData);
           }
-          console.log('availableCalendars', this.availableCalendars);
-          console.log('order', this.orderData)
         },
         error: (e) => {
           console.log('error on sending order', e);
         },
       }
     )
+  }
+
+  datepickerOpened(pickerEl: any) {
+    console.log('pickerEl', pickerEl);
   }
 
   initOrderFormValues() {
@@ -296,6 +300,7 @@ export class OrderFormComponent implements OnInit {
     this.recalculatePriceItems();
     this.recalculateRepeatedPrice();
     this.setTimesToFormField();
+    this.checkAvailableDatesInCal();
 
     this.realCleaningTimeChanged.emit(this.realCleaningTime);
     this.ladiesForTheJobChanged.emit(this.ladiesForTheJob);
@@ -506,7 +511,6 @@ export class OrderFormComponent implements OnInit {
   changeHome(event: any) {
     const selectedValue = event.target.value;
     const homeData = this.homesData.find(hd => hd.homeId === selectedValue);
-    console.log('homeData', homeData);
     this.prefillHomeForms(homeData as AdminHome);
   }
 
@@ -736,9 +740,21 @@ export class OrderFormComponent implements OnInit {
     this.dateMaxDate = maxDate;
   }
 
+  checkAvailableDatesInCal() {
+    this.areAvailableDates = this.availableCalendars.map(ac => ac.days).flat().map(d => d.date).some(d => {
+      const [year, month, day] = d.split('-');
+      const theDate = new Date();
+      theDate.setMonth(Number(month) - 1);
+      theDate.setFullYear(Number(year));
+      theDate.setDate(Number(day));
+      theDate.setHours(12);
+      return this.dateFilter(theDate);
+    });
+  }
+
   // Filtration of the given day, whether enable it in cal
   // Available according to cleaners and time capacity
-  dateFilter = (d: Date | null): boolean => {
+  dateFilter = (d: any, isYmdFormat = false): boolean => {
     if (!d) return false;
     const theDate = dateToYmdFormat(d);
     const isDateInCleaners = this.availableCalendars.filter(cal => cal.days.some(day => day.date === theDate));
@@ -759,7 +775,6 @@ export class OrderFormComponent implements OnInit {
 
   checkInvalidFields() {
     const invalids = this.findInvalidControls();
-    console.log('invalids', invalids);
 
     this.onlyConfirmationMissing = invalids.length === 1 && invalids[0] === 'confirmation';
   }
@@ -778,9 +793,6 @@ export class OrderFormComponent implements OnInit {
     this.checkInvalidFields();
     if (!this.orderForm.valid || !this.userForm.valid || !!this.sendingOrder) {
       // this.orderSendClicked = false;
-      console.log('not valid forms');
-      console.log('this.orderForm.valid ', this.orderForm.valid );
-      console.log('this.userForm.valid ', this.userForm.valid );
       return;
     }
 
@@ -798,7 +810,7 @@ export class OrderFormComponent implements OnInit {
       date: cleanDate,
       price: this.finalPrice,
       ownCleaningStuff,
-      cleaningDuration: Math.round(this.totalCleaningTime * 2) / 2,
+      cleaningDuration: Math.round((this.totalCleaningTime / this.ladiesForTheJob) * 2) / 2,
       extras: this.getExtrasItem(),
       cleanersCount: this.ladiesForTheJob,
       cleanerId: cleanerId,

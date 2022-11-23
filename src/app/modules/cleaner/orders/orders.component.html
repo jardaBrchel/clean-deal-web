@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="admin-headline">Úklidy</h1>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="admin-card full">
+        <div class="admin-card-body">
+          <h5 class="admin-card-title">
+            Naplánované úklidy a dovolené
+          </h5>
+          <app-events-calendar
+            *ngIf="cleaner"
+            [cleanings]="cleaner.orders || []"
+            [vacations]="cleaner.vacations || []"
+          ></app-events-calendar>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
