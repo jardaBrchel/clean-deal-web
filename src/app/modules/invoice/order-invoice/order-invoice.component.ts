@@ -7,6 +7,7 @@ import {PaymentCode} from "sepa-payment-code";
 import * as QRCode from 'qrcode';
 import {HelpService} from '../../../services/help.service';
 import {OrderService} from '../../../services/order.service';
+import {PAYMENT_CASH, PAYMENT_METHODS} from '../../../config/order-config';
 
 @Component({
   selector: 'app-order-invoice',
@@ -21,6 +22,8 @@ export class OrderInvoiceComponent implements OnInit {
   payUntil = new Date();
   qr!: any;
   totalPrice!: any;
+  paymentType!: string;
+  isPaid = false;
 
   constructor(
     public adminService: AdminService,
@@ -46,6 +49,10 @@ export class OrderInvoiceComponent implements OnInit {
           this.order = res.order;
           this.client = res.client;
           this.totalPrice = res.totalPrice;
+          this.paymentType = PAYMENT_METHODS.find(pm => pm.id === res.order.paymentMethod)?.label || '';
+          if (res.order.paymentMethod === PAYMENT_CASH) {
+            this.isPaid = true;
+          }
           const canvas = document.getElementById('canvas')
           QRCode.toCanvas(canvas,
             `SPD*1.0*ACC:CZ1620100000002602271763*AM:${this.order?.price}*CC:CZK*X-VS:${this.order?.variableSymbol}*MSG:${this.order?.variableSymbol}`,

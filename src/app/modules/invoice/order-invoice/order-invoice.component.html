@@ -1,7 +1,7 @@
 <table class="invoice-wrap">
   <tr class="invoice-header">
     <td><img class="logo" src="https://clean-deal-web-services-8fo3q.ondigitalocean.app/assets/images/clean-deal/logo-main_v2.svg" alt=""></td>
-    <td><h1>Faktura č. {{order.variableSymbol}}</h1> </td>
+    <td *ngIf="order"><h1>Faktura č. {{order.variableSymbol}}</h1> </td>
   </tr>
   <tr class="invoice-body">
     <td>
@@ -13,7 +13,7 @@
       <br>
       Nejsme plátci DPH
     </td>
-    <td>
+    <td *ngIf="client">
       <strong>Odběratel:</strong> <br>
       {{client.name}} {{client.surname}} <br>
       {{client.contactAddress}}
@@ -22,7 +22,7 @@
   <tr class="invoice-data">
     <td colspan="2">
       <hr>
-      Způsob úhrady: Převodem
+      Způsob úhrady: {{paymentType}}
       <hr>
     </td>
   </tr>
@@ -34,7 +34,7 @@
             <strong>Bankovní účet</strong>  <br>
             2602271763/2010
           </td>
-          <td>
+          <td *ngIf="order">
             <strong>Variabilní symbol</strong>  <br>
             {{order.variableSymbol}}
           </td>
@@ -49,7 +49,7 @@
   </tr>
   <tr class="invoice-data">
     <td colspan="2" class="">
-      <table class="invoice-items">
+      <table class="invoice-items" *ngIf="order">
         <thead>
         <tr>
           <th>Položka</th>
@@ -72,13 +72,13 @@
     </td>
   </tr>
   <tr class="invoice-data invoice-total">
-    <td>
+    <td *ngIf="!isPaid">
       <strong>QR platba</strong>
       <br>
       <canvas id="canvas"></canvas>
     </td>
-    <td colspan="" class="">
-      <h4>Celkem k úhradě: {{totalPrice || order.price}} Kč</h4>
+    <td [attr.colspan]="isPaid ? 2 : 1" class="">
+      <h4>Celkem k úhradě: {{isPaid ? 0 : (totalPrice || order?.price)}} Kč</h4>
     </td>
   </tr>
 
