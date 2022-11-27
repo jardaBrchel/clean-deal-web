@@ -11,19 +11,20 @@ import {booleanToYesNo} from '../../../helpers/logic.helper';
   templateUrl: './grid-order-actions.component.html',
   styleUrls: ['./grid-order-actions.component.scss']
 })
-export class GridOrderActionsComponent implements ICellRendererAngularComp  {
+export class GridOrderActionsComponent implements ICellRendererAngularComp {
   private params: any;
   public refresh: any;
-  public itemId!: number| string;
-  public type!: 'order'|'client'|'homes';
-  public module!: 'client'|'admin';
+  public itemId!: number | string;
+  public type!: 'order' | 'client' | 'homes';
+  public module!: 'client' | 'admin';
   public isEditable!: true;
   public isRemovable!: boolean;
 
   constructor(
     private adminService: AdminService,
     private clientService: ClientService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -34,15 +35,17 @@ export class GridOrderActionsComponent implements ICellRendererAngularComp  {
     this.module = params.module;
     this.isEditable = params.isEditable;
     this.itemId = params.data[params.type + 'Id'];
-    const [day, month, year] = params.data.date.split('.');
-    const orderDate = new Date();
-    const removableLimit = new Date();
-    removableLimit.setDate(removableLimit.getDate() + 2);
-    orderDate.setFullYear(year);
-    orderDate.setMonth(month - 1);
-    orderDate.setDate(day);
-    orderDate.setHours(12);
-    this.isRemovable = orderDate > removableLimit;
+    if (params.data.date) {
+      const [day, month, year] = params.data.date.split('.');
+      const orderDate = new Date();
+      const removableLimit = new Date();
+      removableLimit.setDate(removableLimit.getDate() + 2);
+      orderDate.setFullYear(year);
+      orderDate.setMonth(month - 1);
+      orderDate.setDate(day);
+      orderDate.setHours(12);
+      this.isRemovable = orderDate > removableLimit;
+    }
   }
 
   deleteItem() {
@@ -54,7 +57,7 @@ export class GridOrderActionsComponent implements ICellRendererAngularComp  {
 
     let deleteFunction;
     if (confirm(titles[this.type])) {
-      switch(this.type) {
+      switch (this.type) {
         case 'order':
           deleteFunction = this.adminService.removeOrder.bind(this.adminService);
           break;

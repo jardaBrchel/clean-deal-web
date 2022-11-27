@@ -159,7 +159,11 @@ export class EditCleanerComponent implements OnInit {
 
     const cleanerData = {
       cleanerId: this.cleanerId,
-      name: this.cleanerForm.value?.username,
+      username: this.cleanerForm.value?.username,
+      name: this.cleanerForm.value?.name,
+      surname: this.cleanerForm.value?.surname,
+      email: this.cleanerForm.value?.email,
+      bankAccount: this.cleanerForm.value?.bankAccount,
       mo,
       tu,
       we,
