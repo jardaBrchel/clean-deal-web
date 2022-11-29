@@ -22,8 +22,9 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler):
     Observable<HttpEvent<any>> {
 
+    const bypassAPIKey = 'cpost'
     const clone = request.clone({
-        headers: this.addExtraHeaders(request.headers)
+        headers: request.url.includes(bypassAPIKey) ? request.headers : this.addExtraHeaders(request.headers),
       }
     );
 

@@ -53,6 +53,8 @@ export interface AdminHome {
   toilets?: number
   updatedAt?: string;
   yardage?: string;
+  city?: string;
+  homeInfo?: string;
   client?: AdminClient;
 }
 

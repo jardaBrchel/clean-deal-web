@@ -101,9 +101,14 @@ button.btn {
   }
 }
 
-.form-error {
+.form-error,
+.form-info {
   font-size: 13px;
   color: var(--main-red);
+}
+
+.form-info {
+  color: var(--color-grey-secondary);
 }
 
 
