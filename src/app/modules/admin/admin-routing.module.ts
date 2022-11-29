@@ -42,7 +42,7 @@ const routes: Routes = [
     component: CleanersComponent
   },
   {
-    path: 'add-cleaner',
+    path: 'cleaners/add',
     canActivate: [AdminAuthGuard],
     component: AddCleanerComponent
   },

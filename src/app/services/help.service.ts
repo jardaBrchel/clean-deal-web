@@ -38,7 +38,6 @@ export class HelpService {
   }
 
   public fetchAddress(psc: string) {
-
     const url = 'https://api.apitalks.store/cpost.cz/psc';
     const headers = {
       'x-api-key': 'w3z9sZFpUw36jsmJ5yLlq4y3SQtFW2n7a0JrfmJI'

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../../services/admin.service';
-import {Cleaner} from '../../../models/admin.model';
+import {Cleaner, DAYS} from '../../../models/admin.model';
 import {Subject, tap, Observable} from 'rxjs';
+import {firstUpper} from '../../../helpers/utils';
 
 
 @Component({
@@ -11,7 +12,6 @@ import {Subject, tap, Observable} from 'rxjs';
 })
 export class CleanersComponent implements OnInit {
   cleaners: Cleaner[] = [];
-  private cleaners$ = new Subject();
 
   constructor(
     private adminService: AdminService,
@@ -30,6 +30,7 @@ export class CleanersComponent implements OnInit {
     );
   }
 
+  // TODO add yes/no alert
   deleteCleaner(cleanerId: string) {
     this.adminService.deleteCleaner(cleanerId).subscribe(
       {
@@ -40,6 +41,17 @@ export class CleanersComponent implements OnInit {
         },
       }
     )
+  }
+
+  // Pokud ma uklizecka S/L, pak zobrazit S/L (klidne s pomlckama)
+  getDayInfo(day: string, cleaner: Cleaner): string {
+    if (cleaner.oddEvenWeeks) {
+      // @ts-ignore
+      return `Li  ${cleaner[day] || '/'} (Su ${cleaner['even' + firstUpper(day)] || '/'})`;
+    } else {
+      // @ts-ignore
+      return cleaner[day] || '/';
+    }
   }
 
 }

@@ -6,205 +6,160 @@
       </div>
     </div>
 
-    <div class="col-xl-6 col-md-12">
-      <div class="admin-card ">
+    <div class="col-xl-12 col-md-12">
+      <div class="admin-card">
         <div class="admin-card-body">
-          <form [formGroup]="cleanerForm">
+          <div class="row">
+            <div class="col-xl-6 col-md-12">
 
-            <div class="form-group row">
-              <label for="name" class="col-sm-3 col-form-label">Jméno</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  formControlName="name"
-                  placeholder="Jméno">
-              </div>
-            </div>
+              <form [formGroup]="cleanerForm">
 
-            <div class="form-group row">
-              <label for="surname" class="col-sm-3 col-form-label">Příjmení</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="surname"
-                  formControlName="surname"
-                  placeholder="Příjmení">
-              </div>
-            </div>
+                <div class="form-group row">
+                  <label for="name" class="col-sm-4 col-form-label">Jméno</label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      formControlName="name"
+                      placeholder="Jméno">
+                  </div>
+                </div>
 
-            <div class="form-group row">
-              <label for="username" class="col-sm-3 col-form-label">Uživatelské jméno</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  formControlName="username"
-                  placeholder="Login">
-              </div>
-            </div>
+                <div class="form-group row">
+                  <label for="surname" class="col-sm-4 col-form-label">Příjmení</label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="surname"
+                      formControlName="surname"
+                      placeholder="Příjmení">
+                  </div>
+                </div>
 
-            <div class="form-group row">
-              <label for="password" class="col-sm-3 col-form-label">Heslo</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="password"
-                  formControlName="password"
-                  placeholder="Heslo">
-              </div>
-            </div>
+                <div class="form-group row">
+                  <label for="username" class="col-sm-4 col-form-label">Uživatelské jméno</label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      formControlName="username"
+                      placeholder="Login">
+                  </div>
+                </div>
 
-            <div class="form-group row">
-              <label for="bankAccount" class="col-sm-3 col-form-label">Bank. účet</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="bankAccount"
-                  formControlName="bankAccount"
-                  placeholder="">
-              </div>
+                <div class="form-group row">
+                  <label for="password" class="col-sm-4 col-form-label">Heslo</label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="password"
+                      formControlName="password"
+                      placeholder="Heslo">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="password" class="col-sm-4 col-form-label">E-mail</label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      formControlName="email"
+                      placeholder="Email">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="bankAccount" class="col-sm-4 col-form-label">Bank. účet</label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="bankAccount"
+                      formControlName="bankAccount"
+                      placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="isVatFree" class="col-sm-4 col-form-label">Má prohlášení poplatníka</label>
+                  <div class="col-sm-8">
+                    <input type="checkbox" formControlName="isVatFree" id="isVatFree"/>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="oddEvenWeeks" class="col-sm-4 col-form-label">Má sudý/lichý týden</label>
+                  <div class="col-sm-8">
+                    <input type="checkbox" formControlName="oddEvenWeeks" id="oddEvenWeeks" #oddEvenWeeks/>
+                    <span *ngIf="cleanerForm.value.oddEvenWeeks"
+                          class="form-info">&nbsp;  Momentálně je {{isWeekOdd ? 'lichý' : 'sudý'}}
+                      týden (týden {{currentWeek}})</span>
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
 
           <br>
 
-          <form [formGroup]="timesForm">
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Pondělí</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="moFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="moTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
+          <div class="row">
+            <div class="col-xl-6 col-md-12">
+              <h3 *ngIf="cleanerForm.value.oddEvenWeeks">Lichý týden</h3>
+              <form [formGroup]="timesForm">
+                <div class="form-group row" *ngFor="let day of cleanerDays">
+                  <label class="col-sm-2 col-form-label">{{day.label}}</label>
+                  <div class="col-sm-5 col-lg-3">
+                    <select
+                      class="custom-select"
+                      [formControlName]="day.id + 'From'">
+                      <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-5 col-lg-3">
+                    <select
+                      class="custom-select"
+                      [formControlName]="day.id + 'To'">
+                      <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
             </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Úterý</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="tuFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="tuTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
+            <div class="col-xl-6 col-md-12" *ngIf="cleanerForm.value.oddEvenWeeks">
+              <h3>Sudý týden</h3>
+              <form [formGroup]="evenTimesForm">
+                <div class="form-group row" *ngFor="let day of cleanerDays">
+                  <label class="col-sm-2 col-form-label">{{day.label}}</label>
+                  <div class="col-sm-5 col-lg-3">
+                    <select
+                      class="custom-select"
+                      [formControlName]="day.id + 'From'">
+                      <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-5 col-lg-3">
+                    <select
+                      class="custom-select"
+                      [formControlName]="day.id + 'To'">
+                      <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
             </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Středa</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="weFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="weTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-            </div>
+          </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Čtvrtek</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="thFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="thTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-            </div>
+          <br>
+          <button type="submit" class="btn btn-success" (click)="onSave()">Uložit pracovníka</button>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Pátek</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="frFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="frTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Sobota</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="saFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="saTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Neděle</label>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="suFrom">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-              <div class="col-sm-5 col-lg-3">
-                <select
-                  class="custom-select"
-                  formControlName="suTo">
-                  <option *ngFor="let item of times" [value]="item.id">{{item.id}}</option>
-                </select>
-              </div>
-            </div>
-
-            <br>
-            <button type="submit" class="btn btn-success" (click)="onSave()">Uložit uklízečku</button>
-
-          </form>
         </div>
       </div>
     </div>
