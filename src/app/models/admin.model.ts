@@ -5,7 +5,12 @@ export interface AdminUser {
 
 export interface Cleaner {
   cleanerId: string;
+  email?: string;
   name: string;
+  surname?: string;
+  username: string;
+  bankAccount: string;
+  password?: string;
   mo?: string;
   tu?: string;
   we?: string;
@@ -13,6 +18,25 @@ export interface Cleaner {
   fr?: string;
   sa?: string;
   su?: string;
+  oddMo?: string;
+  oddTu?: string;
+  oddWe?: string;
+  oddTh?: string;
+  oddFr?: string;
+  oddSa?: string;
+  oddSu?: string;
+  oddEvenWeeks: boolean;
+  isVatFree?: boolean;
+}
+
+export enum DAYS {
+  mo = 'mo',
+  tu = 'tu',
+  we = 'we',
+  th = 'th',
+  fr = 'fr',
+  sa = 'sa',
+  su = 'su',
 }
 
 

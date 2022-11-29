@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../services/admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {getWeekNumber} from '../../../helpers/datetime.helper';
+import {CleanerDays} from '../../../models/cleaner.model';
+import {firstUpper} from '../../../helpers/utils';
 
 @Component({
   selector: 'app-edit-cleaner',
@@ -12,56 +15,11 @@ export class EditCleanerComponent implements OnInit {
   cleanerId!: string;
   cleanerForm: UntypedFormGroup = {} as any;
   timesForm: UntypedFormGroup = {} as any;
-  times = [
-    {
-      id: 0,
-    },
-    {
-      id: 6,
-    },
-    {
-      id: 7,
-    },
-    {
-      id: 8,
-    },
-    {
-      id: 9,
-    },
-    {
-      id: 10,
-    },
-    {
-      id: 11,
-    },
-    {
-      id: 12,
-    },
-    {
-      id: 13,
-    },
-    {
-      id: 14,
-    },
-    {
-      id: 15,
-    },
-    {
-      id: 16,
-    },
-    {
-      id: 17,
-    },
-    {
-      id: 18,
-    },
-    {
-      id: 19,
-    },
-    {
-      id: 20,
-    },
-  ]
+  evenTimesForm: UntypedFormGroup = {} as any;
+  times: any[] = [];
+  cleanerDays = CleanerDays;
+  currentWeek!: number;
+  isWeekOdd = false;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -69,6 +27,39 @@ export class EditCleanerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
   ) {
+    for (let i = 6; i <= 20; i++) {
+      this.times.push({
+        id: i,
+      })
+    }
+
+    this.currentWeek = getWeekNumber();
+    this.isWeekOdd = this.currentWeek % 2 === 1;
+  }
+
+  ngOnInit(): void {
+    this.cleanerId = this.route.snapshot.paramMap.get('cleanerId') || '';
+
+    this.cleanerForm = this.formBuilder.group({
+      name: [''],
+      surname: [''],
+      username: ['', [Validators.required]],
+      password: [''],
+      email: ['', [Validators.email]],
+      bankAccount: [''],
+      oddEvenWeeks: [false, []],
+      isVatFree: [false, []],
+    });
+
+    let timesForm: any = {};
+    CleanerDays.forEach(day => {
+      timesForm[day.id + 'From'] = [''];
+      timesForm[day.id + 'To'] = [''];
+    });
+    this.timesForm = this.formBuilder.group(timesForm);
+    this.evenTimesForm = this.formBuilder.group(timesForm);
+
+    this.fetchCleaner();
   }
 
   fetchCleaner() {
@@ -76,7 +67,6 @@ export class EditCleanerComponent implements OnInit {
       {
         next: (res) => {
           this.setFormData(res)
-          console.log('details', res);
         },
         error: (e) => {
           console.log('error ', e);
@@ -87,54 +77,26 @@ export class EditCleanerComponent implements OnInit {
   }
 
   setFormData(data: any) {
-     console.log('data', data)
-    const days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
     this.cleanerForm.get('username')?.patchValue(data.username);
     this.cleanerForm.get('name')?.patchValue(data.name);
     this.cleanerForm.get('surname')?.patchValue(data.surname);
     this.cleanerForm.get('email')?.patchValue(data.email);
     this.cleanerForm.get('bankAccount')?.patchValue(data.bankAccount);
+    this.cleanerForm.get('oddEvenWeeks')?.patchValue(data.oddEvenWeeks);
+    this.cleanerForm.get('isVatFree')?.patchValue(data.isVatFree);
 
-    days.forEach(day => {
-      if (data[day]) {
-        console.log('data[day]', data[day]);
-        const [from, to] = data[day].split('-');
-        this.timesForm.get(day + `From`)?.patchValue(from);
-        this.timesForm.get(day + `To`)?.patchValue(to);
+    CleanerDays.forEach(day => {
+      if (data[day.id]) {
+        const [from, to] = data[day.id].split('-');
+        this.timesForm.get(day.id + `From`)?.patchValue(from);
+        this.timesForm.get(day.id + `To`)?.patchValue(to);
+      }
+      if (data['even' + firstUpper(day.id)]) {
+        const [from, to] = data['even' + firstUpper(day.id)].split('-');
+        this.evenTimesForm.get(day.id + `From`)?.patchValue(from);
+        this.evenTimesForm.get(day.id + `To`)?.patchValue(to);
       }
     })
-
-    console.log('this.cleanerForm', this.cleanerForm.value)
-  }
-
-  ngOnInit(): void {
-    this.cleanerId = this.route.snapshot.paramMap.get('cleanerId') || '';
-    this.fetchCleaner();
-
-    console.log('this.cleanerId', this.cleanerId);
-    this.cleanerForm = this.formBuilder.group({
-      name: [''],
-      surname: [''],
-      username: ['', [Validators.required]],
-      password: [''],
-      bankAccount: [''],
-    });
-    this.timesForm = this.formBuilder.group({
-      moFrom: [''],
-      moTo: [''],
-      tuFrom: [''],
-      tuTo: [''],
-      weFrom: [''],
-      weTo: [''],
-      thFrom: [''],
-      thTo: [''],
-      frFrom: [''],
-      frTo: [''],
-      saFrom: [''],
-      saTo: [''],
-      suFrom: [''],
-      suTo: [''],
-    });
 
   }
 
@@ -148,37 +110,23 @@ export class EditCleanerComponent implements OnInit {
   onSave() {
     if (!this.cleanerForm.valid) return;
     const times = this.timesForm.value;
-
-    const mo = this.getTimeFormatted(times.moFrom, times.moTo);
-    const tu = this.getTimeFormatted(times.tuFrom, times.tuTo);
-    const we = this.getTimeFormatted(times.weFrom, times.weTo);
-    const th = this.getTimeFormatted(times.thFrom, times.thTo);
-    const fr = this.getTimeFormatted(times.frFrom, times.frTo);
-    const sa = this.getTimeFormatted(times.saFrom, times.saTo);
-    const su = this.getTimeFormatted(times.suFrom, times.suTo);
+    const oddTimes = this.evenTimesForm.value;
 
     const cleanerData = {
+      ...this.cleanerForm.value,
       cleanerId: this.cleanerId,
-      username: this.cleanerForm.value?.username,
-      name: this.cleanerForm.value?.name,
-      surname: this.cleanerForm.value?.surname,
-      email: this.cleanerForm.value?.email,
-      bankAccount: this.cleanerForm.value?.bankAccount,
-      mo,
-      tu,
-      we,
-      th,
-      fr,
-      sa,
-      su,
     };
 
-    // TODO save to DB
+    CleanerDays.forEach(day => {
+      cleanerData[day.id] = this.getTimeFormatted(times[day.id + 'From'], times[day.id + 'To']);
+      if (this.cleanerForm.value.oddEvenWeeks) {
+        cleanerData['even' + firstUpper(day.id)] = this.getTimeFormatted(oddTimes[day.id + 'From'], oddTimes[day.id + 'To']);
+      }
+    });
 
     this.adminService.editCleaner(cleanerData).subscribe({
-      next: (res) => {
-        this.router.navigate(['admin', 'cleaners']);
-        // TODO subject push
+      next: () => {
+        this.router.navigate(['admin', 'cleaners']).then(() => window.location.reload());
       },
       error: (e) => {
         console.log('error ', e);

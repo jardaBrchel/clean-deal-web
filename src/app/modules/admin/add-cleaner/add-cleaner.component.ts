@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../services/admin.service';
 import {Router} from '@angular/router';
+import {CleanerDays} from '../../../models/cleaner.model';
+import {getWeekNumber} from '../../../helpers/datetime.helper';
+import {firstUpper} from '../../../helpers/utils';
 
 @Component({
   selector: 'app-add-cleaner',
@@ -10,60 +13,30 @@ import {Router} from '@angular/router';
 })
 export class AddCleanerComponent implements OnInit {
   cleanerForm: UntypedFormGroup = {} as any;
+  // Is odd by default
   timesForm: UntypedFormGroup = {} as any;
-  times = [
-    {
-      id: 6,
-    },
-    {
-      id: 7,
-    },
-    {
-      id: 8,
-    },
-    {
-      id: 9,
-    },
-    {
-      id: 10,
-    },
-    {
-      id: 11,
-    },
-    {
-      id: 12,
-    },
-    {
-      id: 13,
-    },
-    {
-      id: 14,
-    },
-    {
-      id: 15,
-    },
-    {
-      id: 16,
-    },
-    {
-      id: 17,
-    },
-    {
-      id: 18,
-    },
-    {
-      id: 19,
-    },
-    {
-      id: 20,
-    },
-  ]
+  // For even weeks
+  evenTimesForm: UntypedFormGroup = {} as any;
+  times: any[] = [];
+  cleanerDays = CleanerDays;
+  currentWeek!: number;
+  isWeekOdd = false;
+
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private adminService: AdminService,
     private router: Router,
-  ) { }
+  ) {
+    for (let i = 6; i <= 20; i++) {
+      this.times.push({
+        id: i,
+      })
+    }
+
+    this.currentWeek = getWeekNumber();
+    this.isWeekOdd = this.currentWeek % 2 === 1;
+  }
 
   ngOnInit(): void {
     this.cleanerForm = this.formBuilder.group({
@@ -71,25 +44,19 @@ export class AddCleanerComponent implements OnInit {
       surname: [''],
       username: ['', [Validators.required]],
       password: [''],
+      email: ['', [Validators.email]],
       bankAccount: [''],
-    });
-    this.timesForm = this.formBuilder.group({
-      moFrom: [''],
-      moTo: [''],
-      tuFrom: [''],
-      tuTo: [''],
-      weFrom: [''],
-      weTo: [''],
-      thFrom: [''],
-      thTo: [''],
-      frFrom: [''],
-      frTo: [''],
-      saFrom: [''],
-      saTo: [''],
-      suFrom: [''],
-      suTo: [''],
+      oddEvenWeeks: [false, []],
+      isVatFree: [false, []],
     });
 
+    let timesForm: any = {};
+    CleanerDays.forEach(day => {
+      timesForm[day.id + 'From'] = [''];
+      timesForm[day.id + 'To'] = [''];
+    });
+    this.timesForm = this.formBuilder.group(timesForm);
+    this.evenTimesForm = this.formBuilder.group(timesForm);
   }
 
   getTimeFormatted(from: string, to: string) {
@@ -99,25 +66,18 @@ export class AddCleanerComponent implements OnInit {
   onSave() {
     if (!this.cleanerForm.valid) return;
     const times = this.timesForm.value;
-
-    const mo = this.getTimeFormatted(times.moFrom, times.moTo);
-    const tu = this.getTimeFormatted(times.tuFrom, times.tuTo);
-    const we = this.getTimeFormatted(times.weFrom, times.weTo);
-    const th = this.getTimeFormatted(times.thFrom, times.thTo);
-    const fr = this.getTimeFormatted(times.frFrom, times.frTo);
-    const sa = this.getTimeFormatted(times.saFrom, times.saTo);
-    const su = this.getTimeFormatted(times.suFrom, times.suTo);
+    const evenTimes = this.evenTimesForm.value;
 
     const cleanerData = {
       ...this.cleanerForm.value,
-      mo,
-      tu,
-      we,
-      th,
-      fr,
-      sa,
-      su,
     };
+
+    CleanerDays.forEach(day => {
+      cleanerData[day.id] = this.getTimeFormatted(times[day.id + 'From'], times[day.id + 'To']);
+      if (this.cleanerForm.value.oddEvenWeeks) {
+        cleanerData['even' + firstUpper(day.id)] = this.getTimeFormatted(evenTimes[day.id + 'From'], evenTimes[day.id + 'To']);
+      }
+    });
 
     this.adminService.addNewCleaner(cleanerData).subscribe({
       next: (res) => {
@@ -127,8 +87,8 @@ export class AddCleanerComponent implements OnInit {
       error: (e) => {
         console.log('error ', e);
       },
-
     })
+
   }
 
 }

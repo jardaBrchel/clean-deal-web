@@ -21,3 +21,13 @@ export const getWorkingDaysAfter = (daysAfter: number): number => {
 
   return daysAfter + nonWorkingDays;
 }
+
+export const getWeekNumber = () => {
+  const today = new Date();
+  const d = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  // @ts-ignore
+  return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+};
