@@ -23,6 +23,7 @@ import {Router} from '@angular/router';
 export class EventsCalendarComponent implements OnInit {
   @Input() cleanings: CleanerPlannedOrder[] = [];
   @Input() vacations: any[] = [];
+  @Input() context = 'admin';
   view: CalendarView = CalendarView.Week;
   locale: string = 'cs';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
@@ -84,8 +85,8 @@ export class EventsCalendarComponent implements OnInit {
     console.log('event', event);
 
     if (event.meta.type === 'order') {
-      this.router.navigate(['/admin/orders/detail', event.id]);    }
-
+      this.router.navigate([`/${this.context}/orders/detail`, event.id]);
+    }
   }
 
   changeDate(date: Date) {

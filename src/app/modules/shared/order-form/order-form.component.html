@@ -277,10 +277,24 @@
         <input
           type="text"
           class="form-control"
+          (blur)="onPscChange($event)"
           name="zip"
           formControlName="pscNumber"/>
+        <span class="form-info" *ngIf="clientCity">{{clientCity}}</span>
       </div>
     </section>
+
+      <section class="form-section">
+        <h5 class="label">Dodatečné informace k lokalitě</h5>
+        <div class="input-group">
+                <textarea
+                  class="form-control"
+                  placeholder="Číslo na bytu, jméno na zvnoku..."
+                  formControlName="homeInfo">
+                </textarea>
+        </div>
+      </section>
+
     </ng-container>
   </ng-container>
 </form>
@@ -344,7 +358,7 @@
       <input
         type="text"
         class="form-control"
-        name="address"
+        name="contactAddress"
         formControlName="contactAddress">
     </div>
   </section>

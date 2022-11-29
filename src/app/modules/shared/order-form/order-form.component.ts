@@ -26,8 +26,9 @@ import {WEB_URLS} from '../../../config/web.config';
 import {DatePipe} from '@angular/common';
 import {OrderService} from '../../../services/order.service';
 import {Client} from '../../../models/client.model';
-import {AdminHome, AdminOrder} from '../../../models/admin.model';
+import {AdminHome, AdminOrder, OrderDataRes} from '../../../models/admin.model';
 import {MatDatepicker} from '@angular/material/datepicker';
+import {HelpService} from '../../../services/help.service';
 
 @Component({
   selector: 'app-order-form',
@@ -102,6 +103,7 @@ export class OrderFormComponent implements OnInit {
   summaryTimeDetails = '';
   summaryPriceItems: SummaryPriceItem[] = [];
   extrasPriceItems: SummaryPriceItem[] = [];
+  clientCity!: string;
 
   // FLAGS
   orderSendClicked = false;
@@ -117,6 +119,7 @@ export class OrderFormComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private datePipe: DatePipe,
     private orderService: OrderService,
+    private helpService: HelpService,
   ) {
     this.initDates();
   }
@@ -214,6 +217,7 @@ export class OrderFormComponent implements OnInit {
       dirty: this.dirty[0].id,
       yardage: this.yardage[0].id,
       pets: '',
+      homeInfo: '',
       comments: '',
       date: [undefined, [Validators.required]],
       time: [{value: undefined, disabled: true}, [Validators.required]],
@@ -358,6 +362,21 @@ export class OrderFormComponent implements OnInit {
     );
 
     this.orderForm.get('yardage')?.patchValue(yardage?.id);
+  }
+
+  onPscChange(event: any) {
+    const psc = (event?.target?.value || '').trim().replaceAll(' ', '');
+    this.helpService.fetchAddress(psc).subscribe(
+      {
+        next: (res: any) => {
+          this.clientCity = res.data.length ? res.data[0].NAZPOST : null;
+          console.log('city ', this.clientCity);
+        },
+        error: (e) => {
+          console.log('error ', e);
+        },
+      }
+    )
   }
 
   recalculateRepeatedPrice() {
@@ -802,7 +821,7 @@ export class OrderFormComponent implements OnInit {
 
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true
-      ? `${this.orderForm.value?.address}, ${this.orderForm.value?.pscNumber}`
+      ? `${this.orderForm.value?.address}, ${this.orderForm.value?.pscNumber} ${this.clientCity}`
       : this.userForm.value?.contactAddress;
     const data = {
       ...this.orderForm.value,
@@ -817,6 +836,7 @@ export class OrderFormComponent implements OnInit {
       contactAddress: contactAddress,
       email: this.userForm.value['email'] || this.clientData?.email,
       homeId: this.homesForm.value['home'],
+      city: this.clientCity,
     };
     this.sendingOrder = true;
 

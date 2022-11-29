@@ -17,6 +17,7 @@
             *ngIf="cleaner"
             [cleanings]="cleaner.orders || []"
             [vacations]="cleaner.vacations || []"
+            [context]="'cleaner'"
           ></app-events-calendar>
         </div>
       </div>
