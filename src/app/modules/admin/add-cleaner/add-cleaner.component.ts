@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {CleanerDays} from '../../../models/cleaner.model';
 import {getWeekNumber} from '../../../helpers/datetime.helper';
 import {firstUpper} from '../../../helpers/utils';
+import {CONTRACT_TYPES} from '../../../config/order-config';
 
 @Component({
   selector: 'app-add-cleaner',
@@ -21,7 +22,7 @@ export class AddCleanerComponent implements OnInit {
   cleanerDays = CleanerDays;
   currentWeek!: number;
   isWeekOdd = false;
-
+  contractTypes = CONTRACT_TYPES;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -46,6 +47,7 @@ export class AddCleanerComponent implements OnInit {
       password: [''],
       email: ['', [Validators.email]],
       bankAccount: [''],
+      contractType: [this.contractTypes[0].id],
       oddEvenWeeks: [false, []],
       isVatFree: [false, []],
     });

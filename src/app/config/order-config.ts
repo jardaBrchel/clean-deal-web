@@ -47,6 +47,25 @@ export const FREQUENCY: orderFormItem[] = [
   },
 ]
 
+export const CONTRACT_TYPES: orderFormItem[] = [
+  {
+    id: 'DPP',
+    label: 'DPP',
+  },
+  {
+    id: 'ICO',
+    label: 'Ičo (fakturace)',
+  },
+  {
+    id: 'HPP',
+    label: 'HPP',
+  },
+  {
+    id: 'DPC',
+    label: 'DPČ',
+  },
+]
+
 export const HOUSE_FLOORS: orderFormItem[] = [
   {
     id: '1',

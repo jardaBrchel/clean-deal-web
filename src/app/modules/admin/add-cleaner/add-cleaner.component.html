@@ -87,6 +87,18 @@
                 </div>
 
                 <div class="form-group row">
+                  <label for="contractType" class="col-sm-4 col-form-label">Typ spolupráce</label>
+                  <div class="col-sm-8">
+                    <select
+                      id="contractType"
+                      class="custom-select"
+                      formControlName="contractType">
+                      <option *ngFor="let item of contractTypes" [value]="item.id">{{item.label}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <label for="isVatFree" class="col-sm-4 col-form-label">Má prohlášení poplatníka</label>
                   <div class="col-sm-8">
                     <input type="checkbox" formControlName="isVatFree" id="isVatFree"/>

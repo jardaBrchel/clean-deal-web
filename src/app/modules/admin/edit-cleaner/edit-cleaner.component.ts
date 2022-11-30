@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {getWeekNumber} from '../../../helpers/datetime.helper';
 import {CleanerDays} from '../../../models/cleaner.model';
 import {firstUpper} from '../../../helpers/utils';
+import {CONTRACT_TYPES} from '../../../config/order-config';
 
 @Component({
   selector: 'app-edit-cleaner',
@@ -20,6 +21,7 @@ export class EditCleanerComponent implements OnInit {
   cleanerDays = CleanerDays;
   currentWeek!: number;
   isWeekOdd = false;
+  contractTypes = CONTRACT_TYPES;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -47,6 +49,7 @@ export class EditCleanerComponent implements OnInit {
       password: [''],
       email: ['', [Validators.email]],
       bankAccount: [''],
+      contractType: [this.contractTypes[0].id],
       oddEvenWeeks: [false, []],
       isVatFree: [false, []],
     });
@@ -84,6 +87,7 @@ export class EditCleanerComponent implements OnInit {
     this.cleanerForm.get('bankAccount')?.patchValue(data.bankAccount);
     this.cleanerForm.get('oddEvenWeeks')?.patchValue(data.oddEvenWeeks);
     this.cleanerForm.get('isVatFree')?.patchValue(data.isVatFree);
+    this.cleanerForm.get('contractType')?.patchValue(data.contractType);
 
     CleanerDays.forEach(day => {
       if (data[day.id]) {

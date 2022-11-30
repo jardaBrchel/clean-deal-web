@@ -26,6 +26,7 @@ export interface Cleaner {
   oddSa?: string;
   oddSu?: string;
   oddEvenWeeks: boolean;
+  contractType: string;
   isVatFree?: boolean;
 }
 
