@@ -554,6 +554,8 @@ export class OrderFormComponent implements OnInit {
     const item = FREQUENCY.find(t => t.id === selectedValue) || {} as any;
     this.multiplicators = {...this.multiplicators, frequency: item.multiplication};
 
+    // TODO pokud je vybrany datum, checknout uklizecku jestli na volno sudy/lichy
+
     this.recalculatePrice();
   }
 
@@ -653,7 +655,6 @@ export class OrderFormComponent implements OnInit {
     } else {
       this.userForm.controls['contactAddress']?.setValidators([Validators.required]);
       this.userForm.controls['contactAddress']?.enable();
-
     }
   }
 
