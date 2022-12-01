@@ -29,14 +29,17 @@ export const CLEANING_TYPES: orderFormItem[] = [
   },
 ]
 
+export const FREQUENCY_ONETIME = 'ONETIME';
+export const FREQUENCY_WEEKLY = 'WEEKLY';
+
 export const FREQUENCY: orderFormItem[] = [
   {
-    id: 'ONETIME',
+    id: FREQUENCY_ONETIME,
     label: 'Jednorázově',
     multiplication: 1,
   },
   {
-    id: 'WEEKLY',
+    id: FREQUENCY_WEEKLY,
     label: 'Jednou týdně',
     multiplication: 0.9,
   },

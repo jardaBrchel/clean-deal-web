@@ -35,7 +35,8 @@ export class CleanersComponent implements OnInit {
     this.adminService.deleteCleaner(cleanerId).subscribe(
       {
         next: (res) => {
-          // Deleted
+          // Cleaner Deleted
+          window.location.reload();
         },
         error: (e) => {
         },

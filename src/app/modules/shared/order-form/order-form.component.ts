@@ -3,7 +3,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
   CLEANING_TYPES, DIRTY,
-  FREQUENCY,
+  FREQUENCY, FREQUENCY_ONETIME, FREQUENCY_WEEKLY,
   HOME_TYPES, HOUSE_FLOORS, KITCHENS, MAX_CALENDAR_DAYS,
   MAX_HOURS_PER_LADY, MAX_WINDOW_BLINDS_METERS, MAX_WINDOWS_METERS, orderFormItem, OWN_CLEANING_STUFF, PAYMENT_METHODS,
   PAYMENT_TRANSFER, ROOMS,
@@ -554,7 +554,11 @@ export class OrderFormComponent implements OnInit {
     const item = FREQUENCY.find(t => t.id === selectedValue) || {} as any;
     this.multiplicators = {...this.multiplicators, frequency: item.multiplication};
 
-    // TODO pokud je vybrany datum, checknout uklizecku jestli na volno sudy/lichy
+    if (selectedValue === FREQUENCY_WEEKLY && this.orderForm.value['date']) {
+      if (!this.dateFilter(this.orderForm.value['date'])) {
+        this.resetDateAndTime();
+      }
+    }
 
     this.recalculatePrice();
   }
@@ -665,7 +669,8 @@ export class OrderFormComponent implements OnInit {
     const theDate = dateToYmdFormat(date);
     const times = this.availableCalendars
       .map(cal => ({...cal.days.find(day => day.date === theDate), cleanerId: cal.cleanerId}))
-      .filter(day => !!day) as CleanerAvailableDay[];
+      .filter(day => !!day)
+      .filter(day => day.from && day.to) as CleanerAvailableDay[];
     return times;
   }
 
@@ -727,11 +732,15 @@ export class OrderFormComponent implements OnInit {
       : this.getTimeOptionsFromAvailableTimes(this.availableTimes);
 
     if (this.availableTimesOptions.length === 0 && !!this.orderForm.value.date) {
-      this.orderForm.controls['time']?.patchValue(null);
-      this.orderForm.controls['date']?.patchValue(null);
-      this.checkSummaryTimeDetails();
-      this.doShowNoDateCapacityModal();
+     this.resetDateAndTime();
     }
+  }
+
+  resetDateAndTime() {
+    this.orderForm.controls['time']?.patchValue(null);
+    this.orderForm.controls['date']?.patchValue(null);
+    this.checkSummaryTimeDetails();
+    this.doShowNoDateCapacityModal();
   }
 
   onDateChange() {
@@ -777,8 +786,33 @@ export class OrderFormComponent implements OnInit {
   dateFilter = (d: any, isYmdFormat = false): boolean => {
     if (!d) return false;
     const theDate = dateToYmdFormat(d);
-    const isDateInCleaners = this.availableCalendars.filter(cal => cal.days.some(day => day.date === theDate));
+    let isDateInCleaners: boolean;
+
+    if (this.orderForm.value.frequency === FREQUENCY_WEEKLY) {
+      // Pokud ma termin volny uklizecka, co maka na tydenni bazi
+      const inWeeklyCleaners = this.availableCalendars.filter(cal => !cal.oddEvenWeeks && cal.days.some(day => day.date === theDate)).length > 0;
+      let nextWeek = new Date(d);
+      nextWeek.setDate(d.getDate() + 7);
+      const theDateNextWeek = dateToYmdFormat(nextWeek);
+      // Pokud ma uklizecka s S/L tydny volny termin v obou tydnech
+      const inOddEvenCleaners = this.availableCalendars
+        .filter(cal =>
+          cal.oddEvenWeeks
+          && cal.days.some(day => day.date === theDate)
+          && cal.days.some(day => day.date === theDateNextWeek))
+        .length > 0;
+
+      isDateInCleaners = inWeeklyCleaners || inOddEvenCleaners;
+    } else {
+      // Pokud nejaky calendar ma v days dany den
+      isDateInCleaners = this.availableCalendars.filter(cal => cal.days.some(day => day.date === theDate)).length > 0;
+    }
+
     const availableTimes = this.getAvailableTimesForDate(d);
+    // Pokud nema from a to, pak rovnou skipnout
+    if (!availableTimes.length) {
+      return false;
+    }
     let isDateHavingCapacity;
 
     if (this.ladiesForTheJob > 1) {
@@ -787,7 +821,7 @@ export class OrderFormComponent implements OnInit {
       isDateHavingCapacity = this.getTimeOptionsFromAvailableTimes(availableTimes);
     }
 
-    return isDateInCleaners.length > 0 && !!isDateHavingCapacity.length;
+    return isDateInCleaners && !!isDateHavingCapacity.length;
   };
 
   /* ----- */
@@ -909,7 +943,6 @@ export class OrderFormComponent implements OnInit {
   doHideNoDateCapacityModal() {
     this.showNoDateCapacityModal = false;
   }
-
 
 
 }

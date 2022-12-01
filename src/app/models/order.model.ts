@@ -12,6 +12,7 @@ export interface SummaryPriceItem {
 export interface AvailableTimesResItem {
   name: string;
   cleanerId: string;
+  oddEvenWeeks: boolean;
   days: CleanerAvailableDay[];
 }
 
