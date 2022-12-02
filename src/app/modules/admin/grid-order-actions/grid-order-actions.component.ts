@@ -77,7 +77,6 @@ export class GridOrderActionsComponent implements ICellRendererAngularComp {
       deleteFunction(this.itemId as number).subscribe(
         {
           next: (res: OrderDataRes) => {
-            // TODO reload
             window.location.reload();
           },
           error: (e) => {
