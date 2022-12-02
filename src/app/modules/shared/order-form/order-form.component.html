@@ -215,7 +215,7 @@
 </form>
 
 <hr>
-<form [formGroup]="orderForm">
+<form [formGroup]="orderForm" [ngClass]="{'order-sent': orderSendClicked}">
   <h3 class="subtitle">Kdy preferuji úklid a kde</h3>
 
   <ng-container *ngIf="!availableCalendars.length">
@@ -301,7 +301,7 @@
 
 <hr>
 
-<form [formGroup]="userForm" *ngIf="!isClientForm">
+<form [formGroup]="userForm" *ngIf="!isClientForm" [ngClass]="{'order-sent': orderSendClicked}">
   <h3 class="subtitle">Informace o vás</h3>
 
   <section class="form-section half-section">

@@ -146,28 +146,29 @@
 
   .order-sent {
     select.ng-invalid,
-    input.ng-invalid:not([type=checkbox]) {
+    input.ng-invalid:not([type=checkbox]):not([formcontrolname=date]),
+    mat-form-field.ng-invalid ::ng-deep .mat-form-field-wrapper {
       border: 1px solid var(--main-red);
       background-color: var(--red-lightest);
       display: block;
 
-      &:after {
-        content: "povinné pole";
-      }
+      //&:after {
+      //  content: "povinné pole";
+      //}
     }
 
     section.form-section {
       position: relative;
     }
+  }
 
-    ::ng-deep .fill-required {
-      color: var(--main-red);
-      font-size: 12px;
-      font-weight: 400;
-      text-align: center;
-      display: block;
-      margin-top: 10px;
-    }
+  .fill-required {
+    color: var(--main-red);
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
   }
 
   .agree-to-terms {
