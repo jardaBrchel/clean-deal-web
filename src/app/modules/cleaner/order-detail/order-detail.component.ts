@@ -73,9 +73,7 @@ export class OrderDetailComponent implements OnInit {
           this.paymentMethod = PAYMENT_METHODS.find(t => t.id === res.order.paymentMethod)?.label || '';
           this.setExtras();
           console.log('res', res);
-          if(res.order.paymentMethod === 'CASH') {
-            this.countCashForCleaner();
-          }
+          this.countCashForCleaner();
         },
         error: (e) => {
           console.log('error ', e);
