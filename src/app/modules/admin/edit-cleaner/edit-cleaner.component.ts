@@ -34,6 +34,7 @@ export class EditCleanerComponent implements OnInit {
         id: i,
       })
     }
+    this.times.unshift({id: 0});
 
     this.currentWeek = getWeekNumber();
     this.isWeekOdd = this.currentWeek % 2 === 1;

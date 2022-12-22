@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="admin-headline">Slevové kódy</h1>
+        <button type="button" class="btn  btn-blue outline" [routerLink]="['/', 'admin', 'discounts', 'add']">
+          Přidat kód
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+      <p *ngIf="discounts && discounts.length === 0">Zatím neexistují žádné kódy</p>
+
+      <div class="admin-card full" *ngIf="discounts.length > 0">
+        <table class="table admin-table ">
+          <thead>
+          <tr>
+            <th>Kód</th>
+            <th>Typ</th>
+            <th>Hodnota</th>
+            <th>Validní do</th>
+            <th>Byl použit</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let discount of discounts">
+            <td>{{discount.code}}</td>
+            <td>{{getDiscountType(discount.type)}}</td>
+            <td>{{discount.value}} <span *ngIf="discount.type === 'percentage'">%</span><span *ngIf="discount.type === 'price'">Kč</span></td>
+            <td>{{discount.validUntil|date}}</td>
+            <td>{{discount.used|date}}</td>
+            <td>
+              <button [routerLink]="['/', 'admin', 'discounts', 'edit', discount.discountId]">
+                <mat-icon aria-hidden="false" fontIcon="edit"></mat-icon>
+              </button>
+              &nbsp;
+              <button (click)="deleteDiscount(discount.discountId)">
+                <mat-icon aria-hidden="false" fontIcon="delete"></mat-icon>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

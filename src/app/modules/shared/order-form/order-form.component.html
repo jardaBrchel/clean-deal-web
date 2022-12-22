@@ -15,6 +15,7 @@
 <form [formGroup]="orderForm">
 
   <section class="form-section">
+<!--    <h5 class="label">Typ úklidu <mat-icon aria-hidden="false" class="field-icon" (click)="showDirtyModal()">info_outlined</mat-icon></h5>-->
     <h5 class="label">Typ úklidu</h5>
     <div class="input-group">
       <select
@@ -140,6 +141,7 @@
 
 
   <section class="form-section half-section">
+<!--    <h5 class="label">Míra znečištění <mat-icon aria-hidden="false" class="field-icon" (click)="showDirtyModal()">info_outlined</mat-icon></h5>-->
     <h5 class="label">Míra znečištění</h5>
     <div class="input-group">
       <select
@@ -374,6 +376,24 @@
       </select>
     </div>
   </section>
+
+  <section class="form-section">
+    <h5 class="label">Slevový kód</h5>
+
+    <div class="input-group input-with-button">
+      <input
+        type="text"
+        class="form-control"
+        name="discount"
+        formControlName="discount">
+      <button class="btn btn-blue outline" (click)="checkDiscount()">Použít kód</button>
+    </div>
+    <span class="form-info" *ngIf="discountCodeFetched">
+      <i *ngIf="discountCode.type">Byl uplatněn kód na {{discountCode.value}}<span *ngIf="discountCode.type === 'percentage'">%</span><span *ngIf="discountCode.type === 'price'">Kč</span></i>
+      <i *ngIf="!discountCode.type">Zadaný kód je neplatný</i>
+    </span>
+  </section>
+
 </form>
 
 <form [formGroup]="userForm" *ngIf="isClientForm">
@@ -407,8 +427,8 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade cd-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-modal="true"
+<!-- Modal for not having work capacity -->
+<div class="modal fade cd-modal" id="dateResetModal" tabindex="-1" role="dialog" aria-labelledby="dateResetModalLabel" aria-modal="true"
      [ngClass]="{'show': showNoDateCapacityModal}"
 >
   <div class="modal-dialog">
@@ -422,6 +442,25 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-one submit-form"
                 (click)="doHideNoDateCapacityModal()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- General Modal -->
+<div class="modal fade cd-modal" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="generalModalLabel" aria-modal="true"
+     [ngClass]="{'show': showGeneralModal}"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">{{generalModalTitle}}</h3>
+      </div>
+      <div class="modal-body" [innerHTML]="generalModalContent">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-one submit-form"
+                (click)="doHideGeneralModal()">Ok</button>
       </div>
     </div>
   </div>

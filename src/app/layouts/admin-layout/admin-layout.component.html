@@ -27,6 +27,10 @@
           <a [routerLink]="['/', 'admin', 'cleaners']" routerLinkActive="active" (click)="hideSidebarMobile()">
             <mat-icon aria-hidden="false" fontIcon="work"></mat-icon> Pracovníci</a>
         </li>
+        <li>
+          <a [routerLink]="['/', 'admin', 'discounts']" routerLinkActive="active" (click)="hideSidebarMobile()">
+            <mat-icon aria-hidden="false" fontIcon="percent"></mat-icon> Slevové kódy</a>
+        </li>
         <br>
         <li>
           <a (click)="logoutUser()">

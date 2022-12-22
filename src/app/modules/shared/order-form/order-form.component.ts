@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {
   BATHROOMS,
-  CLEANING_TYPES, DIRTY,
+  CLEANING_TYPES, DIRTY, DISCOUNT_TYPES,
   FREQUENCY, FREQUENCY_ONETIME, FREQUENCY_WEEKLY,
   HOME_TYPES, HOUSE_FLOORS, KITCHENS, MAX_CALENDAR_DAYS,
   MAX_HOURS_PER_LADY, MAX_WINDOW_BLINDS_METERS, MAX_WINDOWS_METERS, orderFormItem, OWN_CLEANING_STUFF, PAYMENT_METHODS,
@@ -104,6 +104,9 @@ export class OrderFormComponent implements OnInit {
   summaryPriceItems: SummaryPriceItem[] = [];
   extrasPriceItems: SummaryPriceItem[] = [];
   clientCity!: string;
+  generalModalTitle!: string;
+  generalModalContent!: string;
+  discountCode: any = null;
 
   // FLAGS
   orderSendClicked = false;
@@ -114,6 +117,8 @@ export class OrderFormComponent implements OnInit {
   hideMobilePriceBar = false;
   showNoDateCapacityModal = false;
   areAvailableDates = true;
+  showGeneralModal = false;
+  discountCodeFetched = false;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -244,7 +249,25 @@ export class OrderFormComponent implements OnInit {
       contactAddressMatchesCleaning: [false],
       contactAddress: ['', !this.isClientForm ? [Validators.required] : []],
       paymentMethod: [PAYMENT_TRANSFER, [Validators.required]],
+      discount: ['', []],
     });
+  }
+
+  checkDiscount() {
+    this.orderService.checkDiscountCode(this.userForm.value.discount).subscribe(
+      {
+        next: (res: any) => {
+          console.log('res ', res);
+          this.discountCodeFetched = true;
+          this.discountCode = res;
+          this.recalculatePrice();
+        },
+        error: (e) => {
+          console.log('error ', e);
+          this.discountCodeFetched = true;
+        },
+      }
+    )
   }
 
 
@@ -287,6 +310,7 @@ export class OrderFormComponent implements OnInit {
     multiplicators.forEach(m => this.finalPrice += m)
     this.finalPrice = Math.round(this.finalPrice);
     this.finalPrice += extras;
+    this.checkDiscountCode();
 
     // FIXME nonDP by mela byt jen bez frequency
     const mpsForBasePrice: number[] = Object.values({...this.multiplicators, frequency: 1});
@@ -319,6 +343,22 @@ export class OrderFormComponent implements OnInit {
     const frequency = FREQUENCY.find(f => f.id === this.orderForm.value?.frequency)?.label;
 
     this.summaryOrderDetails = `${homeType} - ${frequency}`;
+  }
+
+  checkDiscountCode() {
+    if(!this.discountCode?.type) return;
+
+    if (this.discountCode?.type === DISCOUNT_TYPES[1].id) {
+      // percentage
+      this.finalPrice = this.finalPrice - ((this.discountCode?.value / 100) * this.finalPrice);
+    } else {
+      // price
+      this.finalPrice -= this.discountCode?.value;
+    }
+
+    if (this.finalPrice < 0) {
+      this.finalPrice = 0;
+    }
   }
 
   checkSummaryTimeDetails() {
@@ -502,6 +542,13 @@ export class OrderFormComponent implements OnInit {
         })
       }
     })
+
+    if (this.discountCode?.value) {
+      this.summaryPriceItems.push({
+        name: 'Slevový kód',
+        price: `- ${this.discountCode.value} ${this.discountCode.type === 'percentage' ? ' %' : ' Kč'}`,
+      })
+    }
 
     this.summaryPriceItemsChanged.emit(this.summaryPriceItems);
     this.extrasPriceItemsChanged.emit(this.extrasPriceItems);
@@ -942,6 +989,23 @@ export class OrderFormComponent implements OnInit {
 
   doHideNoDateCapacityModal() {
     this.showNoDateCapacityModal = false;
+  }
+
+  showDirtyModal() {
+    this.generalModalTitle = 'Míra znečištění';
+    this.generalModalContent = `
+        <h2>Mírné</h2>
+        <p>Mírné znečištění </p>
+`;
+    this.doShowGeneralModal();
+  }
+
+  doShowGeneralModal() {
+    this.showGeneralModal = true;
+  }
+
+  doHideGeneralModal() {
+    this.showGeneralModal = false;
   }
 
 

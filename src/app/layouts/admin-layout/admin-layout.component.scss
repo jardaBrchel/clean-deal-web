@@ -383,6 +383,16 @@
 
 
   @media only screen and (max-width: 767px) {
+    ::ng-deep .nav-tabs {
+      overflow-x: auto;
+      overflow-y:hidden;
+      flex-wrap: nowrap;
+
+      .nav-item {
+        white-space: nowrap;
+      }
+    }
+
     .inner-content {
       padding: 16px;
     }

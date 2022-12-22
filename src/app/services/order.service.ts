@@ -23,6 +23,11 @@ export class OrderService {
     return this.http.put<any>(url, data);
   }
 
+  checkDiscountCode(code: string) {
+    const url = Config.urlApi + '/order/check-discount';
+    return this.http.post<any>(url, {code});
+  }
+
   getOrderForInvoice(orderId: number) {
     const url = Config.urlApi + '/order/invoice/' + orderId;
     return this.http.get<any>(url);

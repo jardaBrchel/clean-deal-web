@@ -27,6 +27,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {momentAdapterFactory} from '../../app.module';
 import {SharedModule} from '../shared/shared.module';
+import { DiscountsComponent } from './discounts/discounts.component';
+import { AddDiscountComponent } from './add-discount/add-discount.component';
+import { EditDiscountComponent } from './edit-discount/edit-discount.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import {SharedModule} from '../shared/shared.module';
     GridOrderActionsComponent,
     OrderDetailComponent,
     CreateOrderComponent,
+    DiscountsComponent,
+    AddDiscountComponent,
+    EditDiscountComponent,
   ],
   imports: [
     CommonModule,

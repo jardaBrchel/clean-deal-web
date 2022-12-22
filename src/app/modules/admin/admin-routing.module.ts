@@ -14,6 +14,9 @@ import {HomeDetailComponent} from './home-detail/home-detail.component';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {CreateOrderComponent} from './create-order/create-order.component';
+import {DiscountsComponent} from './discounts/discounts.component';
+import {AddDiscountComponent} from './add-discount/add-discount.component';
+import {EditDiscountComponent} from './edit-discount/edit-discount.component';
 
 const routes: Routes = [
   {
@@ -80,6 +83,21 @@ const routes: Routes = [
     path: 'create-order',
     canActivate: [AdminAuthGuard],
     component: CreateOrderComponent
+  },
+  {
+    path: 'discounts',
+    canActivate: [AdminAuthGuard],
+    component: DiscountsComponent
+  },
+  {
+    path: 'discounts/add',
+    canActivate: [AdminAuthGuard],
+    component: AddDiscountComponent
+  },
+  {
+    path: 'discounts/edit/:discountId',
+    canActivate: [AdminAuthGuard],
+    component: EditDiscountComponent
   },
 ];
 

@@ -56,6 +56,26 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
+  getDiscounts() {
+    const url = Config.urlApi + '/admin/discounts';
+    return this.http.get<any>(url);
+  }
+
+  addNewDiscount(data: any) {
+    const url = Config.urlApi + '/admin/discount';
+    return this.http.post<any>(url, data);
+  }
+
+  deleteDiscount(discountId: string) {
+    const url = Config.urlApi + '/admin/discount/' + discountId;
+    return this.http.delete<any>(url);
+  }
+
+  editDiscount(data: any) {
+    const url = Config.urlApi + '/admin/discount/';
+    return this.http.put<any>(url, data);
+  }
+
   getCleanerDetails(cleanerId: string) {
     console.log('service, cleanerId', cleanerId);
     const url = Config.urlApi + '/admin/cleaner/' + cleanerId;
