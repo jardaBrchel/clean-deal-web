@@ -725,13 +725,12 @@ export class OrderFormComponent implements OnInit {
     const neededHours = Math.ceil(this.realCleaningTime);
     const timeStarts: string[] = [];
     availableTimes.forEach((time: CleanerAvailableDay) => {
-      // TODO check offHours
       const steps = time.to - time.from + 1 - neededHours;
       if (!steps) return;
       for (let i = 0; i < steps; i++) {
         const pushTime = time.from + i;
-        // console.log('pushTime', pushTime);
-        if (time.offHours?.includes(pushTime)) continue;
+        if (time.offHours?.includes(pushTime)
+        || time.offHours?.includes(pushTime + neededHours)) continue;
         timeStarts.push(String(pushTime));
       }
     })

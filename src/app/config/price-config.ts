@@ -2,6 +2,10 @@
 
 export const PRICE_HOUR_CONSTANT = 400;
 
+export const PRICE_HOUR_SHARE = 0.6;
+
+export const PAY_TAX_CONSTANT = 0.15;
+
 export const BASE_PRICE = 800;
 
 export const HOUSE_FLOOR_PRICE = 100;

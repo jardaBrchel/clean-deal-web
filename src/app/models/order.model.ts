@@ -28,6 +28,19 @@ export interface CleanerAvailableDay {
   cleanerId?: string;
 }
 
+export const ExtrasMap = [
+  {
+    id: 'windows',
+    label: 'Okna',
+    units: `m<sup>2</sup>`
+  },
+  {
+    id: 'windowBlinds',
+    label: 'Žaluzie',
+    units: `m<sup>2</sup>`
+  },
+];
+
 // MOCKS
 
 export const TimesMock = [
