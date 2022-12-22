@@ -36,9 +36,18 @@
               <td>{{orderData.order.cleaningType}}</td>
             </tr>
             <tr>
+              <td>Způsob úhrady</td>
+              <td>{{paymentMethod}}</td>
+            </tr>
+            <tr *ngIf="orderData.order.paymentMethod === 'CASH'">
               <td>Cena</td>
               <td>{{orderData.order.price| number}} Kč</td>
             </tr>
+            <tr *ngIf="orderData.order.paymentMethod === 'CASH'">
+              <td>Hotovost pro Vás</td>
+              <td>{{cashForCleaner}} Kč</td>
+            </tr>
+
             <tr>
               <td>Doplňkové služby</td>
               <td>
@@ -66,10 +75,10 @@
               <td>Adresa</td>
               <td>{{orderData.home.address}}, {{orderData.home.city}} {{orderData.home.pscNumber}}</td>
             </tr>
-            <tr>
-              <td>Mapa</td>
-              <td>TODO</td>
-            </tr>
+<!--            <tr>-->
+<!--              <td>Mapa</td>-->
+<!--              <td>TODO</td>-->
+<!--            </tr>-->
             <tr>
               <td>Typ objektu</td>
               <td>{{homeType}}</td>

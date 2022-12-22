@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {OrderDataRes} from '../../../models/admin.model';
 import {AdminService} from '../../../services/admin.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CLEANING_TYPES, FREQUENCY, HOME_TYPES, TIMES} from '../../../config/order-config';
+import {CLEANING_TYPES, FREQUENCY, HOME_TYPES, PAYMENT_METHODS, TIMES} from '../../../config/order-config';
 import {booleanToYesNo} from '../../../helpers/logic.helper';
 import {HelpService} from '../../../services/help.service';
+import {ExtrasMap} from '../../../models/order.model';
+import {PAY_TAX_CONSTANT, PRICE_HOUR_CONSTANT, PRICE_HOUR_SHARE} from '../../../config/price-config';
 
 @Component({
   selector: 'app-order-detail',
@@ -19,6 +21,8 @@ export class OrderDetailComponent implements OnInit {
   isPaid!: string;
   cleaners!: string;
   homeType!: string;
+  paymentMethod!: string;
+  cashForCleaner!: number;
 
   constructor(
     private adminService: AdminService,
@@ -36,18 +40,7 @@ export class OrderDetailComponent implements OnInit {
   setExtras() {
     if (!this.orderData.order.extras) return;
 
-    const extrasMap = [
-      {
-        id: 'windows',
-        label: 'Okna',
-        units: `m<sup>2</sup>`
-      },
-      {
-        id: 'windowBlinds',
-        label: 'Žaluzie',
-        units: `m<sup>2</sup>`
-      },
-    ]
+    const extrasMap = ExtrasMap;
 
     this.orderData.order.extras.split(',').filter(a => !!a).map(e => {
       const [key, val] = e.split(':');
@@ -57,6 +50,12 @@ export class OrderDetailComponent implements OnInit {
         value: val,
       })
     });
+  }
+
+  countCashForCleaner() {
+    const cleanShare = (this.orderData.order.cleaningDuration * PRICE_HOUR_CONSTANT) * PRICE_HOUR_SHARE;
+    const tax = cleanShare * PAY_TAX_CONSTANT;
+    this.cashForCleaner = cleanShare - tax;
   }
 
   fetchOrder() {
@@ -71,8 +70,12 @@ export class OrderDetailComponent implements OnInit {
           this.isPaid = booleanToYesNo(res.order.isPaid);
           this.cleaners = res.cleaner.map(c => c.name).join(', ');
           this.homeType = HOME_TYPES.find(t => t.id === res.home.homeType)?.label || '';
+          this.paymentMethod = PAYMENT_METHODS.find(t => t.id === res.order.paymentMethod)?.label || '';
           this.setExtras();
           console.log('res', res);
+          if(res.order.paymentMethod === 'CASH') {
+            this.countCashForCleaner();
+          }
         },
         error: (e) => {
           console.log('error ', e);
