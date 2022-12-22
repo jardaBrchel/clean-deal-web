@@ -42,7 +42,7 @@
 
   <!-- Page Content  -->
   <div id="content" class="">
-    <nav class="navbar navbar-top navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none " *ngIf="isLogged">
+    <nav *ngIf="isLogged">
       <div>
         <mat-icon *ngIf="!showSidebar" aria-hidden="false" fontIcon="menu" (click)="toggleSidebar()"></mat-icon>
         <mat-icon *ngIf="showSidebar" aria-hidden="false" fontIcon="close" (click)="toggleSidebar()"></mat-icon>
