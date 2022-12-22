@@ -399,6 +399,9 @@
 
     ::ng-deep #sidebar {
       margin-left: -300px;
+      .logo-wrap img {
+        margin-top: 30px;
+      }
     }
 
     .inner-content {
@@ -413,6 +416,10 @@
 
       #content {
         padding-top: 60px;
+
+        > nav div mat-icon {
+          line-height: 32px;
+        }
       }
     }
 

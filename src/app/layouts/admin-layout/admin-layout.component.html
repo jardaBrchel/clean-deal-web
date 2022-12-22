@@ -1,7 +1,7 @@
 <div class="wrapper d-flex align-items-stretch" [ngClass]="{'bg-image-container': !isLogged}">
   <nav id="sidebar" [ngClass]="{'active': showSidebar}" *ngIf="isLogged">
 
-    <div class="p-4 pb-0">
+    <div class="p-4 pb-0 logo-wrap">
       <img src="/assets/images/resources/logo_admin.svg" alt="">
     </div>
 
@@ -43,7 +43,7 @@
   <!-- Page Content  -->
   <div id="content" class="">
     <nav class="navbar navbar-top navbar-expand-lg navbar-light bg-light d-block d-lg-none d-xl-none " *ngIf="isLogged">
-      <div class="container-fluid">
+      <div>
         <mat-icon *ngIf="!showSidebar" aria-hidden="false" fontIcon="menu" (click)="toggleSidebar()"></mat-icon>
         <mat-icon *ngIf="showSidebar" aria-hidden="false" fontIcon="close" (click)="toggleSidebar()"></mat-icon>
       </div>
