@@ -30,6 +30,17 @@ export interface Cleaner {
   isVatFree?: boolean;
 }
 
+export interface Discount {
+  discountId: string;
+  code: string;
+  type: string;
+  value: number;
+  orderId?: string;
+  restrictions?: string;
+  validUntil?: Date;
+  used?: Date;
+}
+
 export enum DAYS {
   mo = 'mo',
   tu = 'tu',

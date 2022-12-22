@@ -211,7 +211,23 @@
     input {
       width: 100%;
     }
+    &.input-with-button {
+      input {
+        width: 60%;
+
+        &.form-control {
+          border-radius: 0.25rem 0 0 0.25rem;
+        }
+      }
+      button {
+        width: 40%;
+        border-radius: 0 0.25rem 0.25rem 0;
+      }
+    }
   }
 
+  #generalModal {
+    text-align: left;
+  }
 
 }

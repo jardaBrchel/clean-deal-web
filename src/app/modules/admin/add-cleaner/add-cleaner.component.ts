@@ -32,8 +32,9 @@ export class AddCleanerComponent implements OnInit {
     for (let i = 6; i <= 20; i++) {
       this.times.push({
         id: i,
-      })
+      });
     }
+    this.times.unshift({id: 0});
 
     this.currentWeek = getWeekNumber();
     this.isWeekOdd = this.currentWeek % 2 === 1;

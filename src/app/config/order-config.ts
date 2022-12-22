@@ -69,6 +69,17 @@ export const CONTRACT_TYPES: orderFormItem[] = [
   },
 ]
 
+export const DISCOUNT_TYPES: orderFormItem[] = [
+  {
+    id: 'price',
+    label: 'Částka',
+  },
+  {
+    id: 'percentage',
+    label: 'Procento z částky',
+  },
+]
+
 export const HOUSE_FLOORS: orderFormItem[] = [
   {
     id: '1',
