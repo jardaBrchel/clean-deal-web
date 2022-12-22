@@ -45,7 +45,11 @@
             </tr>
             <tr *ngIf="orderData.order.paymentMethod === 'CASH'">
               <td>Hotovost pro Vás</td>
-              <td>{{cashForCleaner}} Kč</td>
+              <td>{{cashForCleaner}} Kč (tuto částku si necháte u sebe, zbytek nám předáte)</td>
+            </tr>
+            <tr *ngIf="orderData.order.paymentMethod === 'TRANSFER'">
+              <td>Částka pro Vás</td>
+              <td>{{cashForCleaner}} Kč čistého</td>
             </tr>
 
             <tr>
