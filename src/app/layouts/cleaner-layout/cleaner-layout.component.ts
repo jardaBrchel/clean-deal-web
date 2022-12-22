@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AppState, selectCleanerUser, selectClient} from '../../reducers';
+import {AppState, selectCleanerUser} from '../../reducers';
 import {Store} from '@ngrx/store';
-import {Client} from '../../models/client.model';
-import {ClientService} from '../../services/client.service';
-import {Cleaner} from '../../models/admin.model';
 import {CleanerService} from '../../services/cleaner.service';
 import {CleanerUser} from '../../models/cleaner.model';
 

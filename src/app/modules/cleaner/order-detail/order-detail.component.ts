@@ -23,6 +23,7 @@ export class OrderDetailComponent implements OnInit {
   homeType!: string;
   paymentMethod!: string;
   cashForCleaner!: number;
+  mapLink!:string;
 
   constructor(
     private adminService: AdminService,
@@ -74,11 +75,17 @@ export class OrderDetailComponent implements OnInit {
           this.setExtras();
           console.log('res', res);
           this.countCashForCleaner();
+          this.createMapLink();
         },
         error: (e) => {
           console.log('error ', e);
         },
       }
     )
+  }
+
+  createMapLink() {
+    const address = encodeURIComponent(`${this.orderData.home.address}, ${this.orderData.home.city} ${this.orderData.home.pscNumber}`);
+    this.mapLink = `https://mapy.cz/letecka?q=${address}`;
   }
 }
