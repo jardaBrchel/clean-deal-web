@@ -134,6 +134,11 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
+  getOrderInvoice(orderId: number) {
+    const url = Config.urlApi + '/admin/order/invoice/' + orderId;
+    return this.http.get<any>(url);
+  }
+
   // CLIENTS
   getClients() {
     const url = Config.urlApi + '/admin/clients';

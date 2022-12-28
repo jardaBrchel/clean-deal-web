@@ -19,6 +19,7 @@ export class OrderDetailComponent implements OnInit {
   cleaners!: string;
   homeType!: string;
   paymentMethod!: string;
+  isPast = false;
 
   constructor(
     private adminService: AdminService,
@@ -58,6 +59,28 @@ export class OrderDetailComponent implements OnInit {
     });
   }
 
+  checkIfOrderIsPast() {
+    const now = new Date();
+    const d = new Date(this.orderData.order.cleaningDate);
+    let hours = Number(this.orderData.order.cleaningTime.split(':')[0]);
+    const duration = Math.ceil(this.orderData.order.cleaningDuration);
+    d.setHours(hours + duration);
+    this.isPast = d < now;
+  }
+
+  getInvoice() {
+// TODO download invoice and add flag to order
+    this.adminService.getOrderInvoice(this.orderId).subscribe(
+      {
+        next: (res: OrderDataRes) => {
+        },
+        error: (e) => {
+          console.log('error ', e);
+        },
+      }
+    )
+  }
+
   fetchOrder() {
     this.adminService.getOrderDetail(this.orderId).subscribe(
       {
@@ -72,6 +95,7 @@ export class OrderDetailComponent implements OnInit {
           this.homeType = HOME_TYPES.find(t => t.id === res.home.homeType)?.label || '';
           this.paymentMethod = PAYMENT_METHODS.find(t => t.id === res.order.paymentMethod)?.label || '';
           this.setExtras();
+          this.checkIfOrderIsPast();
           console.log('res', res);
         },
         error: (e) => {

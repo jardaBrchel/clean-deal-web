@@ -3,8 +3,11 @@
     <div class="col-lg-12 mb-4">
       <div class="d-flex justify-content-between align-items-center">
         <h1 class="admin-headline">Detail úklidu</h1>
-        <button type="button" class="btn btn-blue outline" [routerLink]="['/', 'client', 'orders','edit', orderData.order.orderId]">
+        <button *ngIf="!isPast" type="button" class="btn btn-blue outline" [routerLink]="['/', 'client', 'orders','edit', orderData?.order?.orderId]">
           Upravit úklid
+        </button>
+        <button *ngIf="isPast && orderData?.order?.paymentMethod === 'CASH'" type="button" class="btn btn-blue outline" (click)="getInvoice()">
+          Stáhnout fakturu
         </button>
       </div>
     </div>
@@ -63,9 +66,12 @@
             </tr>
             <tr>
               <td>Je zaplaceno</td>
-              <td>
+              <td *ngIf="orderData?.order?.paymentMethod !== 'CASH'">
                 <span *ngIf="!orderData.order.isPaid" class="badge badge-pill badge-danger">{{isPaid}}</span>
                 <span *ngIf="orderData.order.isPaid" class="badge badge-pill badge-success">{{isPaid}}</span>
+              </td>
+              <td *ngIf="orderData?.order?.paymentMethod === 'CASH' && isPast">
+                <span class="badge badge-pill badge-success">Ano</span>
               </td>
             </tr>
           </table>

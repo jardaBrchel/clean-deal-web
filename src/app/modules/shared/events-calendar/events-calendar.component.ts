@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {CalendarDateFormatter, CalendarEvent, CalendarView, DAYS_OF_WEEK,} from 'angular-calendar';
-import {addHours, startOfDay,} from 'date-fns';
+import {addHours, addMinutes, startOfDay,} from 'date-fns';
 import {CalendarColors} from './colors.config';
 import {CustomDateFormatter} from './custom-date-formatter.provider';
 import {Client} from '../../../models/client.model';
@@ -47,7 +47,7 @@ export class EventsCalendarComponent implements OnInit {
       id: c.orderId,
       meta: {type: 'order'},
       start: addHours(startOfDay(new Date(c.cleaningDate)), Number(c.cleaningTime)),
-      end: addHours(startOfDay(new Date(c.cleaningDate)), Number(c.cleaningTime) + (c.cleaningDuration / c.cleanersCount)),
+      end: addMinutes(startOfDay(new Date(c.cleaningDate)), (Number(c.cleaningTime) + (c.cleaningDuration)) * 60),
       title: c.home.address,
       color: {...CalendarColors['blue']},
       resizable: {
@@ -56,7 +56,9 @@ export class EventsCalendarComponent implements OnInit {
       },
       draggable: false,
       cssClass: 'cleaning',
-    } as CalendarEvent))
+    } as CalendarEvent));
+
+    console.log('events', events, this.cleanings);
 
     this.events = [...this.events, ...events];
   }
