@@ -375,6 +375,7 @@
         <option *ngFor="let item of paymentMethods" [value]="item.id">{{item.label}}</option>
       </select>
     </div>
+    <span class="form-info" *ngIf="userForm.controls['paymentMethod']?.value === 'CASH'">Mějte u sebe prosím přesnou částku, tu předáte naší dámě na úklid</span>
   </section>
 
   <section class="form-section">
