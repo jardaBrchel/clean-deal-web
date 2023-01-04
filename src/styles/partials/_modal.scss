@@ -41,4 +41,14 @@
   &.show {
     display: block;
   }
+
+  .modal-dialog.general {
+    max-width: 800px;
+
+    h2 {
+      font-size: 18px;
+      line-height: 40px;
+      font-weight: 600;
+    }
+  }
 }

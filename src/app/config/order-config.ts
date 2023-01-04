@@ -41,7 +41,7 @@ export const FREQUENCY: orderFormItem[] = [
   {
     id: FREQUENCY_WEEKLY,
     label: 'Jednou týdně',
-    multiplication: 0.9,
+    multiplication: 0.85,
   },
   {
     id: 'TWICE_A_MONTH',
@@ -215,6 +215,11 @@ export const DIRTY: orderFormItem[] = [
     id: '1',
     label: 'Mírné',
     multiplication: 1,
+  },
+  {
+    id: '3',
+    label: 'Střední',
+    multiplication: 1.5,
   },
   {
     id: '2',

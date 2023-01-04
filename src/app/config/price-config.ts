@@ -10,7 +10,7 @@ export const BASE_PRICE = 800;
 
 export const HOUSE_FLOOR_PRICE = 100;
 
-export const ROOM_PRICE = 200;
+export const ROOM_PRICE = 150;
 
 export const KITCHEN_PRICE = 300;
 
