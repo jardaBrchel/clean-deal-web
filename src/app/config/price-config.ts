@@ -8,6 +8,10 @@ export const PAY_TAX_CONSTANT = 0.15;
 
 export const BASE_PRICE = 800;
 
+export const INTRODUCTORY_CLEANING = 200;
+
+export const INTRODUCTORY_CLEANING_LARGE = 400;
+
 export const HOUSE_FLOOR_PRICE = 100;
 
 export const ROOM_PRICE = 150;
@@ -28,7 +32,9 @@ export const WINDOW_BLINDS_CLEANING_METER_PRICE = 50;
 
 export const GENERAL_CLEANING_MULTIPLY = 1.9;
 
-export const DIRTY_2_MULTIPLY = 1.5;
+export const DIRTY_1_5_MULTIPLY = 1.5;
+
+export const DIRTY_2_MULTIPLY = 2;
 
 export const STEP_OVER_MAX_SPACE = 200;
 

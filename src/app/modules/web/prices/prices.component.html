@@ -11,7 +11,7 @@
           <ul>
             <li *ngFor="let item of this.prices">
               <section>
-                <span>{{item.name}}</span><span>{{item.price}} {{item.isPercentage ? '%' : ' Kč'}}</span>
+                <span [innerHTML]="item.name"></span><span>{{item.price}} {{item.isPercentage ? '%' : ' Kč'}}</span>
               </section>
               <p *ngIf="item.description"> {{item.description}}</p>
             </li>
@@ -41,7 +41,7 @@
           </section>
           <section class="discount">
             <div>4x měsíčně</div>
-            <div class="discount-value">-10 %</div>
+            <div class="discount-value">-15 %</div>
           </section>
 
           <div class="summary-block-item">
