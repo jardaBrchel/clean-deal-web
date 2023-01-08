@@ -10,7 +10,7 @@ import {
   TIMES, TOILETS, YARDAGE
 } from '../../../config/order-config';
 import {
-  BASE_PRICE, MAX_SPACE_AREA,
+  BASE_PRICE, INTRODUCTORY_CLEANING, INTRODUCTORY_CLEANING_LARGE, MAX_SPACE_AREA,
   OWN_CLEANING_STUFF_PRICE,
   OWN_CLEANING_STUFF_PRICE_INCREASE,
   PRICE_HOUR_CONSTANT, STEP_OVER_MAX_SPACE, WINDOW_BLINDS_CLEANING_METER_PRICE, WINDOW_CLEANING_METER_PRICE
@@ -29,6 +29,7 @@ import {Client} from '../../../models/client.model';
 import {AdminHome, AdminOrder, OrderDataRes} from '../../../models/admin.model';
 import {MatDatepicker} from '@angular/material/datepicker';
 import {HelpService} from '../../../services/help.service';
+import {GeneralModalContent, GeneralModalTitle} from './order-form.modals';
 
 @Component({
   selector: 'app-order-form',
@@ -40,8 +41,11 @@ export class OrderFormComponent implements OnInit {
   @Output() extrasPriceItemsChanged: EventEmitter<SummaryPriceItem[]> = new EventEmitter<SummaryPriceItem[]>();
   @Output() summaryTimeDetailsChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() realCleaningTimeChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() introCleaningTimeChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() ladiesForTheJobChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() finalPriceChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() fullPriceChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() yardageChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() repeatedPriceChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() orderSentSuccessfullyChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() emailChanged: EventEmitter<string> = new EventEmitter<string>();
@@ -91,10 +95,12 @@ export class OrderFormComponent implements OnInit {
   // CALCULATED VALUES
   totalCleaningTime = 0;
   realCleaningTime = 0; // Kdyz se cas vydeli poctem uklizecek
+  introCleaningTime = 0;
   ladiesForTheJob = 1;
   calculatedSpace = 0; // Vypocitana vymera
   yardageOverPrice!: number;
   finalPrice = 0;
+  fullPrice = 0; // Nezlevneny uklid, dulezity pro opakovane uklidy
   repeatedPrice = 0;
   nonDiscountPrice = 0;
   additions = {};
@@ -288,9 +294,15 @@ export class OrderFormComponent implements OnInit {
       additions['ownCleaningStuff'] = addition;
     }
 
-    return Object.values(this.additions)
+    let additionsSum = Object.values(this.additions)
       ? (Object.values(this.additions)).reduce((a, b) => Number(a) + Number(b), 0) as number
       : 0;
+
+    const isOneTime = this.orderForm.value?.frequency === FREQUENCY_ONETIME;
+    const introCleaningPrice = Number(this.orderForm.value['yardage']) > 80 ? INTRODUCTORY_CLEANING_LARGE : INTRODUCTORY_CLEANING;
+    additionsSum += isOneTime ? introCleaningPrice : 0;
+
+    return additionsSum;
   }
 
   recalculatePrice(
@@ -306,15 +318,17 @@ export class OrderFormComponent implements OnInit {
     this.finalPrice = BASE_PRICE;
     this.finalPrice += add;
     // finalPrice is the basic part here
+    this.fullPrice = this.finalPrice;
     multiplicators = multiplicators.map(m => (m - 1) * this.finalPrice)
     multiplicators.forEach(m => this.finalPrice += m)
     this.finalPrice = Math.round(this.finalPrice);
+    this.fullPrice += extras;
     this.finalPrice += extras;
     this.checkDiscountCode();
 
-    // FIXME nonDP by mela byt jen bez frequency
     const mpsForBasePrice: number[] = Object.values({...this.multiplicators, frequency: 1});
     const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
+    // Odebrat vlastni prostredky z NDP pro vypocet casu
     const ocs = this.ownCleaningStuff.find(i => i.id === this.orderForm.value.ownCleaningStuff)?.addition;
     const ocsPrice = ocs ? ocs + (50 * selectedIndex) : 0;
     this.nonDiscountPrice = BASE_PRICE + add + extras - ocsPrice;
@@ -325,16 +339,20 @@ export class OrderFormComponent implements OnInit {
     this.recalculateCleaningHours();
     this.recalculateCleanersCount();
     this.recalculateRealCleaningHours();
+    this.recalculateIntroCleaningHours();
     this.recalculatePriceItems();
     this.recalculateRepeatedPrice();
     this.setTimesToFormField();
     this.checkAvailableDatesInCal();
 
     this.realCleaningTimeChanged.emit(this.realCleaningTime);
+    this.introCleaningTimeChanged.emit(this.introCleaningTime);
     this.ladiesForTheJobChanged.emit(this.ladiesForTheJob);
     this.finalPriceChanged.emit(this.finalPrice);
+    this.fullPriceChanged.emit(this.fullPrice);
     this.repeatedPriceChanged.emit(this.repeatedPrice);
     this.summaryTimeDetailsChanged.emit(this.summaryTimeDetails);
+    this.yardageChanged.emit(this.orderForm.value['yardage']);
   }
 
 
@@ -346,6 +364,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   checkDiscountCode() {
+    // TODO fix for first on repeated
     if(!this.discountCode?.type) return;
 
     if (this.discountCode?.type === DISCOUNT_TYPES[1].id) {
@@ -377,6 +396,13 @@ export class OrderFormComponent implements OnInit {
   recalculateRealCleaningHours() {
     const realCleaningTime = this.totalCleaningTime / this.ladiesForTheJob;
     this.realCleaningTime = Math.round(realCleaningTime * 2) / 2;
+  }
+
+  recalculateIntroCleaningHours() {
+    const introPriceAdd = Number(this.orderForm.value['yardage']) > 80 ? INTRODUCTORY_CLEANING_LARGE : INTRODUCTORY_CLEANING;
+    const cleaningTime = (this.nonDiscountPrice + introPriceAdd) / PRICE_HOUR_CONSTANT;
+    const introCleaningTime = cleaningTime/ this.ladiesForTheJob;
+    this.introCleaningTime = Math.round(introCleaningTime * 2) / 2;
   }
 
   recalculateCleanersCount() {
@@ -435,6 +461,14 @@ export class OrderFormComponent implements OnInit {
       name: 'Základní sazba úklidu',
       price: BASE_PRICE + ' Kč',
     }];
+    // Jen pro jednorázové úklidy
+    const isOneTime = this.orderForm.value?.frequency === FREQUENCY_ONETIME;
+    if (isOneTime) {
+      this.summaryPriceItems.push({
+        name: 'Seznamovací úklid',
+        price: `${Number(this.orderForm.value['yardage']) > 80 ? INTRODUCTORY_CLEANING_LARGE : INTRODUCTORY_CLEANING}` + ' Kč',
+      })
+    }
     this.extrasPriceItems = [];
 
     Object.keys(this.additions).forEach((ak: string) => {
@@ -899,6 +933,8 @@ export class OrderFormComponent implements OnInit {
     const cleanerId = this.getCleanersIdsForOrder();
     const cleanDate = new Date(this.orderForm.value.date);
     cleanDate.setHours(12);
+    const isOneTime = this.orderForm.value?.frequency === FREQUENCY_ONETIME;
+    const introPriceAdd = Number(this.orderForm.value['yardage']) > 80 ? INTRODUCTORY_CLEANING_LARGE : INTRODUCTORY_CLEANING;
 
     const ownCleaningStuff = this.orderForm.value?.ownCleaningStuff === 'yes';
     const contactAddress = this.userForm.value?.contactAddressMatchesCleaning === true
@@ -909,6 +945,7 @@ export class OrderFormComponent implements OnInit {
       ...this.userForm.value,
       date: cleanDate,
       price: this.finalPrice,
+      fullPrice: this.fullPrice,
       ownCleaningStuff,
       cleaningDuration: Math.round((this.totalCleaningTime / this.ladiesForTheJob) * 2) / 2,
       extras: this.getExtrasItem(),
@@ -918,6 +955,8 @@ export class OrderFormComponent implements OnInit {
       email: this.userForm.value['email'] || this.clientData?.email,
       homeId: this.homesForm.value['home'],
       city: this.clientCity,
+      introPrice: !isOneTime ? this.finalPrice + introPriceAdd : undefined,
+      introCleaningDuration: !isOneTime ? this.introCleaningTime : undefined,
     };
     this.sendingOrder = true;
 
@@ -991,18 +1030,8 @@ export class OrderFormComponent implements OnInit {
   }
 
   showDirtyModal() {
-    this.generalModalTitle = 'Míra znečištění';
-    this.generalModalContent = `
-        <h2>Mírné</h2>
-        <p>Mírné znečištění je domov, kde bývá pravidelně uklízeno. V kuchyni se například nenachází nadměrná mastnota na spotřebičích zvenku, v koupelně se nenachází větší mnošství vodního kamene na bateriích a na podlaze není značné množství nepořádku.</p>
-        <h2>Střední</h2>
-        <p>Střední znečištění značí domov, který není pravidelně důkladně (nebo v poslední době nebyl) uklízen. To je např. vyšší mastnota v oblasti kuchyně (spotřebiče, pracovní deska), vyšší znečištění a vyšší výskyt vodního kamene na bateriích v koupelně. Rovněž poházené věci na podlaze, které je potřeba srovnat pro důkladné provedení úklidu.</p>
-        <h2>Silné</h2>
-        <p>Silné znečištění je domov, kde je v kuchyni vysoký výskyt nečistot a mastnoty, vysoký počet věcí na kuchyŇské lince a jejím okolí, které je potřeba srovnat pro důkladné provedení úklidu. Dále se jedná o byt po řemeslných pracích či malování, kdy se v uklízeném prostoru nachází vyšší míra prachu, barvy a dalších nečistot.</p>
-        <br>
-        <p><i>Před úklidem si vyhrazujeme možnost Vás kontaktovat ohledně míry znečištění domovu, který neodpovídá Vámi zvolené variantě.</i></p>
-
-`;
+    this.generalModalTitle = GeneralModalTitle;
+    this.generalModalContent = GeneralModalContent;
     this.doShowGeneralModal();
   }
 

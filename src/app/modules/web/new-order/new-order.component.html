@@ -13,8 +13,11 @@
             (summaryPriceItemsChanged)="onSummaryPriceItemsChanged($event)"
             (extrasPriceItemsChanged)="onExtrasPriceItemsChanged($event)"
             (realCleaningTimeChanged)="onRealCleaningTimeChanged($event)"
+            (introCleaningTimeChanged)="onIntroCleaningTimeChanged($event)"
             (ladiesForTheJobChanged)="onLadiesForTheJobChanged($event)"
             (finalPriceChanged)="onFinalPriceChanged($event)"
+            (fullPriceChanged)="onFullPriceChanged($event)"
+            (yardageChanged)="onYardageChanged($event)"
             (repeatedPriceChanged)="onRepeatedPriceChanged($event)"
             (orderSentSuccessfullyChanged)="onOrderSentSuccessfullyChanged($event)"
             (orderSendClickedChanged)="onOrderSendClickedChanged($event)"
@@ -96,16 +99,63 @@
             </div>
           </div>
 
+          <div class="prices-block"  *ngIf="!!repeatedPrice">
+            <hr>
+            <div class="title">První úklid</div>
+            <section class="prices-table">
+              <div class="items">
+                <section>
+                  Seznamovací úklid
+                </section>
+              </div>
+              <div class="prices">
+                + {{introCleanPrice}} Kč
+              </div>
+            </section>
+            <section class="prices-table">
+              <div class="items">
+                <section>
+                  Cena za první úklid
+                </section>
+              </div>
+              <div class="prices">
+                {{fullPrice + introCleanPrice}} Kč
+              </div>
+            </section>
+            <section class="prices-table">
+              <div class="items">
+                <section>
+                  Orientační doba prvního úklidu
+                </section>
+              </div>
+              <div class="prices">
+                {{introCleaningTime|number: '1.1-1'}} {{introCleaningTime < 5 ? 'hodiny' : 'hodin'}}
+              </div>
+            </section>
+          </div>
+
+<!--          <ng-container *ngIf="!!repeatedPrice">-->
+<!--            <hr>-->
+<!--            <div class="title">První úklid</div>-->
+<!--            <div class="price-total repeated">-->
+<!--              <span>Cena za první úklid</span>-->
+<!--              <span class="price">{{fullPrice}} Kč</span>-->
+<!--            </div>-->
+<!--          </ng-container>-->
+
           <hr>
 
           <div class="price-total" id="price-total" #block>
-            <span>Celkem</span>
+            <span *ngIf="!repeatedPrice">Celkem</span>
+            <span *ngIf="!!repeatedPrice">Cena za pravidelný úklid</span>
+
             <span class="price">{{finalPrice}} Kč</span>
           </div>
           <div *ngIf="!!repeatedPrice" class="price-total repeated">
             <span>Cena za měsíc</span>
             <span class="price">{{repeatedPrice}} Kč</span>
           </div>
+
         </div>
         <br>
         <div class="white-block summary-block">
@@ -113,6 +163,14 @@
           <ul class="summary-list">
             <li>Máte vlastní vysavač, schůdky, mop a kbelík</li>
             <li>Vyplňujte prosím údaje tak, aby odpovídali stavu uklízené domácnosti</li>
+          </ul>
+        </div>
+        <br>
+        <div class="white-block summary-block">
+          <div class="title">Informace k úklidu</div>
+          <ul class="summary-list">
+            <li>Poplatek za seznamovací úklid se platí pro domov pouze jednou (u opakovaných i jednorázových úklidů)</li>
+            <li>Dámě na úklid prosím předejte veškeré informace potřebné k úklidu: kde se nachází vaše čisticí prostředky a potřeby, kde se nachází popelnice pro vyhození odpadků a veškeré další informace které by případně dáma na úklid měla vědět.</li>
           </ul>
         </div>
       </div>
@@ -125,7 +183,7 @@
           <div class="sec-title text-center">
             <div class="title">Děkujeme za Vaši poptávku</div>
             <br>
-            <p>Souhrn jsme Vám zaslali na e-mail <strong>{{email}}</strong> </p>
+            <p>Souhrn jsme Vám zaslali na e-mail <strong>{{email}}</strong></p>
             <p class="orange">Prosíme o <u>potvrzení</u> této nabídky přímo v zaslaném emailu.</p>
           </div>
         </div>

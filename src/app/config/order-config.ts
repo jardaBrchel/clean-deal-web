@@ -1,5 +1,5 @@
 import {
-  BATHROOM_PRICE, DIRTY_2_MULTIPLY, GENERAL_CLEANING_MULTIPLY,
+  BATHROOM_PRICE, DIRTY_1_5_MULTIPLY, DIRTY_2_MULTIPLY, GENERAL_CLEANING_MULTIPLY,
   HOUSE_FLOOR_PRICE,
   KITCHEN_PRICE,
   OWN_CLEANING_STUFF_PRICE,
@@ -219,7 +219,7 @@ export const DIRTY: orderFormItem[] = [
   {
     id: '3',
     label: 'Střední',
-    multiplication: 1.5,
+    multiplication: DIRTY_1_5_MULTIPLY,
   },
   {
     id: '2',
