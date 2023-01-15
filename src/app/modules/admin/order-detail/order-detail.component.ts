@@ -78,4 +78,16 @@ export class OrderDetailComponent implements OnInit {
       }
     )
   }
+
+  downloadInvoice() {
+    this.adminService.getOrderInvoice(this.orderId).subscribe(
+      {
+        next: (res: any) => {
+        },
+        error: (e) => {
+          console.log('error ', e);
+        },
+      }
+    )
+  }
 }
