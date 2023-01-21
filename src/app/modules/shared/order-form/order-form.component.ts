@@ -319,14 +319,15 @@ export class OrderFormComponent implements OnInit {
     this.finalPrice += add;
     // finalPrice is the basic part here
     this.fullPrice = this.finalPrice;
+    const mpsForBasePrice: number[] = Object.values({...this.multiplicators, frequency: 1});
     multiplicators = multiplicators.map(m => (m - 1) * this.finalPrice)
     multiplicators.forEach(m => this.finalPrice += m)
+    mpsForBasePrice.forEach(m => this.fullPrice = m * this.fullPrice)
     this.finalPrice = Math.round(this.finalPrice);
     this.fullPrice += extras;
     this.finalPrice += extras;
-    this.checkDiscountCode();
 
-    const mpsForBasePrice: number[] = Object.values({...this.multiplicators, frequency: 1});
+    this.checkDiscountCode();
     const selectedIndex = this.yardage.findIndex(y => y.id === this.orderForm.value['yardage']);
     // Odebrat vlastni prostredky z NDP pro vypocet casu
     const ocs = this.ownCleaningStuff.find(i => i.id === this.orderForm.value.ownCleaningStuff)?.addition;
@@ -334,6 +335,11 @@ export class OrderFormComponent implements OnInit {
     this.nonDiscountPrice = BASE_PRICE + add + extras - ocsPrice;
     mpsForBasePrice.forEach(m => this.nonDiscountPrice = m * this.nonDiscountPrice)
 
+    this.checkAndRecalculateStuff();
+    this.emitFormEvents();
+  }
+
+  checkAndRecalculateStuff() {
     this.checkSummaryOderDetails();
     this.checkSummaryTimeDetails();
     this.recalculateCleaningHours();
@@ -344,7 +350,9 @@ export class OrderFormComponent implements OnInit {
     this.recalculateRepeatedPrice();
     this.setTimesToFormField();
     this.checkAvailableDatesInCal();
+  }
 
+  emitFormEvents() {
     this.realCleaningTimeChanged.emit(this.realCleaningTime);
     this.introCleaningTimeChanged.emit(this.introCleaningTime);
     this.ladiesForTheJobChanged.emit(this.ladiesForTheJob);
