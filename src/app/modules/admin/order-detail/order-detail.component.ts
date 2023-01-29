@@ -82,7 +82,12 @@ export class OrderDetailComponent implements OnInit {
   downloadInvoice() {
     this.adminService.getOrderInvoice(this.orderId).subscribe(
       {
-        next: (res: any) => {
+        next: (pdfBuffer: any) => {
+          const blob = new Blob([pdfBuffer], { type: 'application/pdf' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `cleandeal_${this.orderId}.pdf`;
+          link.click();
         },
         error: (e) => {
           console.log('error ', e);

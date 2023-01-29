@@ -69,16 +69,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getInvoice() {
-// TODO download invoice and add flag to order
-    this.adminService.getOrderInvoice(this.orderId).subscribe(
-      {
-        next: (res: OrderDataRes) => {
-        },
-        error: (e) => {
-          console.log('error ', e);
-        },
-      }
-    )
+
   }
 
   fetchOrder() {

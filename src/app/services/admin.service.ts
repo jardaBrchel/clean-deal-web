@@ -6,7 +6,7 @@ import {Observable, from, map} from 'rxjs';
 import {StorageService} from './storage.service';
 import {removeAdminUser, setAdminUser} from '../actions/admin-user.actions';
 import {Config} from '../config/api.config';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -136,7 +136,9 @@ export class AdminService {
 
   getOrderInvoice(orderId: number) {
     const url = Config.urlApi + '/admin/order/invoice/' + orderId;
-    return this.http.get<any>(url);
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return this.http.get(url, { headers: headers, responseType: 'blob' });
   }
 
   // CLIENTS
